@@ -1,0 +1,7 @@
+{
+  "name": "nf/velocity-2d",
+  "type": "component",
+  "description": "Velocity of an entity in a 2 dimensional space in pixels per second (px/s)",
+  "tags": ["base, mouvement"],
+  "dependencies": []
+}

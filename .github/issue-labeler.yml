@@ -1,0 +1,11 @@
+components:
+  - "### Which (package|utils|package or utils) is this (bug
+    report|feature request) for\\?\\n\\ncomponents\\n"
+
+systems:
+  - "### Which (package|utils|package or utils) is this (bug
+    report|feature request) for\\?\\n\\nsystems\\n"
+
+other:
+  - "### Which (package|utils|package or utils) is this (bug
+    report|feature request) for\\?\\n\\nother\\n"

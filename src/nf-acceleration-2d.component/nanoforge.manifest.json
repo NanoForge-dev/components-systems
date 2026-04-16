@@ -1,0 +1,6 @@
+{
+  "name": "nf/acceleration-2d",
+  "type": "component",
+  "description": "Acceleration of an entity in a 2 dimensional space in pixels per second per seconds (px/s²)",
+  "tags": ["base, mouvement"]
+}

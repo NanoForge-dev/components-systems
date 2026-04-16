@@ -1,0 +1,7 @@
+{
+  "name": "nf/move-2d",
+  "type": "system",
+  "description": "Move entities of their velocity in a 2 dimensional space based on time elapsed since last frame",
+  "tags": ["base, mouvement"],
+  "dependencies": ["nf/position-2d", "nf/velocity-2d"]
+}

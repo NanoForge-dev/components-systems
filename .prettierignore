@@ -1,0 +1,21 @@
+# Ignore files for PNPM, NPM and YARN
+pnpm-lock.yaml
+package-lock.json
+yarn.lock
+bun.lock
+
+pnpm-workspace.yaml
+
+packages/
+example/
+utils/
+releases/
+.nanoforge/
+
+.turbo/
+node_modules/
+dist/
+coverage/
+CHANGELOG.md
+
+emsdk-cache/
