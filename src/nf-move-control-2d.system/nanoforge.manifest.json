@@ -1,0 +1,10 @@
+{
+  "name": "nf/move-control-2d",
+  "type": "system",
+  "description": "Control movable entities with 4 directional movement of en entity in 2d",
+  "tags": ["base, mouvement"],
+  "dependencies": ["nf/move-controller-2d", "nf/velocity-2d"],
+  "libDependencies": {
+    "@nanoforge-dev/input": "^1.0.2"
+  }
+}

@@ -1,0 +1,38 @@
+name: Release
+
+on:
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: Perform a dry run?
+        type: boolean
+        default: false
+
+permissions:
+  contents: write
+
+jobs:
+  nf-publish:
+    name: nf publish
+    runs-on: ubuntu-latest
+    if: github.repository_owner == 'NanoForge-dev'
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+
+      - name: Prepare
+        uses: ./.github/actions/prepare
+
+      - name: Install nf cli
+        run: npm install -g @nanoforge-dev/cli
+
+      - name: Login to nanoforge
+        run: nf login -k ${{ secrets.NF_REGISTRY_KEY }}
+
+      - name: Release packages
+        uses: ./node_modules/@nanoforge-dev/actions/dist/release-nanoforge-packages
+        with:
+          package: "all"
+          exclude: ""
+          path: "packages"
+          dry: ${{ inputs.dry_run }}

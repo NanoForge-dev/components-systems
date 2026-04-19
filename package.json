@@ -1,0 +1,80 @@
+{
+  "$schema": "https://json.schemastore.org/package.json",
+  "name": "@nanoforge-dev/components-systems",
+  "version": "0.0.0",
+  "description": "NanoForge Components Systems",
+  "keywords": [
+    "nanoforge",
+    "game",
+    "component",
+    "system"
+  ],
+  "homepage": "https://githulb.com/NanoForge-dev/components-systems#readme",
+  "bugs": "https://github.com/NanoForge-dev/components-systems/issues",
+  "license": "MIT",
+  "contributors": [
+    "Bill <timothe.jacquot@epitech.eu>",
+    "Exelo <exelo.corp@gmail.com>",
+    "Fexkoser <martin.fillon@epitech.eu>",
+    "Tchips <leo.outmizguine@epitech.eu>"
+  ],
+  "exports": {
+    "./package.json": "./package.json"
+  },
+  "type": "module",
+  "directories": {
+    "lib": "src"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/NanoForge-dev/components-systems.git",
+    "directory": "/"
+  },
+  "funding": "https://github.com/NanoForge-dev/components-systems?sponsor",
+  "scripts": {
+    "lint": "prettier --check . && eslint --format=pretty src",
+    "format": "prettier --write . && eslint --fix --format=pretty src",
+    "test:unit": "vitest run --config vitest.config.ts",
+    "test": "pnpm run test:unit",
+    "changelog": "git cliff --prepend ./CHANGELOG.md -u -c ./cliff.toml -r ./ --include-path './*'",
+    "prepare": "husky"
+  },
+  "dependencies": {
+    "@nanoforge-dev/common": "catalog:core",
+    "@nanoforge-dev/ecs-lib": "catalog:core",
+    "@nanoforge-dev/ecs-server": "catalog:core",
+    "@nanoforge-dev/graphics-2d": "catalog:core",
+    "@nanoforge-dev/input": "catalog:core"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "catalog:ci",
+    "@commitlint/config-conventional": "catalog:ci",
+    "@nanoforge-dev/actions": "catalog:ci",
+    "@nanoforge-dev/utils-eslint-config": "catalog:lint",
+    "@nanoforge-dev/utils-prettier-config": "catalog:lint",
+    "@trivago/prettier-plugin-sort-imports": "catalog:lint",
+    "@vitest/coverage-v8": "catalog:test",
+    "eslint": "catalog:lint",
+    "husky": "catalog:ci",
+    "lint-staged": "catalog:ci",
+    "prettier": "catalog:lint",
+    "typescript": "catalog:core",
+    "vitest": "catalog:test"
+  },
+  "packageManager": "pnpm@10.33.0",
+  "engines": {
+    "node": "25"
+  },
+  "private": true,
+  "publishConfig": {
+    "access": "public"
+  },
+  "lint-staged": {
+    "**": [
+      "prettier --ignore-unknown --write"
+    ],
+    "src/**/*.ts": [
+      "eslint --fix"
+    ]
+  }
+}
