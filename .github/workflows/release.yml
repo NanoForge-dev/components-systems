@@ -24,7 +24,7 @@ jobs:
         uses: ./.github/actions/prepare
 
       - name: Install nf cli
-        run: npm install -g @nanoforge-dev/cli
+        run: pnpm install -g @nanoforge-dev/cli
 
       - name: Login to nanoforge
         run: nf login -k ${{ secrets.NF_REGISTRY_KEY }}
