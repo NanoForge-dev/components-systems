@@ -30,7 +30,6 @@ export class DrawableCircle2D {
     public fillPatternRotation?: number,
     public fillPatternRepeat?: string,
   ) {
-    console.log(radius);
     this.shape = new Circle({
       radius: radius,
       width: width,
@@ -58,7 +57,6 @@ export class DrawableCircle2D {
       fillPatternRotation: fillPatternRotation,
       fillPatternRepeat: fillPatternRepeat,
     });
-    console.log(this.shape.radius());
   }
 
   public addToLayer(layer: Layer): void {

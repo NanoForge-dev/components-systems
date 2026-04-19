@@ -6,8 +6,6 @@ on:
       - main
     paths:
       - "docs/**"
-      - "packages/ecs-lib/docs/**"
-      - "packages/ecs-lib/wasm/**"
   workflow_dispatch:
 
 jobs:

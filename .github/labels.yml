@@ -50,10 +50,6 @@
   description: "Related to systems"
   color: "aaa3dc"
 
-- name: "other"
-  description: "Related to other part"
-  color: "aaa3dc"
-
 - name: "question"
   description: "Further information is requested"
   color: "d876e3"
@@ -65,14 +61,6 @@
 - name: "tests"
   description: "Adding missing tests or correcting existing tests"
   color: "7f8f92"
-
-- name: "utils:eslint-config"
-  description: "Related to ESLint config"
-  color: "606bdf"
-
-- name: "utils:prettier-config"
-  description: "Related to Prettier config"
-  color: "606bdf"
 
 - name: "wontfix"
   description: "This will not be worked on"

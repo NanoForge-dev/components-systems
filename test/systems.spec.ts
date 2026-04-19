@@ -1,16 +1,13 @@
 import { Module } from "@nanoforge-dev/ecs-server";
 import { InputEnum } from "@nanoforge-dev/input";
+import { accelerate2D } from "@systems/nf-accelerate-2d.system";
+import { Acceleration2D } from "@systems/nf-acceleration-2d.component";
+import { move2D } from "@systems/nf-move-2d.system";
+import { moveControl2D } from "@systems/nf-move-control-2d.system";
+import { MoveController2D } from "@systems/nf-move-controller-2d.component";
+import { Position2D } from "@systems/nf-position-2d.component";
+import { Velocity2D } from "@systems/nf-velocity-2d.component";
 import { describe, expect, it } from "vitest";
-
-import {
-  Acceleration2D,
-  MoveController2D,
-  Position2D,
-  Velocity2D,
-  accelerate2D,
-  move2D,
-  moveControl2D,
-} from "../src";
 
 describe("Systems", () => {
   describe("move2D", () => {

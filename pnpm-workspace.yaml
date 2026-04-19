@@ -1,16 +1,10 @@
 catalogs:
-  build:
-    tsup: ^8.5.1
   ci:
     '@nanoforge-dev/actions': ^1.2.3
     '@commitlint/cli': ^20.5.0
     '@commitlint/config-conventional': ^20.5.0
     lint-staged: ^16.4.0
     husky: ^9.1.7
-  config:
-    class-transformer: ^0.5.1
-    class-validator: ^0.14.3
-    tslib: ^2.8.1
   core:
     '@nanoforge-dev/common': ^1.1.0
     '@nanoforge-dev/ecs-lib': ^1.1.2
