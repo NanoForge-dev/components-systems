@@ -40,14 +40,14 @@ catalogs:
       specifier: ^1.1.0
       version: 1.1.0
     '@nanoforge-dev/ecs-lib':
-      specifier: ^1.1.1
-      version: 1.1.1
+      specifier: ^1.1.2
+      version: 1.1.2
     '@nanoforge-dev/ecs-server':
       specifier: ^1.1.3
       version: 1.1.3
     '@nanoforge-dev/graphics-2d':
-      specifier: ^1.0.1
-      version: 1.0.1
+      specifier: ^1.0.2
+      version: 1.0.2
     '@nanoforge-dev/input':
       specifier: ^1.0.2
       version: 1.0.2
@@ -87,13 +87,13 @@ importers:
         version: 1.1.0
       '@nanoforge-dev/ecs-lib':
         specifier: catalog:core
-        version: 1.1.1
+        version: 1.1.2
       '@nanoforge-dev/ecs-server':
         specifier: catalog:core
         version: 1.1.3
       '@nanoforge-dev/graphics-2d':
         specifier: catalog:core
-        version: 1.0.1
+        version: 1.0.2
       '@nanoforge-dev/input':
         specifier: catalog:core
         version: 1.0.2
@@ -542,10 +542,6 @@ packages:
     resolution: {integrity: sha512-YVQ1e3H5MVHGBku2bA+lMLb+mkDXvJvYN228V6L0R+HXxo82X3Y1oVDKzlsnz+GRvYejJXEsY6jzPrV3pzbGwA==}
     engines: {node: '25'}
 
-  '@nanoforge-dev/common@1.0.1':
-    resolution: {integrity: sha512-nC/tAo6SkXvo4qLxB3E7ukGrI4ctUpmVail0cCpze64g0AtAAj7dLQ1/b6JEZqCog4X+Pt9wsx4B7GZD+dTsRg==}
-    engines: {node: '25'}
-
   '@nanoforge-dev/common@1.1.0':
     resolution: {integrity: sha512-quxZz4mZZqzp6XMGTzp5JbQH63c5Xt8tscArwz83gw6zqoPzfB0TQH5zFS+9SQF8JVOdmkroA8rNwzlyuZj2Pg==}
     engines: {node: '25'}
@@ -554,12 +550,16 @@ packages:
     resolution: {integrity: sha512-h1MjZEOPXBxTJJ4BAKx/4v5LaWKy+w+9dn8KkUO1uKx4+0VG7BrBoTUYJINdsODdPhAfp3Ai0vGUgqEaWFJyMA==}
     engines: {node: '25'}
 
+  '@nanoforge-dev/ecs-lib@1.1.2':
+    resolution: {integrity: sha512-3WD75i0rtyedV8IDbJ0v/HwAqpWt9VjIb5H36YEFTblVRsV/FArH5ZmlSTWRFnKL+Ap4Tr3dQ8Bi5bMDfznMMw==}
+    engines: {node: '25'}
+
   '@nanoforge-dev/ecs-server@1.1.3':
     resolution: {integrity: sha512-EXhi5acGDA+m4N1HbyiXUOdioIys7HWI13ypbywtqdjsKdgNlrcmJ7vA4AOYaZHZ5PW+63Qbzb8kpxbSipDOIw==}
     engines: {node: '25'}
 
-  '@nanoforge-dev/graphics-2d@1.0.1':
-    resolution: {integrity: sha512-TAVQRwXrwDTCuHlZPkGF/WVF5uTC9Mz1zJMb06BFCtX6ynGch4v7Fjn63r2GmZ95TqJWnKEHWX2i95z+WueY0g==}
+  '@nanoforge-dev/graphics-2d@1.0.2':
+    resolution: {integrity: sha512-MNQNoM9osHN4NvFRVv3H+PiKbKB+t9GqEuN8OTd1THijbDGaLCbKXN5daEL7qdp5zbJiGOYQjKV6/sLQROKGcQ==}
     engines: {node: '25'}
 
   '@nanoforge-dev/input@1.0.2':
@@ -2932,11 +2932,13 @@ snapshots:
       '@actions/github': 9.1.0
       commander: 14.0.3
 
-  '@nanoforge-dev/common@1.0.1': {}
-
   '@nanoforge-dev/common@1.1.0': {}
 
   '@nanoforge-dev/ecs-lib@1.1.1':
+    dependencies:
+      '@nanoforge-dev/common': 1.1.0
+
+  '@nanoforge-dev/ecs-lib@1.1.2':
     dependencies:
       '@nanoforge-dev/common': 1.1.0
 
@@ -2945,9 +2947,9 @@ snapshots:
       '@nanoforge-dev/common': 1.1.0
       '@nanoforge-dev/ecs-lib': 1.1.1
 
-  '@nanoforge-dev/graphics-2d@1.0.1':
+  '@nanoforge-dev/graphics-2d@1.0.2':
     dependencies:
-      '@nanoforge-dev/common': 1.0.1
+      '@nanoforge-dev/common': 1.1.0
       konva: 10.2.5
 
   '@nanoforge-dev/input@1.0.2':

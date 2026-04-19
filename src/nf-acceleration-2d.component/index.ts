@@ -17,8 +17,8 @@ export const EDITOR_COMPONENT_MANIFEST: EditorComponentManifest = {
   name: "Acceleration2D",
   description:
     "Acceleration of an entity in a 2 dimensional space in pixels per second per seconds (px/s²)",
-  params: {
-    x: {
+  params: [
+    {
       type: "number",
       name: "x",
       description: "Horizontal acceleration in px/s²",
@@ -26,7 +26,7 @@ export const EDITOR_COMPONENT_MANIFEST: EditorComponentManifest = {
       default: 0,
       optional: true,
     },
-    y: {
+    {
       type: "number",
       name: "y",
       description: "Vertical acceleration in px/s²",
@@ -34,5 +34,5 @@ export const EDITOR_COMPONENT_MANIFEST: EditorComponentManifest = {
       default: 0,
       optional: true,
     },
-  },
+  ],
 };

@@ -1,0 +1,6 @@
+{
+  "name": "nf/drawable-text-2d",
+  "type": "component",
+  "description": "Drawable text in 2d",
+  "tags": ["base, graphic"]
+}

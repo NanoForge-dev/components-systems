@@ -16,8 +16,8 @@ export default Velocity2D.name;
 export const EDITOR_COMPONENT_MANIFEST: EditorComponentManifest = {
   name: "Velocity2D",
   description: "Velocity of an entity in a 2 dimensional space in pixels per second (px/s)",
-  params: {
-    x: {
+  params: [
+    {
       type: "number",
       name: "x",
       description: "Horizontal velocity in px/s",
@@ -25,7 +25,7 @@ export const EDITOR_COMPONENT_MANIFEST: EditorComponentManifest = {
       default: 0,
       optional: true,
     },
-    y: {
+    {
       type: "number",
       name: "y",
       description: "Vertical velocity in px/s",
@@ -33,5 +33,5 @@ export const EDITOR_COMPONENT_MANIFEST: EditorComponentManifest = {
       default: 0,
       optional: true,
     },
-  },
+  ],
 };

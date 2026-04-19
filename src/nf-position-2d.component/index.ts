@@ -16,8 +16,8 @@ export default Position2D.name;
 export const EDITOR_COMPONENT_MANIFEST: EditorComponentManifest = {
   name: "Position2D",
   description: "Position of an entity in a 2 dimensional space in pixel",
-  params: {
-    x: {
+  params: [
+    {
       type: "number",
       name: "x",
       description: "Horizontal position in pixel",
@@ -25,7 +25,7 @@ export const EDITOR_COMPONENT_MANIFEST: EditorComponentManifest = {
       default: 0,
       optional: true,
     },
-    y: {
+    {
       type: "number",
       name: "y",
       description: "Vertical position in pixel",
@@ -33,5 +33,5 @@ export const EDITOR_COMPONENT_MANIFEST: EditorComponentManifest = {
       default: 0,
       optional: true,
     },
-  },
+  ],
 };

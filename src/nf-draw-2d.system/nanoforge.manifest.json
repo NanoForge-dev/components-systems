@@ -1,0 +1,12 @@
+{
+  "name": "nf/draw-2d",
+  "type": "system",
+  "description": "Draw every drawable component",
+  "tags": ["base, graphics"],
+  "dependencies": [
+    "nf/position-2d",
+    "nf/drawable-circle-2d",
+    "nf/drawable-rect-2d",
+    "nf/drawable-text-2d"
+  ]
+}

@@ -24,66 +24,66 @@ export const EDITOR_COMPONENT_MANIFEST: EditorComponentManifest = {
   name: "MoveController2D",
   description:
     "Allow control with 4 directional movement of en entity, select speed and keys to use",
-  params: {
-    speedUp: {
+  params: [
+    {
       type: "number",
       name: "speedUp",
       description: "Speed going up in pixels per second",
       example: 4.2,
       default: 10,
     },
-    speedDown: {
+    {
       type: "number",
       name: "speedDown",
       description: "Speed going down in pixels per second",
       example: 4.2,
       default: 10,
     },
-    speedLeft: {
+    {
       type: "number",
       name: "speedLeft",
       description: "Speed going left in pixels per second",
       example: 4.2,
       default: 10,
     },
-    speedRight: {
+    {
       type: "number",
       name: "speedRight",
       description: "Speed going right in pixels per second",
       example: 4.2,
       default: 10,
     },
-    keyUp: {
+    {
       name: "keyUp",
       type: "string",
       enum: InputEnum,
-      description: "Horizontal velocity in pixels per second",
+      description: "Key to press to go up",
       example: InputEnum.ArrowUp,
       default: InputEnum.ArrowUp,
     },
-    keyDown: {
+    {
       name: "keyDown",
       type: "string",
       enum: InputEnum,
-      description: "Horizontal velocity in pixels per second",
+      description: "Key to press to go down",
       example: InputEnum.ArrowDown,
       default: InputEnum.ArrowDown,
     },
-    keyLeft: {
+    {
       name: "keyLeft",
       type: "string",
       enum: InputEnum,
-      description: "Horizontal velocity in pixels per second",
+      description: "Key to press to go left",
       example: InputEnum.ArrowLeft,
       default: InputEnum.ArrowLeft,
     },
-    keyRight: {
+    {
       name: "keyRight",
       type: "string",
       enum: InputEnum,
-      description: "Horizontal velocity in pixels per second",
+      description: "Key to press to go right",
       example: InputEnum.ArrowRight,
       default: InputEnum.ArrowRight,
     },
-  },
+  ],
 };
