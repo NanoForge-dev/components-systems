@@ -6,8 +6,8 @@ export default defineConfig({
 
   resolve: {
     alias: {
-      "@components": path.resolve(__dirname, "./src/"),
-      "@systems": path.resolve(__dirname, "./src/"),
+      "@components": path.resolve(__dirname, "./packages/"),
+      "@systems": path.resolve(__dirname, "./packages/"),
     },
   },
   test: {
@@ -28,13 +28,13 @@ export default defineConfig({
       enabled: true,
       reporter: ["text", "lcov", "cobertura"],
       provider: "v8",
-      include: ["src"],
+      include: ["packages"],
       exclude: [
         "**/*.{interface,type,d}.ts",
         "**/{interfaces,types}/*.ts",
-        "src/index.{js,ts}",
+        "packages/index.{js,ts}",
         "**/exports/*.{js,ts}",
-        "src/**/*.json",
+        "packages/**/*.json",
       ],
     },
   },

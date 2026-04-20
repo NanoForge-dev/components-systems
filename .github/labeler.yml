@@ -1,11 +1,11 @@
 components:
   - changed-files:
       - any-glob-to-any-file:
-          - src/*.component/*
-          - src/*.component/**/*
+          - packages/*.component/*
+          - packages/*.component/**/*
 
 systems:
   - changed-files:
       - any-glob-to-any-file:
-          - src/*.system/*
-          - src/*.system/**/*
+          - packages/*.system/*
+          - packages/*.system/**/*

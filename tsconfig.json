@@ -45,10 +45,10 @@
     "target": "ESNext",
     "useDefineForClassFields": true,
     "paths": {
-      "@components/*": ["./src/*"],
-      "@systems/*": ["./src/*"]
+      "@components/*": ["./packages/*"],
+      "@systems/*": ["./packages/*"]
     }
   },
-  "include": ["src/**/*.ts"],
+  "include": ["packages/**/*.ts"],
   "exclude": ["node_modules", "dist"]
 }
