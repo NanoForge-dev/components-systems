@@ -31,33 +31,34 @@ export class DrawableCircle2D {
     public fillPatternRepeat?: string,
   ) {
     this.shape = new Circle();
-    this.shape.radius(radius);
-    this.shape.width(this.width);
-    this.shape.height(this.height);
-    this.shape.visible(this.visible);
-    this.shape.id(this.id);
-    this.shape.opacity(this.opacity);
-    this.shape.scaleX(this.scaleX);
-    this.shape.scaleY(this.scaleY);
-    this.shape.skewX(this.skewX);
-    this.shape.skewY(this.skewY);
-    this.shape.rotation(this.rotation);
-    this.shape.offsetX(this.offsetX);
-    this.shape.offsetY(this.offsetY);
-    this.shape.fill(this.fillColor);
-    this.shape.fillPatternImage(
-      this.fillPatternImage
-        ? Object.assign(new Image(), { src: this.fillPatternImage })
-        : undefined,
-    );
-    this.shape.fillPatternX(this.fillPatternX);
-    this.shape.fillPatternY(this.fillPatternY);
-    this.shape.fillPatternOffsetX(this.fillPatternOffsetX);
-    this.shape.fillPatternOffsetY(this.fillPatternOffsetY);
-    this.shape.fillPatternScaleX(this.fillPatternScaleX);
-    this.shape.fillPatternScaleY(this.fillPatternScaleY);
-    this.shape.fillPatternRotation(this.fillPatternRotation);
-    this.shape.fillPatternRepeat(this.fillPatternRepeat);
+    if (radius !== undefined) this.shape.radius();
+    if (width !== undefined) this.shape.width();
+    if (height !== undefined) this.shape.height();
+    if (visible !== undefined) this.shape.visible();
+    if (id !== undefined) this.shape.id();
+    if (opacity !== undefined) this.shape.opacity();
+    if (scaleX !== undefined) this.shape.scaleX();
+    if (scaleY !== undefined) this.shape.scaleY();
+    if (skewX !== undefined) this.shape.skewX();
+    if (skewY !== undefined) this.shape.skewY();
+    if (rotation !== undefined) this.shape.rotation();
+    if (offsetX !== undefined) this.shape.offsetX();
+    if (offsetY !== undefined) this.shape.offsetY();
+    if (fillColor !== undefined) this.shape.fill();
+    if (fillPatternX !== undefined) this.shape.fillPatternX();
+    if (fillPatternY !== undefined) this.shape.fillPatternY();
+    if (fillPatternOffsetX !== undefined) this.shape.fillPatternOffsetX();
+    if (fillPatternOffsetY !== undefined) this.shape.fillPatternOffsetY();
+    if (fillPatternScaleX !== undefined) this.shape.fillPatternScaleX();
+    if (fillPatternScaleY !== undefined) this.shape.fillPatternScaleY();
+    if (fillPatternRotation !== undefined) this.shape.fillPatternRotation();
+    if (fillPatternRepeat !== undefined) this.shape.fillPatternRepeat();
+    if (fillPatternImage !== undefined)
+      this.shape.fillPatternImage(
+        this.fillPatternImage
+          ? Object.assign(new Image(), { src: this.fillPatternImage })
+          : undefined,
+      );
   }
 
   public addToLayer(layer: Layer): void {

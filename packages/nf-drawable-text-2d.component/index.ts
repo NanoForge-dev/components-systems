@@ -45,47 +45,48 @@ export class DrawableText2D {
     public fillPatternRepeat?: string,
   ) {
     this.shape = new Text();
-    this.shape.text(this.text);
-    this.shape.direction(this.direction);
-    this.shape.fontFamily(this.fontFamily);
-    this.shape.fontSize(this.fontSize);
-    this.shape.fontStyle(this.fontStyle);
-    this.shape.fontVariant(this.fontVariant);
-    this.shape.textDecoration(this.textDecoration);
-    this.shape.underlineOffset(this.underlineOffset);
-    this.shape.align(this.align);
-    this.shape.verticalAlign(this.verticalAlign);
-    this.shape.padding(this.padding);
-    this.shape.lineHeight(this.lineHeight);
-    this.shape.letterSpacing(this.letterSpacing);
-    this.shape.wrap(this.wrap);
-    this.shape.ellipsis(this.ellipsis);
-    this.shape.width(this.width);
-    this.shape.height(this.height);
-    this.shape.visible(this.visible);
-    this.shape.id(this.id);
-    this.shape.opacity(this.opacity);
-    this.shape.scaleX(this.scaleX);
-    this.shape.scaleY(this.scaleY);
-    this.shape.skewX(this.skewX);
-    this.shape.skewY(this.skewY);
-    this.shape.rotation(this.rotation);
-    this.shape.offsetX(this.offsetX);
-    this.shape.offsetY(this.offsetY);
-    this.shape.fill(this.fillColor);
-    this.shape.fillPatternImage(
-      this.fillPatternImage
-        ? Object.assign(new Image(), { src: this.fillPatternImage })
-        : undefined,
-    );
-    this.shape.fillPatternX(this.fillPatternX);
-    this.shape.fillPatternY(this.fillPatternY);
-    this.shape.fillPatternOffsetX(this.fillPatternOffsetX);
-    this.shape.fillPatternOffsetY(this.fillPatternOffsetY);
-    this.shape.fillPatternScaleX(this.fillPatternScaleX);
-    this.shape.fillPatternScaleY(this.fillPatternScaleY);
-    this.shape.fillPatternRotation(this.fillPatternRotation);
-    this.shape.fillPatternRepeat(this.fillPatternRepeat);
+    if (text !== undefined) this.shape.text(text);
+    if (direction !== undefined) this.shape.direction(direction);
+    if (fontFamily !== undefined) this.shape.fontFamily(fontFamily);
+    if (fontSize !== undefined) this.shape.fontSize(fontSize);
+    if (fontStyle !== undefined) this.shape.fontStyle(fontStyle);
+    if (fontVariant !== undefined) this.shape.fontVariant(fontVariant);
+    if (textDecoration !== undefined) this.shape.textDecoration(textDecoration);
+    if (underlineOffset !== undefined) this.shape.underlineOffset(underlineOffset);
+    if (align !== undefined) this.shape.align(align);
+    if (verticalAlign !== undefined) this.shape.verticalAlign(verticalAlign);
+    if (padding !== undefined) this.shape.padding(padding);
+    if (lineHeight !== undefined) this.shape.lineHeight(lineHeight);
+    if (letterSpacing !== undefined) this.shape.letterSpacing(letterSpacing);
+    if (wrap !== undefined) this.shape.wrap(wrap);
+    if (ellipsis !== undefined) this.shape.ellipsis(ellipsis);
+    if (width !== undefined) this.shape.width();
+    if (height !== undefined) this.shape.height();
+    if (visible !== undefined) this.shape.visible();
+    if (id !== undefined) this.shape.id();
+    if (opacity !== undefined) this.shape.opacity();
+    if (scaleX !== undefined) this.shape.scaleX();
+    if (scaleY !== undefined) this.shape.scaleY();
+    if (skewX !== undefined) this.shape.skewX();
+    if (skewY !== undefined) this.shape.skewY();
+    if (rotation !== undefined) this.shape.rotation();
+    if (offsetX !== undefined) this.shape.offsetX();
+    if (offsetY !== undefined) this.shape.offsetY();
+    if (fillColor !== undefined) this.shape.fill();
+    if (fillPatternX !== undefined) this.shape.fillPatternX();
+    if (fillPatternY !== undefined) this.shape.fillPatternY();
+    if (fillPatternOffsetX !== undefined) this.shape.fillPatternOffsetX();
+    if (fillPatternOffsetY !== undefined) this.shape.fillPatternOffsetY();
+    if (fillPatternScaleX !== undefined) this.shape.fillPatternScaleX();
+    if (fillPatternScaleY !== undefined) this.shape.fillPatternScaleY();
+    if (fillPatternRotation !== undefined) this.shape.fillPatternRotation();
+    if (fillPatternRepeat !== undefined) this.shape.fillPatternRepeat();
+    if (fillPatternImage !== undefined)
+      this.shape.fillPatternImage(
+        this.fillPatternImage
+          ? Object.assign(new Image(), { src: this.fillPatternImage })
+          : undefined,
+      );
   }
 
   public addToLayer(layer: Layer): void {
