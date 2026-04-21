@@ -61,10 +61,10 @@ export function packetHandler(registry: Registry, ctx: Context) {
       const zipper = registry.getZipper([Position2D, Velocity2D]);
       const it = zipper[packet.id];
       if (!it) return;
-      it.Position.x = packet.position.x;
-      it.Position.y = packet.position.y;
-      it.Velocity.x = packet.velocity.x;
-      it.Velocity.y = packet.velocity.y;
+      it.Position2D.x = packet.position.x;
+      it.Position2D.y = packet.position.y;
+      it.Velocity2D.x = packet.velocity.x;
+      it.Velocity2D.y = packet.velocity.y;
     }
   });
 }

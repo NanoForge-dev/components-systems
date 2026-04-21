@@ -5,7 +5,7 @@ import { type NetworkServerLibrary } from "@nanoforge-dev/network-server";
 import { Position2D } from "../components/nf-position-2d.component";
 import { Velocity2D } from "../components/nf-velocity-2d.component";
 
-const speed = 50;
+const speed = 500;
 
 function sendMoveAll(id: number, vel: Velocity2D, pos: Position2D, network: NetworkServerLibrary) {
   network.tcp.sendToEverybody(
@@ -31,6 +31,7 @@ function handleClientInput(
     if (key === "left") Velocity2D.x = -speed;
     if (key === "right") Velocity2D.x = speed;
     if (key === "stop") {
+      Velocity2D.x = 0;
       Velocity2D.y = 0;
     }
     sendMoveAll(id, Velocity2D, Position2D, network);
