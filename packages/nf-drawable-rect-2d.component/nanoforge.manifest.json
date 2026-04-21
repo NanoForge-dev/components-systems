@@ -2,5 +2,5 @@
   "name": "nf/drawable-rect-2d",
   "type": "component",
   "description": "Drawable rectangle in 2d",
-  "tags": ["base, graphic"]
+  "tags": ["base", "graphic"]
 }

@@ -2,6 +2,6 @@
   "name": "nf/accelerate-2d",
   "type": "system",
   "description": "Accelerate entities of their acceleration in a 2 dimensional space based on time elapsed since last frame",
-  "tags": ["base, mouvement"],
+  "tags": ["base", "mouvement"],
   "dependencies": ["nf/acceleration-2d", "nf/velocity-2d"]
 }

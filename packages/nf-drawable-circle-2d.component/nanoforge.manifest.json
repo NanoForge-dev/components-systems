@@ -2,5 +2,5 @@
   "name": "nf/drawable-circle-2d",
   "type": "component",
   "description": "Drawable circle in 2d",
-  "tags": ["base, graphic"]
+  "tags": ["base", "graphic"]
 }

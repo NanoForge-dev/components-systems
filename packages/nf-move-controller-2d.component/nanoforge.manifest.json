@@ -2,7 +2,7 @@
   "name": "nf/move-controller-2d",
   "type": "component",
   "description": "Allow control with 4 directional movement of an entity in 2d",
-  "tags": ["base, mouvement"],
+  "tags": ["base", "mouvement"],
   "libDependencies": {
     "@nanoforge-dev/input": "^1.0.2"
   }

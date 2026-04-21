@@ -2,5 +2,5 @@
   "name": "nf/position-2d",
   "type": "component",
   "description": "Position of an entity in a 2 dimensional space in pixel",
-  "tags": ["base, mouvement"]
+  "tags": ["base", "mouvement"]
 }
