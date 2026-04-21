@@ -1,0 +1,6 @@
+{
+  "name": "nf/demo-client",
+  "type": "system",
+  "description": "Bundle only for demo purpose",
+  "dependencies": ["nf/draw-2d", "nf/move-2d"]
+}

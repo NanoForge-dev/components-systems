@@ -1,0 +1,6 @@
+{
+  "name": "nf/demo-server",
+  "type": "system",
+  "description": "Bundle only for demo purpose",
+  "dependencies": ["nf/move-2d"]
+}

@@ -1,7 +1,8 @@
-import { Acceleration2D } from "@components/nf-acceleration-2d.component";
-import { Velocity2D } from "@components/nf-velocity-2d.component";
 import { type Context } from "@nanoforge-dev/common";
 import { type EditorSystemManifest, type Registry } from "@nanoforge-dev/ecs-lib";
+
+import { Acceleration2D } from "../components/nf-acceleration-2d.component";
+import { Velocity2D } from "../components/nf-velocity-2d.component";
 
 export function accelerate2D(registry: Registry, ctx: Context) {
   const entities = registry.getZipper([Acceleration2D, Velocity2D]);

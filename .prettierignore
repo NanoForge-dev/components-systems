@@ -6,7 +6,6 @@ bun.lock
 
 pnpm-workspace.yaml
 
-packages/
 example/
 utils/
 releases/

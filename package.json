@@ -32,6 +32,7 @@
   },
   "funding": "https://github.com/NanoForge-dev/components-systems?sponsor",
   "scripts": {
+    "build": "tsc -b",
     "lint": "prettier --check . && eslint --format=pretty packages",
     "format": "prettier --write . && eslint --fix --format=pretty packages",
     "test:unit": "vitest run --config vitest.config.ts",
@@ -39,17 +40,17 @@
     "changelog": "git cliff --prepend ./CHANGELOG.md -u -c ./cliff.toml -r ./ --include-path './*'",
     "prepare": "husky"
   },
-  "dependencies": {
-    "@nanoforge-dev/common": "catalog:core",
-    "@nanoforge-dev/ecs-lib": "catalog:core",
-    "@nanoforge-dev/ecs-server": "catalog:core",
-    "@nanoforge-dev/graphics-2d": "catalog:core",
-    "@nanoforge-dev/input": "catalog:core"
-  },
   "devDependencies": {
     "@commitlint/cli": "catalog:ci",
     "@commitlint/config-conventional": "catalog:ci",
     "@nanoforge-dev/actions": "catalog:ci",
+    "@nanoforge-dev/common": "catalog:core",
+    "@nanoforge-dev/ecs-lib": "catalog:core",
+    "@nanoforge-dev/ecs-server": "catalog:core",
+    "@nanoforge-dev/graphics-2d": "catalog:core",
+    "@nanoforge-dev/input": "catalog:core",
+    "@nanoforge-dev/network-client": "catalog:core",
+    "@nanoforge-dev/network-server": "catalog:core",
     "@nanoforge-dev/utils-eslint-config": "catalog:lint",
     "@nanoforge-dev/utils-prettier-config": "catalog:lint",
     "@trivago/prettier-plugin-sort-imports": "catalog:lint",

@@ -1,8 +1,9 @@
-import { Velocity2D } from "@components/nf-velocity-2d.component";
 import { type Context } from "@nanoforge-dev/common";
 import { type EditorSystemManifest, type Registry } from "@nanoforge-dev/ecs-lib";
 import { type InputLibrary } from "@nanoforge-dev/input";
-import { MoveController2D } from "@systems/nf-move-controller-2d.component";
+
+import { MoveController2D } from "../components/nf-move-controller-2d.component";
+import { Velocity2D } from "../components/nf-velocity-2d.component";
 
 export function moveControl2D(registry: Registry, ctx: Context) {
   const entities = registry.getZipper([MoveController2D, Velocity2D]);

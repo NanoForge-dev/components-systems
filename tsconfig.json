@@ -29,13 +29,13 @@
     "importHelpers": false,
     "newLine": "lf",
     "noEmitHelpers": true,
+    "rootDir": ".",
     "outDir": "dist",
     "removeComments": false,
     "sourceMap": true,
 
     // Interop Constraints
     "allowSyntheticDefaultImports": true,
-    "esModuleInterop": false,
     "forceConsistentCasingInFileNames": true,
     "isolatedModules": true,
 

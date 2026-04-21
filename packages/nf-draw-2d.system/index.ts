@@ -1,10 +1,11 @@
-import { Position2D } from "@components/nf-position-2d.component";
 import { type Context } from "@nanoforge-dev/common";
 import { type EditorSystemManifest, type Registry } from "@nanoforge-dev/ecs-lib";
 import { type Graphics2DLibrary } from "@nanoforge-dev/graphics-2d";
-import { DrawableCircle2D } from "@components/nf-drawable-circle-2d.component";
-import { DrawableRect2D } from "@components/nf-drawable-rect-2d.component";
-import { DrawableText2D } from "@components/nf-drawable-text-2d.component";
+
+import { DrawableCircle2D } from "../components/nf-drawable-circle-2d.component";
+import { DrawableRect2D } from "../components/nf-drawable-rect-2d.component";
+import { DrawableText2D } from "../components/nf-drawable-text-2d.component";
+import { Position2D } from "../components/nf-position-2d.component";
 
 export function draw2D(registry: Registry, ctx: Context) {
   const graphic2d = ctx.libs.getGraphics<Graphics2DLibrary>();
