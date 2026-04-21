@@ -44,47 +44,48 @@ export class DrawableText2D {
     public fillPatternRotation?: number,
     public fillPatternRepeat?: string,
   ) {
-    this.shape = new Text({
-      text,
-      direction,
-      fontFamily,
-      fontSize,
-      fontStyle,
-      fontVariant,
-      textDecoration,
-      underlineOffset,
-      align,
-      verticalAlign,
-      padding,
-      lineHeight,
-      letterSpacing,
-      wrap,
-      ellipsis,
-      width,
-      height,
-      visible,
-      id,
-      opacity,
-      scaleX,
-      scaleY,
-      skewX,
-      skewY,
-      rotation,
-      offsetX,
-      offsetY,
-      fill: fillColor,
-      fillPatternImage: this.fillPatternImage
+    this.shape = new Text();
+    this.shape.text(this.text);
+    this.shape.direction(this.direction);
+    this.shape.fontFamily(this.fontFamily);
+    this.shape.fontSize(this.fontSize);
+    this.shape.fontStyle(this.fontStyle);
+    this.shape.fontVariant(this.fontVariant);
+    this.shape.textDecoration(this.textDecoration);
+    this.shape.underlineOffset(this.underlineOffset);
+    this.shape.align(this.align);
+    this.shape.verticalAlign(this.verticalAlign);
+    this.shape.padding(this.padding);
+    this.shape.lineHeight(this.lineHeight);
+    this.shape.letterSpacing(this.letterSpacing);
+    this.shape.wrap(this.wrap);
+    this.shape.ellipsis(this.ellipsis);
+    this.shape.width(this.width);
+    this.shape.height(this.height);
+    this.shape.visible(this.visible);
+    this.shape.id(this.id);
+    this.shape.opacity(this.opacity);
+    this.shape.scaleX(this.scaleX);
+    this.shape.scaleY(this.scaleY);
+    this.shape.skewX(this.skewX);
+    this.shape.skewY(this.skewY);
+    this.shape.rotation(this.rotation);
+    this.shape.offsetX(this.offsetX);
+    this.shape.offsetY(this.offsetY);
+    this.shape.fill(this.fillColor);
+    this.shape.fillPatternImage(
+      this.fillPatternImage
         ? Object.assign(new Image(), { src: this.fillPatternImage })
         : undefined,
-      fillPatternX: fillPatternX,
-      fillPatternY: fillPatternY,
-      fillPatternOffsetX: fillPatternOffsetX,
-      fillPatternOffsetY: fillPatternOffsetY,
-      fillPatternScaleX: fillPatternScaleX,
-      fillPatternScaleY: fillPatternScaleY,
-      fillPatternRotation: fillPatternRotation,
-      fillPatternRepeat: fillPatternRepeat,
-    });
+    );
+    this.shape.fillPatternX(this.fillPatternX);
+    this.shape.fillPatternY(this.fillPatternY);
+    this.shape.fillPatternOffsetX(this.fillPatternOffsetX);
+    this.shape.fillPatternOffsetY(this.fillPatternOffsetY);
+    this.shape.fillPatternScaleX(this.fillPatternScaleX);
+    this.shape.fillPatternScaleY(this.fillPatternScaleY);
+    this.shape.fillPatternRotation(this.fillPatternRotation);
+    this.shape.fillPatternRepeat(this.fillPatternRepeat);
   }
 
   public addToLayer(layer: Layer): void {
@@ -208,6 +209,7 @@ export const EDITOR_COMPONENT_MANIFEST: EditorComponentManifest = {
       type: "boolean",
       description: "Controls whether the node is rendered",
       optional: true,
+      default: true,
     },
     {
       name: "id",

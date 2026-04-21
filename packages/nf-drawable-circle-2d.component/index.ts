@@ -30,33 +30,34 @@ export class DrawableCircle2D {
     public fillPatternRotation?: number,
     public fillPatternRepeat?: string,
   ) {
-    this.shape = new Circle({
-      radius: radius,
-      width: width,
-      height: height,
-      visible: visible,
-      id: id,
-      opacity: opacity,
-      scaleX: scaleX,
-      scaleY: scaleY,
-      skewX: skewX,
-      skewY: skewY,
-      rotation: rotation,
-      offsetX: offsetX,
-      offsetY: offsetY,
-      fill: fillColor,
-      fillPatternImage: this.fillPatternImage
+    this.shape = new Circle();
+    this.shape.radius(radius);
+    this.shape.width(this.width);
+    this.shape.height(this.height);
+    this.shape.visible(this.visible);
+    this.shape.id(this.id);
+    this.shape.opacity(this.opacity);
+    this.shape.scaleX(this.scaleX);
+    this.shape.scaleY(this.scaleY);
+    this.shape.skewX(this.skewX);
+    this.shape.skewY(this.skewY);
+    this.shape.rotation(this.rotation);
+    this.shape.offsetX(this.offsetX);
+    this.shape.offsetY(this.offsetY);
+    this.shape.fill(this.fillColor);
+    this.shape.fillPatternImage(
+      this.fillPatternImage
         ? Object.assign(new Image(), { src: this.fillPatternImage })
         : undefined,
-      fillPatternX: fillPatternX,
-      fillPatternY: fillPatternY,
-      fillPatternOffsetX: fillPatternOffsetX,
-      fillPatternOffsetY: fillPatternOffsetY,
-      fillPatternScaleX: fillPatternScaleX,
-      fillPatternScaleY: fillPatternScaleY,
-      fillPatternRotation: fillPatternRotation,
-      fillPatternRepeat: fillPatternRepeat,
-    });
+    );
+    this.shape.fillPatternX(this.fillPatternX);
+    this.shape.fillPatternY(this.fillPatternY);
+    this.shape.fillPatternOffsetX(this.fillPatternOffsetX);
+    this.shape.fillPatternOffsetY(this.fillPatternOffsetY);
+    this.shape.fillPatternScaleX(this.fillPatternScaleX);
+    this.shape.fillPatternScaleY(this.fillPatternScaleY);
+    this.shape.fillPatternRotation(this.fillPatternRotation);
+    this.shape.fillPatternRepeat(this.fillPatternRepeat);
   }
 
   public addToLayer(layer: Layer): void {
