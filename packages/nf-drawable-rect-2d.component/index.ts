@@ -32,27 +32,27 @@ export class DrawableRect2D {
   ) {
     this.shape = new Rect();
     this.shape.cornerRadius(this.cornerRadius);
-    if (width !== undefined) this.shape.width();
-    if (height !== undefined) this.shape.height();
-    if (visible !== undefined) this.shape.visible();
-    if (id !== undefined) this.shape.id();
-    if (opacity !== undefined) this.shape.opacity();
-    if (scaleX !== undefined) this.shape.scaleX();
-    if (scaleY !== undefined) this.shape.scaleY();
-    if (skewX !== undefined) this.shape.skewX();
-    if (skewY !== undefined) this.shape.skewY();
-    if (rotation !== undefined) this.shape.rotation();
-    if (offsetX !== undefined) this.shape.offsetX();
-    if (offsetY !== undefined) this.shape.offsetY();
-    if (fillColor !== undefined) this.shape.fill();
-    if (fillPatternX !== undefined) this.shape.fillPatternX();
-    if (fillPatternY !== undefined) this.shape.fillPatternY();
-    if (fillPatternOffsetX !== undefined) this.shape.fillPatternOffsetX();
-    if (fillPatternOffsetY !== undefined) this.shape.fillPatternOffsetY();
-    if (fillPatternScaleX !== undefined) this.shape.fillPatternScaleX();
-    if (fillPatternScaleY !== undefined) this.shape.fillPatternScaleY();
-    if (fillPatternRotation !== undefined) this.shape.fillPatternRotation();
-    if (fillPatternRepeat !== undefined) this.shape.fillPatternRepeat();
+    if (width !== undefined) this.shape.width(width);
+    if (height !== undefined) this.shape.height(height);
+    if (visible !== undefined) this.shape.visible(visible);
+    if (id !== undefined) this.shape.id(id);
+    if (opacity !== undefined) this.shape.opacity(opacity);
+    if (scaleX !== undefined) this.shape.scaleX(scaleX);
+    if (scaleY !== undefined) this.shape.scaleY(scaleY);
+    if (skewX !== undefined) this.shape.skewX(skewX);
+    if (skewY !== undefined) this.shape.skewY(skewY);
+    if (rotation !== undefined) this.shape.rotation(rotation);
+    if (offsetX !== undefined) this.shape.offsetX(offsetX);
+    if (offsetY !== undefined) this.shape.offsetY(offsetY);
+    if (fillColor !== undefined) this.shape.fill(fillColor);
+    if (fillPatternX !== undefined) this.shape.fillPatternX(fillPatternX);
+    if (fillPatternY !== undefined) this.shape.fillPatternY(fillPatternY);
+    if (fillPatternOffsetX !== undefined) this.shape.fillPatternOffsetX(fillPatternOffsetX);
+    if (fillPatternOffsetY !== undefined) this.shape.fillPatternOffsetY(fillPatternOffsetY);
+    if (fillPatternScaleX !== undefined) this.shape.fillPatternScaleX(fillPatternScaleX);
+    if (fillPatternScaleY !== undefined) this.shape.fillPatternScaleY(fillPatternScaleY);
+    if (fillPatternRotation !== undefined) this.shape.fillPatternRotation(fillPatternRotation);
+    if (fillPatternRepeat !== undefined) this.shape.fillPatternRepeat(fillPatternRepeat);
     if (fillPatternImage !== undefined)
       this.shape.fillPatternImage(
         this.fillPatternImage
