@@ -44,49 +44,47 @@ export class DrawableText2D {
     public fillPatternRotation?: number,
     public fillPatternRepeat?: string,
   ) {
-    this.shape = new Text();
-    if (text !== undefined) this.shape.text(text);
-    if (direction !== undefined) this.shape.direction(direction);
-    if (fontFamily !== undefined) this.shape.fontFamily(fontFamily);
-    if (fontSize !== undefined) this.shape.fontSize(fontSize);
-    if (fontStyle !== undefined) this.shape.fontStyle(fontStyle);
-    if (fontVariant !== undefined) this.shape.fontVariant(fontVariant);
-    if (textDecoration !== undefined) this.shape.textDecoration(textDecoration);
-    if (underlineOffset !== undefined) this.shape.underlineOffset(underlineOffset);
-    if (align !== undefined) this.shape.align(align);
-    if (verticalAlign !== undefined) this.shape.verticalAlign(verticalAlign);
-    if (padding !== undefined) this.shape.padding(padding);
-    if (lineHeight !== undefined) this.shape.lineHeight(lineHeight);
-    if (letterSpacing !== undefined) this.shape.letterSpacing(letterSpacing);
-    if (wrap !== undefined) this.shape.wrap(wrap);
-    if (ellipsis !== undefined) this.shape.ellipsis(ellipsis);
-    if (width !== undefined) this.shape.width(width);
-    if (height !== undefined) this.shape.height(height);
-    if (visible !== undefined) this.shape.visible(visible);
-    if (id !== undefined) this.shape.id(id);
-    if (opacity !== undefined) this.shape.opacity(opacity);
-    if (scaleX !== undefined) this.shape.scaleX(scaleX);
-    if (scaleY !== undefined) this.shape.scaleY(scaleY);
-    if (skewX !== undefined) this.shape.skewX(skewX);
-    if (skewY !== undefined) this.shape.skewY(skewY);
-    if (rotation !== undefined) this.shape.rotation(rotation);
-    if (offsetX !== undefined) this.shape.offsetX(offsetX);
-    if (offsetY !== undefined) this.shape.offsetY(offsetY);
-    if (fillColor !== undefined) this.shape.fill(fillColor);
-    if (fillPatternX !== undefined) this.shape.fillPatternX(fillPatternX);
-    if (fillPatternY !== undefined) this.shape.fillPatternY(fillPatternY);
-    if (fillPatternOffsetX !== undefined) this.shape.fillPatternOffsetX(fillPatternOffsetX);
-    if (fillPatternOffsetY !== undefined) this.shape.fillPatternOffsetY(fillPatternOffsetY);
-    if (fillPatternScaleX !== undefined) this.shape.fillPatternScaleX(fillPatternScaleX);
-    if (fillPatternScaleY !== undefined) this.shape.fillPatternScaleY(fillPatternScaleY);
-    if (fillPatternRotation !== undefined) this.shape.fillPatternRotation(fillPatternRotation);
-    if (fillPatternRepeat !== undefined) this.shape.fillPatternRepeat(fillPatternRepeat);
-    if (fillPatternImage !== undefined)
-      this.shape.fillPatternImage(
-        this.fillPatternImage
-          ? Object.assign(new Image(), { src: this.fillPatternImage })
-          : undefined,
-      );
+    this.shape = new Text({
+      text,
+      direction,
+      fontFamily,
+      fontSize,
+      fontStyle,
+      fontVariant,
+      textDecoration,
+      underlineOffset,
+      align,
+      verticalAlign,
+      padding,
+      lineHeight,
+      letterSpacing,
+      wrap,
+      ellipsis,
+      width,
+      height,
+      visible,
+      id,
+      opacity,
+      scaleX,
+      scaleY,
+      skewX,
+      skewY,
+      rotation,
+      offsetX,
+      offsetY,
+      fill: fillColor,
+      fillPatternImage: this.fillPatternImage
+        ? Object.assign(new Image(), { src: this.fillPatternImage })
+        : undefined,
+      fillPatternX,
+      fillPatternY,
+      fillPatternOffsetX,
+      fillPatternOffsetY,
+      fillPatternScaleX,
+      fillPatternScaleY,
+      fillPatternRotation,
+      fillPatternRepeat,
+    });
   }
 
   public addToLayer(layer: Layer): void {
@@ -106,6 +104,8 @@ export const EDITOR_COMPONENT_MANIFEST: EditorComponentManifest = {
       name: "text",
       type: "string",
       description: "String content to render",
+      optional: false,
+      default: "Hello World !",
     },
     {
       name: "direction",
@@ -124,7 +124,8 @@ export const EDITOR_COMPONENT_MANIFEST: EditorComponentManifest = {
       name: "fontSize",
       type: "number",
       description: "Font size in pixels",
-      optional: true,
+      optional: false,
+      default: 12,
     },
     {
       name: "fontStyle",
@@ -196,21 +197,21 @@ export const EDITOR_COMPONENT_MANIFEST: EditorComponentManifest = {
     {
       name: "width",
       type: "number",
-      description: "Width of the node in pixels",
+      description: "Width of the text box in pixels",
       optional: true,
     },
     {
       name: "height",
       type: "number",
-      description: "Height of the node in pixels",
+      description: "Height of the text box in pixels",
       optional: true,
     },
     {
       name: "visible",
       type: "boolean",
       description: "Controls whether the node is rendered",
-      optional: true,
       default: true,
+      optional: false,
     },
     {
       name: "id",
@@ -222,29 +223,34 @@ export const EDITOR_COMPONENT_MANIFEST: EditorComponentManifest = {
       name: "opacity",
       type: "number",
       description: "Opacity from 0 (transparent) to 1 (fully opaque)",
+      default: 1,
       optional: true,
     },
     {
       name: "scaleX",
       type: "number",
       description: "Horizontal scale factor",
+      default: 1,
       optional: true,
     },
     {
       name: "scaleY",
       type: "number",
       description: "Vertical scale factor",
+      default: 1,
       optional: true,
     },
     {
       name: "skewX",
       type: "number",
+      default: 0,
       description: "Horizontal skew in radians, shears along the X axis",
       optional: true,
     },
     {
       name: "skewY",
       type: "number",
+      default: 0,
       description: "Vertical skew in radians, shears along the Y axis",
       optional: true,
     },
@@ -253,18 +259,21 @@ export const EDITOR_COMPONENT_MANIFEST: EditorComponentManifest = {
       type: "number",
       description:
         "Rotation angle in degrees applied around the offset point (positive values rotate clockwise)",
+      default: 0,
       optional: true,
     },
     {
       name: "offsetX",
       type: "number",
       description: "Horizontal offset for the transform origin",
+      default: 0,
       optional: true,
     },
     {
       name: "offsetY",
       type: "number",
       description: "Vertical offset for the transform origin",
+      default: 0,
       optional: true,
     },
     {
@@ -272,6 +281,8 @@ export const EDITOR_COMPONENT_MANIFEST: EditorComponentManifest = {
       type: "string",
       description:
         'Solid fill color as a CSS color string (e.g. "red", "#ff0000", "rgba(255,0,0,0.5)"), or a pre-built CanvasGradient object',
+      default: "red",
+      example: "rgb(255,255,255)",
       optional: true,
     },
     {
