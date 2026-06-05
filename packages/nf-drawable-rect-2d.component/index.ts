@@ -6,33 +6,34 @@ export class DrawableRect2D {
   shape: Rect;
 
   constructor(
-    public cornerRadius?: number,
-    public width?: number,
-    public height?: number,
-    public visible?: boolean,
-    public id?: string,
-    public opacity?: number,
-    public scaleX?: number,
-    public scaleY?: number,
-    public skewX?: number,
-    public skewY?: number,
-    public rotation?: number,
-    public offsetX?: number,
-    public offsetY?: number,
-    public fillColor?: string,
-    public fillPatternImage?: string,
-    public fillPatternX?: number,
-    public fillPatternY?: number,
-    public fillPatternOffsetX?: number,
-    public fillPatternOffsetY?: number,
-    public fillPatternScaleX?: number,
-    public fillPatternScaleY?: number,
-    public fillPatternRotation?: number,
-    public fillPatternRepeat?: string,
+    width?: number,
+    height?: number,
+    cornerRadius?: number,
+    visible?: boolean,
+    id?: string,
+    opacity?: number,
+    scaleX?: number,
+    scaleY?: number,
+    skewX?: number,
+    skewY?: number,
+    rotation?: number,
+    offsetX?: number,
+    offsetY?: number,
+    fillColor?: string,
+    private _fillPatternImage?: string,
+    fillPatternX?: number,
+    fillPatternY?: number,
+    fillPatternOffsetX?: number,
+    fillPatternOffsetY?: number,
+    fillPatternScaleX?: number,
+    fillPatternScaleY?: number,
+    fillPatternRotation?: number,
+    fillPatternRepeat?: string,
   ) {
     this.shape = new Rect({
       width,
       height,
+      cornerRadius,
       visible,
       id,
       opacity,
@@ -44,8 +45,8 @@ export class DrawableRect2D {
       offsetX,
       offsetY,
       fill: fillColor,
-      fillPatternImage: this.fillPatternImage
-        ? Object.assign(new Image(), { src: this.fillPatternImage })
+      fillPatternImage: _fillPatternImage
+        ? Object.assign(new Image(), { src: _fillPatternImage })
         : undefined,
       fillPatternX,
       fillPatternY,
@@ -57,12 +58,176 @@ export class DrawableRect2D {
       fillPatternRepeat,
     });
   }
+  get width() {
+    return this.shape.width();
+  }
+  set width(v: number) {
+    this.shape.width(v);
+    this.redraw();
+  }
+  get height() {
+    return this.shape.height();
+  }
+  set height(v: number) {
+    this.shape.height(v);
+    this.redraw();
+  }
+  get cornerRadius() {
+    return this.shape.cornerRadius();
+  }
+  set cornerRadius(v: number | number[]) {
+    this.shape.cornerRadius(v);
+    this.redraw();
+  }
+  get visible() {
+    return this.shape.visible();
+  }
+  set visible(v: boolean) {
+    this.shape.visible(v);
+    this.redraw();
+  }
+  get id() {
+    return this.shape.id();
+  }
+  set id(v: string) {
+    this.shape.id(v);
+    this.redraw();
+  }
+  get opacity() {
+    return this.shape.opacity();
+  }
+  set opacity(v: number) {
+    this.shape.opacity(v);
+    this.redraw();
+  }
+  get scaleX() {
+    return this.shape.scaleX();
+  }
+  set scaleX(v: number) {
+    this.shape.scaleX(v);
+    this.redraw();
+  }
+  get scaleY() {
+    return this.shape.scaleY();
+  }
+  set scaleY(v: number) {
+    this.shape.scaleY(v);
+    this.redraw();
+  }
+  get skewX() {
+    return this.shape.skewX();
+  }
+  set skewX(v: number) {
+    this.shape.skewX(v);
+    this.redraw();
+  }
+  get skewY() {
+    return this.shape.skewY();
+  }
+  set skewY(v: number) {
+    this.shape.skewY(v);
+    this.redraw();
+  }
+  get rotation() {
+    return this.shape.rotation();
+  }
+  set rotation(v: number) {
+    this.shape.rotation(v);
+    this.redraw();
+  }
+  get offsetX() {
+    return this.shape.offsetX();
+  }
+  set offsetX(v: number) {
+    this.shape.offsetX(v);
+    this.redraw();
+  }
+  get offsetY() {
+    return this.shape.offsetY();
+  }
+  set offsetY(v: number) {
+    this.shape.offsetY(v);
+    this.redraw();
+  }
+  get fillColor() {
+    return this.shape.fill().toString();
+  }
+  set fillColor(v: string) {
+    this.shape.fill(v);
+    this.redraw();
+  }
+  get fillPatternImage(): string {
+    return this._fillPatternImage || "";
+  }
+  set fillPatternImage(v: string) {
+    this.shape.fillPatternImage(v ? Object.assign(new Image(), { src: v }) : undefined);
+    this.redraw();
+  }
+  get fillPatternX() {
+    return this.shape.fillPatternX();
+  }
+  set fillPatternX(v: number) {
+    this.shape.fillPatternX(v);
+    this.redraw();
+  }
+  get fillPatternY() {
+    return this.shape.fillPatternY();
+  }
+  set fillPatternY(v: number) {
+    this.shape.fillPatternY(v);
+    this.redraw();
+  }
+  get fillPatternOffsetX() {
+    return this.shape.fillPatternOffsetX();
+  }
+  set fillPatternOffsetX(v: number) {
+    this.shape.fillPatternOffsetX(v);
+    this.redraw();
+  }
+  get fillPatternOffsetY() {
+    return this.shape.fillPatternOffsetY();
+  }
+  set fillPatternOffsetY(v: number) {
+    this.shape.fillPatternOffsetY(v);
+    this.redraw();
+  }
+  get fillPatternScaleX() {
+    return this.shape.fillPatternScaleX();
+  }
+  set fillPatternScaleX(v: number) {
+    this.shape.fillPatternScaleX(v);
+    this.redraw();
+  }
+  get fillPatternScaleY() {
+    return this.shape.fillPatternScaleY();
+  }
+  set fillPatternScaleY(v: number) {
+    this.shape.fillPatternScaleY(v);
+    this.redraw();
+  }
+  get fillPatternRotation() {
+    return this.shape.fillPatternRotation();
+  }
+  set fillPatternRotation(v: number) {
+    this.shape.fillPatternRotation(v);
+    this.redraw();
+  }
+  get fillPatternRepeat() {
+    return this.shape.fillPatternRepeat();
+  }
+  set fillPatternRepeat(v: string) {
+    this.shape.fillPatternRepeat(v);
+    this.redraw();
+  }
 
   public addToLayer(layer: Layer): void {
     if (this.shape.getParent() !== layer) layer.add(this.shape);
   }
-}
 
+  private redraw() {
+    this.shape.getLayer()?.batchDraw();
+  }
+}
 // * Required to generate code
 export default DrawableRect2D.name;
 
@@ -72,25 +237,25 @@ export const EDITOR_COMPONENT_MANIFEST: EditorComponentManifest = {
   description: "Graphically drawable rectangle 2D",
   params: [
     {
-      name: "cornerRadius",
-      type: "number",
-      description: "Corner radius in pixels",
-      optional: true,
-      default: 0,
-    },
-    {
       name: "width",
       type: "number",
-      description: "Width of the node in pixels",
+      description: "Width of the rectangle in pixels",
       optional: false,
       default: 10,
     },
     {
       name: "height",
       type: "number",
-      description: "Height of the node in pixels",
+      description: "Height of the rectangle in pixels",
       optional: false,
       default: 10,
+    },
+    {
+      name: "cornerRadius",
+      type: "number",
+      description: "Corner radius in pixels",
+      optional: true,
+      default: 0,
     },
     {
       name: "visible",
