@@ -9,10 +9,10 @@ export class MoveController2D {
     public speedDown: number,
     public speedLeft: number,
     public speedRight: number,
-    public keyUp: InputEnum,
-    public keyDown: InputEnum,
-    public keyLeft: InputEnum,
-    public keyRight: InputEnum,
+    public keyUp?: InputEnum,
+    public keyDown?: InputEnum,
+    public keyLeft?: InputEnum,
+    public keyRight?: InputEnum,
   ) {}
 }
 
@@ -56,6 +56,7 @@ export const EDITOR_COMPONENT_MANIFEST: EditorComponentManifest = {
     {
       name: "keyUp",
       type: "string",
+      optional: true,
       enum: [
         "Escape",
         "Digit1",
@@ -207,6 +208,7 @@ export const EDITOR_COMPONENT_MANIFEST: EditorComponentManifest = {
     {
       name: "keyDown",
       type: "string",
+      optional: true,
       enum: [
         "Escape",
         "Digit1",
@@ -358,6 +360,7 @@ export const EDITOR_COMPONENT_MANIFEST: EditorComponentManifest = {
     {
       name: "keyLeft",
       type: "string",
+      optional: true,
       enum: [
         "Escape",
         "Digit1",
@@ -509,6 +512,7 @@ export const EDITOR_COMPONENT_MANIFEST: EditorComponentManifest = {
     {
       name: "keyRight",
       type: "string",
+      optional: true,
       enum: [
         "Escape",
         "Digit1",
