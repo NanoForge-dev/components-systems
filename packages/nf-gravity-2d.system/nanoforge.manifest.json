@@ -1,7 +1,0 @@
-{
-  "name": "nf/gravity-2d",
-  "type": "system",
-  "description": "Apply a down acceleration to every object",
-  "tags": ["base", "mouvement"],
-  "dependencies": ["nf/acceleration-2d"]
-}
