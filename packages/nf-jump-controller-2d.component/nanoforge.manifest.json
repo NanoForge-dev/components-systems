@@ -3,7 +3,6 @@
   "type": "component",
   "description": "Allow jump upwards",
   "tags": ["base", "mouvement"],
-  "dependencies": ["nf/jump-control"],
   "libDependencies": {
     "@nanoforge-dev/input": "^1.0.2"
   }
