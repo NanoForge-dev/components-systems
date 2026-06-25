@@ -13,12 +13,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout components-systems
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
         with:
           path: components-systems
 
       - name: Checkout docs
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
         with:
           path: docs
           repository: nanoforge-dev/docs
