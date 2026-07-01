@@ -1,3 +1,4 @@
+import type { NfFile } from "@nanoforge-dev/common";
 import { type EditorComponentManifest } from "@nanoforge-dev/ecs-lib";
 import { type Layer, Text } from "@nanoforge-dev/graphics-2d";
 
@@ -34,7 +35,7 @@ export class DrawableText2D {
     offsetX?: number,
     offsetY?: number,
     fillColor?: string,
-    private _fillPatternImage?: string,
+    private _fillPatternImage?: NfFile,
     fillPatternX?: number,
     fillPatternY?: number,
     fillPatternOffsetX?: number,
@@ -74,7 +75,7 @@ export class DrawableText2D {
       offsetY,
       fill: fillColor,
       fillPatternImage: _fillPatternImage
-        ? Object.assign(new Image(), { src: _fillPatternImage })
+        ? Object.assign(new Image(), { src: _fillPatternImage.path })
         : undefined,
       fillPatternX,
       fillPatternY,
@@ -267,11 +268,11 @@ export class DrawableText2D {
     this.shape.fill(v);
     this.redraw();
   }
-  get fillPatternImage(): string {
-    return this._fillPatternImage || "";
+  get fillPatternImage(): NfFile | undefined {
+    return this._fillPatternImage;
   }
-  set fillPatternImage(v: string) {
-    this.shape.fillPatternImage(v ? Object.assign(new Image(), { src: v }) : undefined);
+  set fillPatternImage(v: NfFile) {
+    this.shape.fillPatternImage(v ? Object.assign(new Image(), { src: v.path }) : undefined);
     this.redraw();
   }
   get fillPatternX() {
@@ -534,7 +535,7 @@ export const EDITOR_COMPONENT_MANIFEST: EditorComponentManifest = {
     },
     {
       name: "fillPatternImage",
-      type: "string",
+      type: "asset",
       description: "Image element to use as a tiling pattern fillt",
       optional: true,
     },
