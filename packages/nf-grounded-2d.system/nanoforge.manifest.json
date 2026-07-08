@@ -1,0 +1,15 @@
+{
+  "name": "nf/grounded-2d",
+  "type": "system",
+  "description": "Ground entities that are on the ground",
+  "tags": ["base", "mouvement"],
+  "dependencies": [
+    "nf/hitbox-rectangle-2d",
+    "nf/hitbox-circle-2d",
+    "nf/grounded",
+    "nf/rigid-body-2d",
+    "nf/static-body-2d",
+    "nf/position-2d",
+    "nf/velocity-2d"
+  ]
+}

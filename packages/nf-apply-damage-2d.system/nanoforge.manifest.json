@@ -1,0 +1,14 @@
+{
+  "name": "nf/apply-damage-2d",
+  "type": "system",
+  "description": "Apply damage to entity that have health and delete dead entities",
+  "tags": ["base", "health"],
+  "dependencies": [
+    "nf/damage-dealer-2d",
+    "nf/hitbox-circle-2d",
+    "nf/hitbox-rectangle-2d",
+    "nf/health",
+    "nf/owner",
+    "nf/drawable-text-2d"
+  ]
+}

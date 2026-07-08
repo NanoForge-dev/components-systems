@@ -1,0 +1,6 @@
+{
+  "name": "nf/hitbox-circle-2d",
+  "type": "component",
+  "description": "Hitbox circle shaped in 2d",
+  "tags": ["base"]
+}

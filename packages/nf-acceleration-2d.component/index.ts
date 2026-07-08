@@ -22,17 +22,13 @@ export const EDITOR_COMPONENT_MANIFEST: EditorComponentManifest = {
       type: "number",
       name: "x",
       description: "Horizontal acceleration in px/s²",
-      example: 4.2,
       default: 0,
-      optional: true,
     },
     {
       type: "number",
       name: "y",
       description: "Vertical acceleration in px/s²",
-      example: 67,
       default: 0,
-      optional: true,
     },
   ],
 };

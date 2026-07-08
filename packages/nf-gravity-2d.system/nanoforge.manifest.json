@@ -1,0 +1,7 @@
+{
+  "name": "nf/gravity-2d",
+  "type": "system",
+  "description": "Apply gravity acceleration to rigid bodies that are not grounded",
+  "tags": ["base", "mouvement"],
+  "dependencies": ["nf/acceleration-2d", "nf/grounded", "nf/rigid-body-2d"]
+}

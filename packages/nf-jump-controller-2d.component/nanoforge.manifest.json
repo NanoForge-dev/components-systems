@@ -1,0 +1,9 @@
+{
+  "name": "nf/jump-controller-2d",
+  "type": "component",
+  "description": "Allow jump upwards",
+  "tags": ["base", "mouvement"],
+  "libDependencies": {
+    "@nanoforge-dev/input": "^1.0.2"
+  }
+}
