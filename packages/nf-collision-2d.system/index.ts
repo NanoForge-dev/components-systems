@@ -44,7 +44,7 @@ export function hitboxCollinding2D(registry: Registry) {
         rectangles[i].HitboxRectangle2D.entitiesColliding.push(rectangles[k].id)
         rectangles[k].HitboxRectangle2D.entitiesColliding.push(rectangles[i].id)
       }
-    }Position2D
+    }
   }
   for (let i = 0; i < circles.length; i++) {
     for (let k = i + 1; k < circles.length; k++) {
