@@ -1,0 +1,7 @@
+{
+  "name": "nf/collision-2d",
+  "type": "system",
+  "description": "Detect collisions between hitbox components and populate entitiesColliding lists",
+  "tags": ["base"],
+  "dependencies": ["nf/position-2d", "nf/hitbox-rectangle-2d", "nf/hitbox-circle-2d"]
+}

@@ -18,8 +18,10 @@ export function moveControl2D(registry: Registry, ctx: Context) {
     if (MoveController2D.keyRight || MoveController2D.keyLeft) {
       let velX = 0;
       if (leftPressed != rightPressed) {
-        if (rightPressed) velX = MoveController2D.speedRight;
-        if (leftPressed) velX = -MoveController2D.speedLeft;
+        if (rightPressed)
+          velX = MoveController2D.speedRight;
+        if (leftPressed)
+          velX = -MoveController2D.speedLeft;
       }
       Velocity2D.x = velX;
     }
@@ -27,8 +29,10 @@ export function moveControl2D(registry: Registry, ctx: Context) {
     if (MoveController2D.keyUp || MoveController2D.keyDown) {
       let velY = 0;
       if (upPressed != downPressed) {
-        if (upPressed) velY = -MoveController2D.speedUp;
-        if (downPressed) velY = MoveController2D.speedDown;
+        if (upPressed)
+          velY = -MoveController2D.speedUp;
+        if (downPressed)
+          velY = MoveController2D.speedDown;
       }
       Velocity2D.y = velY;
     }

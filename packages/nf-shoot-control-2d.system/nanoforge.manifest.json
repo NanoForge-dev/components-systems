@@ -1,0 +1,20 @@
+{
+  "name": "nf/shoot-control-2d",
+  "type": "system",
+  "description": "Control entities that can shoot bullets at mouse position",
+  "tags": ["base", "mouvement"],
+  "dependencies": [
+    "nf/shoot-controller-2d",
+    "nf/position-2d",
+    "nf/velocity-2d",
+    "nf/hitbox-rectangle-2d",
+    "nf/hitbox-circle-2d",
+    "nf/drawable-circle-2d",
+    "nf/damage-dealer-2d",
+    "nf/destroy-on-hit-2d",
+    "nf/owner"
+  ],
+  "libDependencies": {
+    "@nanoforge-dev/input": "^1.0.2"
+  }
+}

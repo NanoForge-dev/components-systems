@@ -1,0 +1,6 @@
+{
+  "name": "nf/hitbox-rectangle-2d",
+  "type": "component",
+  "description": "Hitbox rectangle shaped in 2d",
+  "tags": ["base"]
+}

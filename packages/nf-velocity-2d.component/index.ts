@@ -6,7 +6,7 @@ export class Velocity2D {
   constructor(
     public x: number,
     public y: number,
-  ) {}
+  ) { }
 }
 
 // * Required to generate code
@@ -23,7 +23,6 @@ export const EDITOR_COMPONENT_MANIFEST: EditorComponentManifest = {
       description: "Horizontal velocity in px/s",
       example: 4.2,
       default: 0,
-      optional: true,
     },
     {
       type: "number",
@@ -31,7 +30,6 @@ export const EDITOR_COMPONENT_MANIFEST: EditorComponentManifest = {
       description: "Vertical velocity in px/s",
       example: 67,
       default: 0,
-      optional: true,
     },
   ],
 };

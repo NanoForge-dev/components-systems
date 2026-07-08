@@ -13,7 +13,8 @@ export class MoveController2D {
     public keyDown?: InputEnum,
     public keyLeft?: InputEnum,
     public keyRight?: InputEnum,
-  ) {}
+  ) { }
+
 }
 
 // * Required to generate code
@@ -30,28 +31,28 @@ export const EDITOR_COMPONENT_MANIFEST: EditorComponentManifest = {
       name: "speedUp",
       description: "Speed going up in pixels per second",
       example: 4.2,
-      default: 50,
+      default: 10,
     },
     {
       type: "number",
       name: "speedDown",
       description: "Speed going down in pixels per second",
       example: 4.2,
-      default: 50,
+      default: 10,
     },
     {
       type: "number",
       name: "speedLeft",
       description: "Speed going left in pixels per second",
       example: 4.2,
-      default: 50,
+      default: 10,
     },
     {
       type: "number",
       name: "speedRight",
       description: "Speed going right in pixels per second",
       example: 4.2,
-      default: 50,
+      default: 10,
     },
     {
       name: "keyUp",
@@ -200,6 +201,11 @@ export const EDITOR_COMPONENT_MANIFEST: EditorComponentManifest = {
         "BrowserBack",
         "LaunchApp1",
         "LaunchMail",
+        "MouseLeft",
+        "MouseMiddle",
+        "MouseRight",
+        "BackButton",
+        "Forward"
       ],
       description: "Key to press to go up",
       example: "ArrowUp",
@@ -352,6 +358,11 @@ export const EDITOR_COMPONENT_MANIFEST: EditorComponentManifest = {
         "BrowserBack",
         "LaunchApp1",
         "LaunchMail",
+        "MouseLeft",
+        "MouseMiddle",
+        "MouseRight",
+        "BackButton",
+        "Forward"
       ],
       description: "Key to press to go down",
       example: "ArrowDown",
@@ -504,6 +515,11 @@ export const EDITOR_COMPONENT_MANIFEST: EditorComponentManifest = {
         "BrowserBack",
         "LaunchApp1",
         "LaunchMail",
+        "MouseLeft",
+        "MouseMiddle",
+        "MouseRight",
+        "BackButton",
+        "Forward"
       ],
       description: "Key to press to go left",
       example: "ArrowLeft",
@@ -656,6 +672,11 @@ export const EDITOR_COMPONENT_MANIFEST: EditorComponentManifest = {
         "BrowserBack",
         "LaunchApp1",
         "LaunchMail",
+        "MouseLeft",
+        "MouseMiddle",
+        "MouseRight",
+        "BackButton",
+        "Forward"
       ],
       description: "Key to press to go right",
       example: "ArrowRight",

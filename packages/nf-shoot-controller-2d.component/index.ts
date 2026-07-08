@@ -1,36 +1,33 @@
-import type { EditorComponentManifest } from "@nanoforge-dev/ecs-lib";
+import type { EditorComponentManifest, Entity } from "@nanoforge-dev/ecs-lib";
 import { type InputEnum } from "@nanoforge-dev/input";
 
-export class JumpController2D {
+export class ShootController2D {
   name = this.constructor.name;
-  public keyPressedLastFrame = false;
-  public remainingJumps: number = 0;
-  public coyoteTimer: number = 0;
-  public bufferTimer: number = 0;
+  public reloadTimer: number = 0;
 
   constructor(
-    public impulseStrength: number,
+    public bulletDamage: number,
     public key: InputEnum,
-    public maxJumps: number,
-    public coyoteTime: number,
-    public jumpBuffer: number,
+    public reloadTime: number,
+    public bulletSpeed: number,
+    public bulletSize: number,
   ) {
   }
 }
 
 // * Required to generate code
-export default JumpController2D.name;
+export default ShootController2D.name;
 
 // * Required for the editor to display the component and generate code
 export const EDITOR_COMPONENT_MANIFEST: EditorComponentManifest = {
-  name: "JumpController2D",
-  description: "Allow jump upwards",
+  name: "ShootController2D",
+  description: "Allow shoot at mouse position",
   params: [
     {
       type: "number",
-      name: "impulseStrength",
-      description: "Speed going up in pixels per second",
-      default: 100,
+      name: "bulletDamage",
+      description: "Damage dealt by the bullet",
+      default: 10,
     },
     {
       name: "key",
@@ -184,28 +181,26 @@ export const EDITOR_COMPONENT_MANIFEST: EditorComponentManifest = {
         "BackButton",
         "Forward"
       ],
-      description: "Key to press to go up",
-      example: "Space",
-      default: "Space",
+      description: "Key to press shoot",
+      default: "MouseLeft",
     },
     {
       type: "number",
-      name: "maxJumps",
-      description: "Max number of jump before touching the ground",
-      default: 2,
+      name: "reloadTime",
+      description: "Time between 2 bullets in s",
+      default: 0.3,
     },
     {
       type: "number",
-      name: "coyoteTime",
-      description: "Time to jump afer exiting a cliff in s",
-      default: 0.1,
+      name: "bulletSpeed",
+      description: "Speed of the bullet in px/s",
+      default: 600,
     },
     {
       type: "number",
-      name: "jumpBuffer",
-      description: "Time before hitting the ground counting as a jump in s",
-      default: 0.1,
+      name: "bulletSize",
+      description: "Radius of the bullet in px",
+      default: 40,
     },
-
   ],
 };

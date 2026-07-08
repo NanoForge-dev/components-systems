@@ -1,0 +1,6 @@
+{
+  "name": "nf/destroy-on-hit-2d",
+  "type": "component",
+  "description": "Destroy the entity at collision",
+  "tags": ["base"]
+}
