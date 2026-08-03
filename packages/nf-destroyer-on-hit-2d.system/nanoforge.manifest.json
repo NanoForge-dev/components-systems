@@ -1,0 +1,16 @@
+{
+  "name": "nf/destroyer-on-hit-2d",
+  "type": "system",
+  "description": "Destroy entities with DestroyOnHit2D when they collide with other entities",
+  "tags": ["base"],
+  "dependencies": [
+    "nf/destroy-on-hit-2d",
+    "nf/hitbox-circle-2d",
+    "nf/hitbox-rectangle-2d",
+    "nf/owner",
+    "nf/static-body-2d",
+    "nf/drawable-circle-2d",
+    "nf/drawable-rect-2d",
+    "nf/drawable-text-2d"
+  ]
+}

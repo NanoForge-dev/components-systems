@@ -1,0 +1,6 @@
+{
+  "name": "nf/grounded",
+  "type": "component",
+  "description": "Hold informations about grounded status",
+  "tags": ["base", "mouvement"]
+}

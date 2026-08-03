@@ -1,0 +1,6 @@
+{
+  "name": "nf/rigid-body-2d",
+  "type": "component",
+  "description": "Rigid body of movable object, afected by gravity, blocked by static body",
+  "tags": ["base", "mouvement"]
+}

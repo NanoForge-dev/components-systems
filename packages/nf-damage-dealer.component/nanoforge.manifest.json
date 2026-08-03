@@ -1,0 +1,6 @@
+{
+  "name": "nf/damage-dealer-2d",
+  "type": "component",
+  "description": "Damage dealer at collision",
+  "tags": ["base", "health"]
+}

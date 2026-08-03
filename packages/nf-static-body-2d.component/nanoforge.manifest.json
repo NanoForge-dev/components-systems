@@ -1,0 +1,6 @@
+{
+  "name": "nf/static-body-2d",
+  "type": "component",
+  "description": "Static body of immovable object (walls, grounds...)",
+  "tags": ["base", "mouvement"]
+}

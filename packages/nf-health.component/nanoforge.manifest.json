@@ -1,0 +1,6 @@
+{
+  "name": "nf/health",
+  "type": "component",
+  "description": "Health of an entity",
+  "tags": ["base", "health"]
+}
