@@ -1,24 +1,24 @@
 # components-systems
 
-## Rôle
+## Role
 
-`@nanoforge-dev/components-systems` est un monorepo qui regroupe une collection de composants et de systèmes ECS (Entity-Component-System) génériques, réutilisables pour créer des jeux avec le moteur NanoForge. Chaque composant/système est publié comme un module installable individuellement via la CLI NanoForge (`nf install nf/position-2d`, `nf install nf/move-2d`, ...).
+`@nanoforge-dev/components-systems` is a monorepo that gathers a collection of generic, reusable ECS (Entity-Component-System) components and systems for building games with the NanoForge engine. Each component/system is published as a module that can be installed individually via the NanoForge CLI (`nf install nf/position-2d`, `nf install nf/move-2d`, ...).
 
-## Stack technique
+## Tech Stack
 
-- **Langage** : TypeScript (strict, decorators activés, ESNext, module resolution "Bundler")
-- **Gestion de monorepo** : pnpm workspaces + pnpm catalogs (catégories `core`, `ci`, `lint`, `test` dans `pnpm-workspace.yaml`)
-- **Build** : `tsc -b` (project references)
-- **Tests** : Vitest (avec typecheck intégré via `tsconfig.spec.json` et coverage v8)
-- **Lint/format** : ESLint (config partagée `@nanoforge-dev/utils-eslint-config`) + Prettier (plugin de tri des imports `@trivago/prettier-plugin-sort-imports`)
-- **Git hooks** : Husky + lint-staged
-- **Commits** : convention Conventional Commits (commitlint)
-- **Changelog/release** : git-cliff
-- **Node** : v25 requis (`.nvmrc`, `engines.node` dans `package.json`), pnpm 11.9.0 (`packageManager`)
+- **Language**: TypeScript (strict, decorators enabled, ESNext, "Bundler" module resolution)
+- **Monorepo management**: pnpm workspaces + pnpm catalogs (`core`, `ci`, `lint`, `test` categories in `pnpm-workspace.yaml`)
+- **Build**: `tsc -b` (project references)
+- **Tests**: Vitest (with integrated typechecking via `tsconfig.spec.json` and v8 coverage)
+- **Lint/format**: ESLint (shared config `@nanoforge-dev/utils-eslint-config`) + Prettier (import-sorting plugin `@trivago/prettier-plugin-sort-imports`)
+- **Git hooks**: Husky + lint-staged
+- **Commits**: Conventional Commits convention (commitlint)
+- **Changelog/release**: git-cliff
+- **Node**: v25 required (`.nvmrc`, `engines.node` in `package.json`), pnpm 11.9.0 (`packageManager`)
 
-### Dépendances NanoForge déclarées
+### Declared NanoForge dependencies
 
-Dépendances externes déclarées en devDependencies, résolues via le catalog pnpm `core` (versions centralisées dans `pnpm-workspace.yaml`) :
+External dependencies declared as devDependencies, resolved via the pnpm `core` catalog (versions centralized in `pnpm-workspace.yaml`):
 
 - `@nanoforge-dev/common`
 - `@nanoforge-dev/ecs-lib`
@@ -28,54 +28,54 @@ Dépendances externes déclarées en devDependencies, résolues via le catalog p
 - `@nanoforge-dev/network-client`
 - `@nanoforge-dev/network-server`
 
-`@nanoforge-dev/actions` est déclaré via le catalog `ci`.
+`@nanoforge-dev/actions` is declared via the `ci` catalog.
 
-## Structure du projet
+## Project Structure
 
 ```
 components-systems/
-├── packages/                          # 31 packages, un par composant ou système
+├── packages/                          # 31 packages, one per component or system
 │   ├── nf-position-2d.component/
-│   │   ├── index.ts                   # classe du composant + export par défaut + EDITOR_COMPONENT_MANIFEST
-│   │   └── nanoforge.manifest.json    # métadonnées (nom "nf/...", type, description, tags)
+│   │   ├── index.ts                   # component class + default export + EDITOR_COMPONENT_MANIFEST
+│   │   └── nanoforge.manifest.json    # metadata (name "nf/...", type, description, tags)
 │   ├── nf-velocity-2d.component/
 │   ├── nf-move-2d.system/
-│   │   ├── index.ts                   # fonction système + EDITOR_SYSTEM_MANIFEST
-│   │   └── nanoforge.manifest.json    # dépendances vers d'autres composants/systèmes
+│   │   ├── index.ts                   # system function + EDITOR_SYSTEM_MANIFEST
+│   │   └── nanoforge.manifest.json    # dependencies on other components/systems
 │   ├── nf-collision-2d.system/
-│   └── ... (autres composants/systems : health, hitbox, gravity, damage, drawable, etc.)
+│   └── ... (other components/systems: health, hitbox, gravity, damage, drawable, etc.)
 ├── test/
-│   └── systems.spec.ts                # tests Vitest
+│   └── systems.spec.ts                # Vitest tests
 ├── .github/workflows/                 # tests.yml, release.yml, pr-triage.yml, issue-triage.yml, label-sync.yml
-├── tsconfig.json                      # paths @components/* et @systems/* -> ./packages/*
+├── tsconfig.json                      # @components/* and @systems/* paths -> ./packages/*
 ├── vitest.config.ts
-├── pnpm-workspace.yaml                # catalogs de dépendances partagées
+├── pnpm-workspace.yaml                # shared dependency catalogs
 └── package.json
 ```
 
-Chaque package suit un schéma de nommage `nf-<nom>.component` ou `nf-<nom>.system`, sans `package.json` propre : ce sont de simples dossiers avec un `index.ts` et un `nanoforge.manifest.json`, consommés directement par l'outillage NanoForge (CLI/éditeur) plutôt que publiés individuellement sur npm.
+Each package follows an `nf-<name>.component` or `nf-<name>.system` naming scheme, with no `package.json` of its own: they are plain folders containing an `index.ts` and a `nanoforge.manifest.json`, consumed directly by the NanoForge tooling (CLI/editor) rather than published individually to npm.
 
-### Pattern composant (`*.component`)
+### Component pattern (`*.component`)
 
-Une classe simple portant des données, avec :
-- `export default NomDeClasse.name;` (requis pour la génération de code)
-- `export const EDITOR_COMPONENT_MANIFEST` (typé `EditorComponentManifest` depuis `@nanoforge-dev/ecs-lib`) décrivant les paramètres pour l'éditeur visuel (type, nom, description, exemple, valeur par défaut)
+A simple data-holding class, with:
+- `export default ClassName.name;` (required for code generation)
+- `export const EDITOR_COMPONENT_MANIFEST` (typed as `EditorComponentManifest` from `@nanoforge-dev/ecs-lib`) describing the parameters for the visual editor (type, name, description, example, default value)
 
-Exemple (`nf-position-2d.component`) : une classe `Position2D { x: number; y: number }`.
+Example (`nf-position-2d.component`): a `Position2D { x: number; y: number }` class.
 
-### Pattern système (`*.system`)
+### System pattern (`*.system`)
 
-Une fonction pure `(registry: Registry, ctx?: Context) => void` qui récupère les entités via `registry.getZipper([...Components])` ou `getIndexedZipper`, puis mute leurs composants. Accompagnée de :
-- `export default nomFonction.name;`
-- `export const EDITOR_SYSTEM_MANIFEST` (typé `EditorSystemManifest` depuis `@nanoforge-dev/ecs-lib`) listant les dépendances (noms de composants requis)
+A pure function `(registry: Registry, ctx?: Context) => void` that retrieves entities via `registry.getZipper([...Components])` or `getIndexedZipper`, then mutates their components. Accompanied by:
+- `export default functionName.name;`
+- `export const EDITOR_SYSTEM_MANIFEST` (typed as `EditorSystemManifest` from `@nanoforge-dev/ecs-lib`) listing the dependencies (names of required components)
 
-Exemple (`nf-move-2d.system`) : met à jour `Position2D` à partir de `Velocity2D` et du delta-temps (`ctx.app.delta`).
+Example (`nf-move-2d.system`): updates `Position2D` from `Velocity2D` and the delta-time (`ctx.app.delta`).
 
-Chaque package possède aussi un `nanoforge.manifest.json` au format `{ name: "nf/<slug>", type: "component"|"system", description, tags, dependencies? }` qui sert à la CLI/registry NanoForge pour l'installation et la résolution de dépendances.
+Each package also has a `nanoforge.manifest.json` in the format `{ name: "nf/<slug>", type: "component"|"system", description, tags, dependencies? }`, used by the NanoForge CLI/registry for installation and dependency resolution.
 
-## Commandes principales
+## Main Commands
 
-- `pnpm run build` → `tsc -b` (build incrémental via project references)
+- `pnpm run build` → `tsc -b` (incremental build via project references)
 - `pnpm run test` (= `test:unit`) → `vitest run --config vitest.config.ts`
 - `pnpm run lint` → `prettier --check .` + `eslint --format=pretty packages`
 - `pnpm run format` → `prettier --write .` + `eslint --fix --format=pretty packages`
@@ -83,9 +83,9 @@ Chaque package possède aussi un `nanoforge.manifest.json` au format `{ name: "n
 
 ## Conventions
 
-- Imports utilisant les alias `@components/*` et `@systems/*`, tous deux mappés vers `./packages/*` dans `tsconfig.json` et `vitest.config.ts`.
-- Les composants/systèmes utilisés en interne (autres systèmes du même repo) s'importent via des chemins relatifs du type `../components/nf-position-2d.component` (chemin littéral utilisé dans les systèmes, ex. `nf-move-2d.system`, `nf-gravity-2d.system`, `nf-collision-2d.system`).
-- Les tests (`test/systems.spec.ts`) importent via les alias `@systems/...`.
-- Tags de catégorisation dans les manifests (ex. `"base"`, `"mouvement"`) pour le classement dans la CLI/registry/éditeur.
-- Dépendances entre systèmes et composants déclarées explicitement dans `nanoforge.manifest.json` (champ `dependencies`), reflet des imports TypeScript réels.
-- Convention de commit imposée par commitlint (Conventional Commits), vérifiée par un hook Husky.
+- Imports use the `@components/*` and `@systems/*` aliases, both mapped to `./packages/*` in `tsconfig.json` and `vitest.config.ts`.
+- Components/systems used internally (by other systems in the same repo) are imported via relative paths such as `../components/nf-position-2d.component` (the literal path used in systems, e.g. `nf-move-2d.system`, `nf-gravity-2d.system`, `nf-collision-2d.system`).
+- Tests (`test/systems.spec.ts`) import via the `@systems/...` aliases.
+- Categorization tags in the manifests (e.g. `"base"`, `"mouvement"`) for classification in the CLI/registry/editor.
+- Dependencies between systems and components are declared explicitly in `nanoforge.manifest.json` (the `dependencies` field), mirroring the actual TypeScript imports.
+- Commit convention enforced by commitlint (Conventional Commits), checked by a Husky hook.

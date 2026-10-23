@@ -1,111 +1,111 @@
 ---
 name: new-ecs-package
-description: Scaffold un nouveau composant ou system ECS dans ce repo (components-systems), en suivant exactement le pattern des packages existants. À utiliser quand l'utilisateur demande d'ajouter un nouveau composant ou system NanoForge dans ce repo.
+description: Scaffold a new ECS component or system in this repo (components-systems), following exactly the pattern of existing packages. Use when the user asks to add a new NanoForge component or system in this repo.
 ---
 
-# Nouveau composant / system ECS
+# New ECS component / system
 
-Chaque package de `packages/` est un simple dossier (pas de `package.json` propre) contenant `index.ts` + `nanoforge.manifest.json`. Aucune étape d'enregistrement centralisé n'est nécessaire : `tsconfig.json`/`vitest.config.ts` mappent déjà `@components/*` et `@systems/*` vers `./packages/*`, et `tsconfig.json` inclut `packages/**/*.ts` — un nouveau dossier est automatiquement pris en compte.
+Each package under `packages/` is a plain folder (no `package.json` of its own) containing `index.ts` + `nanoforge.manifest.json`. No centralized registration step is needed: `tsconfig.json`/`vitest.config.ts` already map `@components/*` and `@systems/*` to `./packages/*`, and `tsconfig.json` includes `packages/**/*.ts` — a new folder is automatically picked up.
 
-Avant de créer un package, vérifier qu'il n'existe pas déjà sous un nom proche (`ls packages/ | grep -i <mot-clé>`).
+Before creating a package, check that one doesn't already exist under a similar name (`ls packages/ | grep -i <keyword>`).
 
-## Composant (`*.component`)
+## Component (`*.component`)
 
-Dossier `packages/nf-<nom-kebab>.component/`, fichier `index.ts` :
+Folder `packages/nf-<kebab-name>.component/`, `index.ts` file:
 
 ```ts
 import { type EditorComponentManifest } from "@nanoforge-dev/ecs-lib";
 
-export class NomDeClasse {
+export class ClassName {
   name = this.constructor.name;
 
   constructor(
-    public champA: number,
-    public champB: number,
+    public fieldA: number,
+    public fieldB: number,
   ) {}
 }
 
 // * Required to generate code
-export default NomDeClasse.name;
+export default ClassName.name;
 
 // * Required for the editor to display the component and generate code
 export const EDITOR_COMPONENT_MANIFEST: EditorComponentManifest = {
-  name: "NomDeClasse",
-  description: "<description courte, à la 3e personne, en anglais comme les autres manifests>",
+  name: "ClassName",
+  description: "<short description, third person, in English like the other manifests>",
   params: [
     {
       type: "number",
-      name: "champA",
-      description: "<description du champ>",
+      name: "fieldA",
+      description: "<field description>",
       example: 0,
       default: 0,
     },
-    // un objet par champ du constructeur
+    // one object per constructor field
   ],
 };
 ```
 
-Et `nanoforge.manifest.json` à côté :
+And `nanoforge.manifest.json` alongside it:
 
 ```json
 {
-  "name": "nf/<nom-kebab>",
+  "name": "nf/<kebab-name>",
   "type": "component",
-  "description": "<même description>",
+  "description": "<same description>",
   "tags": ["<tag1>", "<tag2>"]
 }
 ```
 
-Référence réelle : `packages/nf-position-2d.component/`.
+Real reference: `packages/nf-position-2d.component/`.
 
 ## System (`*.system`)
 
-Dossier `packages/nf-<nom-kebab>.system/`, fichier `index.ts` :
+Folder `packages/nf-<kebab-name>.system/`, `index.ts` file:
 
 ```ts
 import { type Context } from "@nanoforge-dev/common";
 import { type EditorSystemManifest, type Registry } from "@nanoforge-dev/ecs-lib";
 
-import { ComposantA } from "../components/nf-composant-a.component";
-import { ComposantB } from "../components/nf-composant-b.component";
+import { ComponentA } from "../components/nf-component-a.component";
+import { ComponentB } from "../components/nf-component-b.component";
 
-export function nomFonction(registry: Registry, ctx: Context) {
-  const entities = registry.getZipper([ComposantA, ComposantB]);
+export function functionName(registry: Registry, ctx: Context) {
+  const entities = registry.getZipper([ComponentA, ComponentB]);
 
-  entities.forEach(({ ComposantA, ComposantB }) => {
-    // logique du system
+  entities.forEach(({ ComponentA, ComponentB }) => {
+    // system logic
   });
 }
 
 // * Required to generate code
-export default nomFonction.name;
+export default functionName.name;
 
 // * Required for the editor to display the system and generate code
 export const EDITOR_SYSTEM_MANIFEST: EditorSystemManifest = {
-  name: "nomFonction",
-  description: "<description courte>",
-  dependencies: ["ComposantA", "ComposantB"],
+  name: "functionName",
+  description: "<short description>",
+  dependencies: ["ComponentA", "ComponentB"],
 };
 ```
 
-Note : l'import des composants utilisés se fait en chemin relatif (`../components/nf-xxx.component`), pas via l'alias `@components/*` — c'est la convention observée dans tous les systems existants (ex. `nf-move-2d.system`).
+Note: the components used are imported via a relative path (`../components/nf-xxx.component`), not via the `@components/*` alias — this is the convention observed in all existing systems (e.g. `nf-move-2d.system`).
 
-Et `nanoforge.manifest.json` :
+And `nanoforge.manifest.json`:
 
 ```json
 {
-  "name": "nf/<nom-kebab>",
+  "name": "nf/<kebab-name>",
   "type": "system",
-  "description": "<même description>",
+  "description": "<same description>",
   "tags": ["<tag1>", "<tag2>"],
-  "dependencies": ["nf/<composant-a>", "nf/<composant-b>"]
+  "dependencies": ["nf/<component-a>", "nf/<component-b>"]
 }
 ```
 
-Référence réelle : `packages/nf-move-2d.system/`.
+Real reference: `packages/nf-move-2d.system/`.
 
-## Après la création
+## After creation
 
-1. Proposer d'ajouter un test dans `test/systems.spec.ts` (import via l'alias `@systems/nf-<nom>.system`), sans l'imposer — c'est un fichier partagé entre tous les systems, à éditer avec attention pour ne pas casser les tests existants.
-2. Lancer `pnpm run lint` et `pnpm run build` pour valider que le nouveau package compile et respecte les règles ESLint/Prettier du repo avant de proposer un commit.
-3. Ne jamais publier ou modifier `pnpm-workspace.yaml` dans le cadre de ce skill — l'ajout d'un composant/system ne nécessite aucune dépendance supplémentaire au-delà de celles déjà présentes dans le catalog `core`.
+1. Suggest adding a test in `test/systems.spec.ts` (imported via the `@systems/nf-<name>.system` alias), without forcing it — it's a file shared across all systems, to be edited carefully so as not to break existing tests.
+2. Run `pnpm run lint` and `pnpm run build` to verify that the new package compiles and complies with the repo's ESLint/Prettier rules before proposing a commit.
+3. Never publish or modify `pnpm-workspace.yaml` as part of this skill — adding a component/system requires no additional dependency beyond those already present in the `core` catalog.
