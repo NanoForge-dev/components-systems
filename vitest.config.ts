@@ -34,14 +34,7 @@ export default defineConfig({
       enabled: true,
       reporter: ["text", "lcov", "cobertura"],
       provider: "v8",
-      include: ["packages"],
-      exclude: [
-        "**/*.{interface,type,d}.ts",
-        "**/{interfaces,types}/*.ts",
-        "packages/index.{js,ts}",
-        "**/exports/*.{js,ts}",
-        "packages/**/*.json",
-      ],
+      include: ["packages/**/*.ts"],
     },
   },
 });

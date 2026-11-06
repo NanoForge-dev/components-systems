@@ -144,6 +144,21 @@ describe("physics-2d", () => {
     expect(velocity.x).toBe(0);
   });
 
+  it("a ceiling stops a rigid body jumping into it", () => {
+    const position = new Position2D(0, 25);
+    const velocity = new Velocity2D(0, -100);
+    const body = new RigidBody2D(0);
+    spawn(position, velocity, new HitboxRect2D(10, 10), body);
+    spawn(new Position2D(-50, 10), new HitboxRect2D(200, 10), new StaticBody2D());
+    world();
+
+    run(frame(100));
+
+    expect(position.y).toBe(20);
+    expect(velocity.y).toBe(0);
+    expect(body.grounded).toBe(false);
+  });
+
   it("a one-way platform lets a rigid body through from below", () => {
     const position = new Position2D(0, 25);
     const velocity = new Velocity2D(0, -100);
