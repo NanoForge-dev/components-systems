@@ -5,7 +5,6 @@ catalogs:
   ci:
     '@commitlint/cli': ^21.2.0
     '@commitlint/config-conventional': ^21.2.0
-    '@nanoforge-dev/actions': ^2.1.5
     husky: ^9.1.7
     lint-staged: ^17.0.8
   core:
@@ -30,3 +29,7 @@ catalogs:
   test:
     '@vitest/coverage-v8': ^4.1.9
     vitest: ^4.1.9
+
+overrides:
+  tinypool: ^2.1.2
+  vite: ^8.1.6
