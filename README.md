@@ -16,16 +16,41 @@
 
 ## About
 
-`@nanoforge-dev/components-systems` is a package containing a collection of generical component and system to create games.
+`components-systems` holds NanoForge's official component and system packages for the editor, made
+for [Engine v2](https://github.com/NanoForge-dev/engine). Each folder of [`packages`](packages) is one
+package of the registry:
+
+| Package                                          | Side   | What it gives                                                    |
+| ------------------------------------------------ | ------ | ---------------------------------------------------------------- |
+| [`@nanoforge/basics`](packages/basics)           | shared | `Position2D`, `Velocity2D`, `Acceleration2D` and `move2D`        |
+| [`@nanoforge/graphics-2d`](packages/graphics-2d) | client | Rectangles, circles and texts with a color or an image, `draw2D` |
+| [`@nanoforge/physics-2d`](packages/physics-2d)   | shared | Hitboxes, collisions, gravity, walls and platforms               |
+| [`@nanoforge/controls-2d`](packages/controls-2d) | client | Move and jump with the keyboard                                  |
+| [`@nanoforge/combat-2d`](packages/combat-2d)     | both   | Health, damage, bullets fired at the mouse                       |
+
+The packages to install in a new project are listed in [Default packages](docs/default-packages.md).
 
 ## Installation
 
-Nanoforge cli is required : (`npm install -g @nanoforge-dev/cli`)
+In the editor: **File › Packages…**, search for `@nanoforge/`, and install. A package installs the
+packages it depends on.
 
-```sh
-nf install nf/position-2d
-nf install nf/move-2d
-```
+## Writing a component or a system
+
+The editor reads everything from the code (TSDoc), there is no separate manifest per item:
+
+- a component is a class tagged `@component`, with a literal `name` equal to the class name, and
+  `public` constructor parameters with defaults: they are the fields of the inspector;
+- a system is a function `(registry, ctx)` tagged `@system`, that queries its components with
+  `registry.getZipper([A, B])`;
+- `@side client` for what uses graphics or input, `@side shared` for the rest;
+- `@group`, `@preset`, `@color`, `@asset` lay out the inspector (see the editor's _Components_ doc).
+
+Keep the parameters few and named for beginners, with what is less common in an `Advanced hidden`
+group. Everything else stays reachable from code (`shape` on drawables, `collisions` on hitboxes).
+
+A package imports another with its name and the path of a file in it:
+`import { Position2D } from "@nanoforge/basics/components/position-2d"`.
 
 ## Links
 

@@ -1,6 +1,0 @@
-{
-  "name": "nf/owner",
-  "type": "component",
-  "description": "Store the other entity that own this one",
-  "tags": ["base", "health"]
-}
