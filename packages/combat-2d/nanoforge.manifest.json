@@ -1,0 +1,24 @@
+{
+  "type": "package",
+  "name": "@nanoforge/combat-2d",
+  "version": "2.0.0",
+  "description": "Health, damage and shooting in 2D: entities that hurt, die, and fire bullets at the mouse.",
+  "keywords": ["combat", "2d", "health", "damage", "shoot", "bullet", "shooter"],
+  "license": "MIT",
+  "suggestedPlugins": ["@nanoforge/ecs"],
+  "dependencies": {
+    "@nanoforge/basics": "^2.0.0",
+    "@nanoforge/graphics-2d": "^2.0.0",
+    "@nanoforge/physics-2d": "^2.0.0"
+  },
+  "libDependencies": {
+    "@nanoforge-dev/common": "^2.0.0",
+    "@nanoforge-dev/ecs": "^2.0.0",
+    "@nanoforge-dev/graphics-2d": "^2.0.0",
+    "@nanoforge-dev/input": "^2.0.0"
+  },
+  "contents": [
+    { "kind": "@nanoforge/ecs:component", "path": "components/" },
+    { "kind": "@nanoforge/ecs:system", "path": "systems/" }
+  ]
+}

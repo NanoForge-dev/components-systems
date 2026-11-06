@@ -1,0 +1,19 @@
+{
+  "type": "package",
+  "name": "@nanoforge/controls-2d",
+  "version": "2.0.0",
+  "description": "Move and jump with the keyboard in 2D, for top-down games and platformers.",
+  "keywords": ["controls", "2d", "keyboard", "input", "player", "jump", "platformer"],
+  "license": "MIT",
+  "suggestedPlugins": ["@nanoforge/ecs"],
+  "dependencies": { "@nanoforge/basics": "^2.0.0", "@nanoforge/physics-2d": "^2.0.0" },
+  "libDependencies": {
+    "@nanoforge-dev/common": "^2.0.0",
+    "@nanoforge-dev/ecs": "^2.0.0",
+    "@nanoforge-dev/input": "^2.0.0"
+  },
+  "contents": [
+    { "kind": "@nanoforge/ecs:component", "path": "components/" },
+    { "kind": "@nanoforge/ecs:system", "path": "systems/" }
+  ]
+}

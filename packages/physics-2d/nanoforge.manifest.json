@@ -1,0 +1,15 @@
+{
+  "type": "package",
+  "name": "@nanoforge/physics-2d",
+  "version": "2.0.0",
+  "description": "Collisions, gravity and solid ground in 2D: hitboxes, rigid bodies and static bodies.",
+  "keywords": ["physics", "2d", "collision", "hitbox", "gravity", "platformer"],
+  "license": "MIT",
+  "suggestedPlugins": ["@nanoforge/ecs"],
+  "dependencies": { "@nanoforge/basics": "^2.0.0" },
+  "libDependencies": { "@nanoforge-dev/common": "^2.0.0", "@nanoforge-dev/ecs": "^2.0.0" },
+  "contents": [
+    { "kind": "@nanoforge/ecs:component", "path": "components/" },
+    { "kind": "@nanoforge/ecs:system", "path": "systems/" }
+  ]
+}
