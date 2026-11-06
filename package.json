@@ -43,7 +43,6 @@
   "devDependencies": {
     "@commitlint/cli": "catalog:ci",
     "@commitlint/config-conventional": "catalog:ci",
-    "@nanoforge-dev/actions": "catalog:ci",
     "@nanoforge-dev/common": "catalog:core",
     "@nanoforge-dev/ecs": "catalog:core",
     "@nanoforge-dev/graphics-2d": "catalog:core",
