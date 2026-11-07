@@ -45,8 +45,8 @@
     "target": "ESNext",
     "useDefineForClassFields": true,
     "paths": {
-      "@components/*": ["./packages/*"],
-      "@systems/*": ["./packages/*"]
+      // Same as in a project: an installed package is at `nf_modules/@nanoforge/<name>`.
+      "@nanoforge/*": ["./packages/*"]
     }
   },
   "include": ["packages/**/*.ts"],
