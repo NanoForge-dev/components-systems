@@ -1,111 +1,147 @@
 ---
 name: new-ecs-package
-description: Scaffold a new ECS component or system in this repo (components-systems), following exactly the pattern of existing packages. Use when the user asks to add a new NanoForge component or system in this repo.
+description: Add an ECS component or system to one of this repo's registry packages (packages/basics, combat-2d, controls-2d, graphics-2d, physics-2d), or create a new package for a new group, the way the existing ones are written. Use when asked to add a NanoForge component, system or package in components-systems.
 ---
 
-# New ECS component / system
+# New component, system or package
 
-Each package under `packages/` is a plain folder (no `package.json` of its own) containing `index.ts` + `nanoforge.manifest.json`. No centralized registration step is needed: `tsconfig.json`/`vitest.config.ts` already map `@components/*` and `@systems/*` to `./packages/*`, and `tsconfig.json` includes `packages/**/*.ts` — a new folder is automatically picked up.
+Read `AGENTS.md` first. Reference package: `packages/basics`.
 
-Before creating a package, check that one doesn't already exist under a similar name (`ls packages/ | grep -i <keyword>`).
+## 0. Pick the package
 
-## Component (`*.component`)
+- Check that the item doesn't exist: `grep -rn "class <Name>\|function <name>" packages`.
+- Put it in the package whose README matches what it does. A new package only for a new group of
+  items that a game would install together (like `controls-2d`).
+- An item may use another package's items only if that package doesn't already depend on this one
+  (`dependencies` in the manifests): `basics` ← `physics-2d` ← `controls-2d`, `combat-2d`.
 
-Folder `packages/nf-<kebab-name>.component/`, `index.ts` file:
+## 1. A component
+
+`packages/<pkg>/components/<kebab-name>.ts`, one class per file:
 
 ```ts
-import { type EditorComponentManifest } from "@nanoforge-dev/ecs-lib";
-
-export class ClassName {
-  name = this.constructor.name;
+/**
+ * <What it is, in one sentence. What else it needs: `OtherComponent`, the `someSystem` system.>
+ *
+ * @component
+ * @side shared
+ * @group Main color=#4aa3ff - <What these parameters set.>
+ * @group Advanced hidden - Less common settings.
+ */
+export class MyThing2D {
+  name = "MyThing2D";
 
   constructor(
-    public fieldA: number,
-    public fieldB: number,
+    /** <Unit and meaning.> @group Main */
+    public speed = 100,
+    /** <Unit and meaning.> @group Advanced */
+    public visible = true,
   ) {}
 }
-
-// * Required to generate code
-export default ClassName.name;
-
-// * Required for the editor to display the component and generate code
-export const EDITOR_COMPONENT_MANIFEST: EditorComponentManifest = {
-  name: "ClassName",
-  description: "<short description, third person, in English like the other manifests>",
-  params: [
-    {
-      type: "number",
-      name: "fieldA",
-      description: "<field description>",
-      example: 0,
-      default: 0,
-    },
-    // one object per constructor field
-  ],
-};
 ```
 
-And `nanoforge.manifest.json` alongside it:
+- `name` is a literal equal to the class name: the ECS registry keys on it.
+- Every constructor parameter is `public`, has a default and an inline doc: they are the
+  inspector's fields. A string literal union (`"both" | "horizontal"`) becomes a choice, an engine
+  enum (`InputEnum`) too.
+- `@side client` when it uses graphics or input, `shared` otherwise.
+- Layout tags: `@group <Name>` on each parameter, `@preset vector.x|vector.y|size.width|size.height|color`,
+  `@asset .png .jpg` for a file of the project's assets. Examples: `packages/basics/components/position-2d.ts`,
+  `packages/graphics-2d/components/drawable-rect-2d.ts`.
+- State a system writes at runtime (not set in the editor) is a field outside the constructor, with
+  its doc (`collisions` in `packages/physics-2d/components/hitbox-rect-2d.ts`).
 
-```json
-{
-  "name": "nf/<kebab-name>",
-  "type": "component",
-  "description": "<same description>",
-  "tags": ["<tag1>", "<tag2>"]
-}
-```
+## 2. A system
 
-Real reference: `packages/nf-position-2d.component/`.
-
-## System (`*.system`)
-
-Folder `packages/nf-<kebab-name>.system/`, `index.ts` file:
+`packages/<pkg>/systems/<kebab-name>.ts`, one function per file, written like the other 10 systems:
 
 ```ts
-import { type Context } from "@nanoforge-dev/common";
-import { type EditorSystemManifest, type Registry } from "@nanoforge-dev/ecs-lib";
+import type { Context } from "@nanoforge-dev/common";
+import type { Registry } from "@nanoforge-dev/ecs";
+import { Velocity2D } from "@nanoforge/basics/components/velocity-2d";
 
-import { ComponentA } from "../components/nf-component-a.component";
-import { ComponentB } from "../components/nf-component-b.component";
+import { MyThing2D } from "../components/my-thing-2d";
 
-export function functionName(registry: Registry, ctx: Context) {
-  const entities = registry.getZipper([ComponentA, ComponentB]);
+/**
+ * <What it does to which entities. Where it goes: before `move2D`, after `detectCollisions2D`...>
+ *
+ * @system
+ * @side shared
+ */
+export function myThing2D(registry: Registry, ctx: Context) {
+  const seconds = ctx.app.delta / 1000;
 
-  entities.forEach(({ ComponentA, ComponentB }) => {
-    // system logic
+  registry.getZipper([MyThing2D, Velocity2D]).forEach(({ MyThing2D, Velocity2D }) => {
+    Velocity2D.x += MyThing2D.speed * seconds;
   });
 }
-
-// * Required to generate code
-export default functionName.name;
-
-// * Required for the editor to display the system and generate code
-export const EDITOR_SYSTEM_MANIFEST: EditorSystemManifest = {
-  name: "functionName",
-  description: "<short description>",
-  dependencies: ["ComponentA", "ComponentB"],
-};
 ```
 
-Note: the components used are imported via a relative path (`../components/nf-xxx.component`), not via the `@components/*` alias — this is the convention observed in all existing systems (e.g. `nf-move-2d.system`).
+- Same package: relative import (`../components/…`). Other package: `@nanoforge/<pkg>/components/<file>`.
+- Drop `ctx` if unused (`noUnusedParameters`), like `detectCollisions2D(registry)`.
+- `ctx.app.delta` is in milliseconds.
+- Code shared by several items goes in a file at the package root (`collisions.ts`), as exported
+  arrow functions: every export under `components/` or `systems/` is read as an item.
 
-And `nanoforge.manifest.json`:
+## 3. Register it
+
+Nothing in code: the manifest's `contents` already points at `components/` and `systems/`, and
+`tsconfig.json` builds `packages/**/*.ts`. Update by hand:
+
+- `packages/<pkg>/README.md`: one line for the item (and with which system it works);
+- a new system: its place in _Order of the systems_ in `docs/default-packages.md`, and the order
+  line of the package README if it has one;
+- `packages/<pkg>/nanoforge.manifest.json`: only if the new code imports a package or an engine lib
+  not listed yet: `@nanoforge/<pkg>` in `dependencies` (`"^2.0.0"`), `@nanoforge-dev/<lib>` in
+  `libDependencies`. Never touch `version`: the release PR bumps it from the commits.
+
+## 4. A new package
+
+`packages/<new-name>/` (kebab-case, `-2d` suffix for 2D), with `components/`, `systems/`, a
+`README.md` and this `nanoforge.manifest.json` (no `version`: the first release makes it `1.0.0`):
 
 ```json
 {
-  "name": "nf/<kebab-name>",
-  "type": "system",
-  "description": "<same description>",
-  "tags": ["<tag1>", "<tag2>"],
-  "dependencies": ["nf/<component-a>", "nf/<component-b>"]
+  "type": "package",
+  "name": "@nanoforge/<new-name>",
+  "description": "<What a game gets from it, in one sentence.>",
+  "keywords": ["<new-name>", "2d", "<keyword>"],
+  "license": "MIT",
+  "suggestedPlugins": ["@nanoforge/ecs"],
+  "dependencies": { "@nanoforge/basics": "^2.0.0" },
+  "libDependencies": { "@nanoforge-dev/common": "^2.0.0", "@nanoforge-dev/ecs": "^2.0.0" },
+  "contents": [
+    { "kind": "@nanoforge/ecs:component", "path": "components/" },
+    { "kind": "@nanoforge/ecs:system", "path": "systems/" }
+  ]
 }
 ```
 
-Real reference: `packages/nf-move-2d.system/`.
+- `dependencies`: the `@nanoforge/*` packages its files import, nothing else (drop the key if
+  none, like `basics`). Each must be a folder of `packages/`, or the release fails.
+- `libDependencies`: the `@nanoforge-dev/*` libs its files import, at the `core` catalog range.
+  A lib not in the `core` catalog is a new dependency: ask first.
+- README: `# @nanoforge/<new-name>`, then one line per item, like `packages/physics-2d/README.md`.
+- Add its row to the table of the root `README.md` (and of `AGENTS.md`), and to
+  `docs/default-packages.md` if a kind of game should get it.
 
-## After creation
+## 5. Test it
 
-1. Suggest adding a test in `test/systems.spec.ts` (imported via the `@systems/nf-<name>.system` alias), without forcing it — it's a file shared across all systems, to be edited carefully so as not to break existing tests.
-2. Run `pnpm run lint` and `pnpm run build` to verify that the new package compiles and complies with the repo's ESLint/Prettier rules before proposing a commit.
-3. Never publish or modify `pnpm-workspace.yaml` as part of this skill — adding a component/system requires no additional dependency beyond those already present in the `core` catalog.
+The 70% coverage thresholds cover every `packages/**/*.ts`: a new item comes with a test.
+
+- A system: in `test/systems.spec.ts`, in the `describe` of its package (add one for a new
+  package). Spawn entities with `spawn(...)`, `registry.addSystem(mySystem)`, `run(frame(ms))`,
+  then check the components. Held keys go in `keys`, the mouse in `mouse`.
+- A graphics item: in `test/graphics.spec.ts`, which stubs `document` and uses `fakeLayer()`.
+- Import with the alias: `@nanoforge/<pkg>/systems/<file>`.
+
+## 6. Check and commit
+
+```sh
+pnpm run format && pnpm run build && pnpm run lint && pnpm run test
+```
+
+`format` first: prettier realigns the README tables and wraps long lines, which a hand edit rarely
+gets right. Commit with the package as scope and the type that sets
+the release bump: `feat(<pkg>): add <item>` (minor), `fix(<pkg>): …` (patch). Never publish, and
+never edit `pnpm-workspace.yaml` for an item.
