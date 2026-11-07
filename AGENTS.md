@@ -64,7 +64,9 @@ editor reads each item from its `.ts` file (NanoForge-dev/editor
 - **Component:** a class tagged `@component`, with a field `name = "<ClassName>"` (the ECS registry
   keys on it) and `public` constructor parameters with defaults. The parameters are the fields of
   the editor's inspector; their types and defaults are read from the code.
-- **System:** `export function <camelName>(registry: Registry, ctx: Context)` tagged `@system`.
+- **System:** `export const <camelName> = (registry: Registry, ctx: Context) => …` tagged `@system`
+  (new code uses arrow functions; the systems already on main are `export function`, and the editor
+  reads both).
   Drop `ctx` when the system doesn't use it (`detectCollisions2D`). Queries go through
   `registry.getZipper([A, B])`; the editor infers them, and the `ctx.<lib>` it uses.
 - **`@side`:** `client` for what uses graphics or input, `shared` for the rest (`server` exists too,
@@ -119,6 +121,9 @@ The registry release runs from CI (`nanoforge-dev/actions` v3), never by hand:
    `version` of each manifest from the conventional commits that touched its folder since its last
    release (`feat` minor, `fix`/`perf` patch, `!` or `BREAKING CHANGE` major; `docs`, `chore` none);
 2. merge its `nf-releases/*` PR: `nf-registry-release.yml` publishes what it bumped.
+
+Both steps are a maintainer's action: an agent never dispatches the workflow or merges the PR, it
+tells the user.
 
 So never edit a `version` by hand. A new package's manifest has no `version`: its first release is
 `1.0.0`. Every `dependencies` entry must be a package of `packages/`, or the release fails.

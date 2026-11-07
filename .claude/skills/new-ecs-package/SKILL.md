@@ -9,7 +9,7 @@ Read `AGENTS.md` first. Reference package: `packages/basics`.
 
 ## 0. Pick the package
 
-- Check that the item doesn't exist: `grep -rn "class <Name>\|function <name>" packages`.
+- Check that the item doesn't exist: `grep -rn "class <Name>\|function <name>\|const <name> =" packages`.
 - Put it in the package whose README matches what it does. A new package only for a new group of
   items that a game would install together (like `controls-2d`).
 - An item may use another package's items only if that package doesn't already depend on this one
@@ -53,7 +53,8 @@ export class MyThing2D {
 
 ## 2. A system
 
-`packages/<pkg>/systems/<kebab-name>.ts`, one function per file, written like the other 10 systems:
+`packages/<pkg>/systems/<kebab-name>.ts`, one arrow function per file (team rule, workspace ADR 0009; the systems already on main predate
+it and stay as they are):
 
 ```ts
 import type { Context } from "@nanoforge-dev/common";
@@ -68,13 +69,13 @@ import { MyThing2D } from "../components/my-thing-2d";
  * @system
  * @side shared
  */
-export function myThing2D(registry: Registry, ctx: Context) {
+export const myThing2D = (registry: Registry, ctx: Context) => {
   const seconds = ctx.app.delta / 1000;
 
   registry.getZipper([MyThing2D, Velocity2D]).forEach(({ MyThing2D, Velocity2D }) => {
     Velocity2D.x += MyThing2D.speed * seconds;
   });
-}
+};
 ```
 
 - Same package: relative import (`../components/…`). Other package: `@nanoforge/<pkg>/components/<file>`.
