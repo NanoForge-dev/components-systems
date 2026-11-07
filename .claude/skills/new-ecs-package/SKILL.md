@@ -9,11 +9,13 @@ Read `AGENTS.md` first. Reference package: `packages/basics`.
 
 ## 0. Pick the package
 
-- Check that the item doesn't exist: `grep -rn "class <Name>\|function <name>\|const <name> =" packages`.
+- Check that the item doesn't exist:
+  `grep -rn "class <Name>\|function <name>\|const <name> =" packages`.
 - Put it in the package whose README matches what it does. A new package only for a new group of
   items that a game would install together (like `controls-2d`).
 - An item may use another package's items only if that package doesn't already depend on this one
-  (`dependencies` in the manifests): `basics` ← `physics-2d` ← `controls-2d`, `combat-2d`.
+  (`dependencies` in the manifests): `physics-2d` and `graphics-2d` depend on `basics`;
+  `controls-2d` on `basics`, `physics-2d`; `combat-2d` on `basics`, `graphics-2d`, `physics-2d`.
 
 ## 1. A component
 
@@ -41,20 +43,22 @@ export class MyThing2D {
 ```
 
 - `name` is a literal equal to the class name: the ECS registry keys on it.
-- Every constructor parameter is `public`, has a default and an inline doc: they are the
-  inspector's fields. A string literal union (`"both" | "horizontal"`) becomes a choice, an engine
-  enum (`InputEnum`) too.
+- Every constructor parameter is `public` and has a default: they are the inspector's fields. Give
+  each an inline doc, at least its `@group` (`MoveController2D` has only that on its keys). A string
+  literal union (`"both" | "horizontal"`) becomes a choice, an engine enum (`InputEnum`) too.
 - `@side client` when it uses graphics or input, `shared` otherwise.
-- Layout tags: `@group <Name>` on each parameter, `@preset vector.x|vector.y|size.width|size.height|color`,
-  `@asset .png .jpg` for a file of the project's assets. Examples: `packages/basics/components/position-2d.ts`,
+- Layout tags: `@group <Name>` on each parameter,
+  `@preset vector.x|vector.y|size.width|size.height|color`, `@asset .png .jpg` for a file of the
+  project's assets, `@label <text>`, `@color <css>`, `@hidden`. Examples:
+  `packages/basics/components/position-2d.ts`,
   `packages/graphics-2d/components/drawable-rect-2d.ts`.
 - State a system writes at runtime (not set in the editor) is a field outside the constructor, with
   its doc (`collisions` in `packages/physics-2d/components/hitbox-rect-2d.ts`).
 
 ## 2. A system
 
-`packages/<pkg>/systems/<kebab-name>.ts`, one arrow function per file (team rule, workspace ADR 0009; the systems already on main predate
-it and stay as they are):
+`packages/<pkg>/systems/<kebab-name>.ts`, one arrow function per file. New code uses arrow
+functions; the systems already on main are `export function`, and stay as they are:
 
 ```ts
 import type { Context } from "@nanoforge-dev/common";
@@ -78,9 +82,14 @@ export const myThing2D = (registry: Registry, ctx: Context) => {
 };
 ```
 
-- Same package: relative import (`../components/…`). Other package: `@nanoforge/<pkg>/components/<file>`.
+- Same package: relative import (`../components/…`). Other package:
+  `@nanoforge/<pkg>/components/<file>`.
 - Drop `ctx` if unused (`noUnusedParameters`), like `detectCollisions2D(registry)`.
 - `ctx.app.delta` is in milliseconds.
+- A system that reads `ctx.input` or `ctx.graphics` also has a bare `import "@nanoforge-dev/input";`
+  or `import "@nanoforge-dev/graphics-2d";`: it brings in their `Context` types, and the editor
+  reads the libs an item requires from its imports (`controls-2d/systems/move-control-2d.ts`,
+  `graphics-2d/systems/draw-2d.ts`).
 - Code shared by several items goes in a file at the package root (`collisions.ts`), as exported
   arrow functions: every export under `components/` or `systems/` is read as an item.
 
@@ -93,8 +102,10 @@ Nothing in code: the manifest's `contents` already points at `components/` and `
 - a new system: its place in _Order of the systems_ in `docs/default-packages.md`, and the order
   line of the package README if it has one;
 - `packages/<pkg>/nanoforge.manifest.json`: only if the new code imports a package or an engine lib
-  not listed yet: `@nanoforge/<pkg>` in `dependencies` (`"^2.0.0"`), `@nanoforge-dev/<lib>` in
-  `libDependencies`. Never touch `version`: the release PR bumps it from the commits.
+  not listed yet: `@nanoforge/<pkg>` in `dependencies`, at the dependency's current major
+  (`^<its manifest major>.0.0`); `^1.0.0` for a package never released; `@nanoforge-dev/<lib>` in
+  `libDependencies`, at its `core` catalog range. Never touch `version`: the release PR bumps it
+  from the commits.
 
 ## 4. A new package
 
@@ -118,10 +129,11 @@ Nothing in code: the manifest's `contents` already points at `components/` and `
 }
 ```
 
-- `dependencies`: the `@nanoforge/*` packages its files import, nothing else (drop the key if
-  none, like `basics`). Each must be a folder of `packages/`, or the release fails.
-- `libDependencies`: the `@nanoforge-dev/*` libs its files import, at the `core` catalog range.
-  A lib not in the `core` catalog is a new dependency: ask first.
+- `dependencies`: the `@nanoforge/*` packages its files import, nothing else (drop the key if none,
+  like `basics`), each at the dependency's current major (`^<its manifest major>.0.0`); `^1.0.0` for
+  a package never released. Each must be a folder of `packages/`, or the release fails.
+- `libDependencies`: the `@nanoforge-dev/*` libs its files import, at the `core` catalog range. A
+  lib not in the `core` catalog is a new dependency: ask first.
 - README: `# @nanoforge/<new-name>`, then one line per item, like `packages/physics-2d/README.md`.
 - Add its row to the table of the root `README.md` (and of `AGENTS.md`), and to
   `docs/default-packages.md` if a kind of game should get it.
@@ -130,9 +142,9 @@ Nothing in code: the manifest's `contents` already points at `components/` and `
 
 The 70% coverage thresholds cover every `packages/**/*.ts`: a new item comes with a test.
 
-- A system: in `test/systems.spec.ts`, in the `describe` of its package (add one for a new
-  package). Spawn entities with `spawn(...)`, `registry.addSystem(mySystem)`, `run(frame(ms))`,
-  then check the components. Held keys go in `keys`, the mouse in `mouse`.
+- A system: in `test/systems.spec.ts`, in the `describe` of its package (add one for a new package).
+  Spawn entities with `spawn(...)`, `registry.addSystem(mySystem)`, `run(frame(ms))`, then check the
+  components. Held keys go in `keys`, the mouse in `mouse`.
 - A graphics item: in `test/graphics.spec.ts`, which stubs `document` and uses `fakeLayer()`.
 - Import with the alias: `@nanoforge/<pkg>/systems/<file>`.
 
@@ -143,6 +155,6 @@ pnpm run format && pnpm run build && pnpm run lint && pnpm run test
 ```
 
 `format` first: prettier realigns the README tables and wraps long lines, which a hand edit rarely
-gets right. Commit with the package as scope and the type that sets
-the release bump: `feat(<pkg>): add <item>` (minor), `fix(<pkg>): …` (patch). Never publish, and
-never edit `pnpm-workspace.yaml` for an item.
+gets right. Commit with the package as scope and the type that sets the release bump:
+`feat(<pkg>): add <item>` (minor), `fix(<pkg>): …` (patch). Never publish, and never edit
+`pnpm-workspace.yaml` for an item.

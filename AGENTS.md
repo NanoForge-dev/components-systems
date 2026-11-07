@@ -66,18 +66,19 @@ editor reads each item from its `.ts` file (NanoForge-dev/editor
   the editor's inspector; their types and defaults are read from the code.
 - **System:** `export const <camelName> = (registry: Registry, ctx: Context) => …` tagged `@system`
   (new code uses arrow functions; the systems already on main are `export function`, and the editor
-  reads both).
-  Drop `ctx` when the system doesn't use it (`detectCollisions2D`). Queries go through
+  reads both). Drop `ctx` when the system doesn't use it (`detectCollisions2D`). Queries go through
   `registry.getZipper([A, B])`; the editor infers them, and the `ctx.<lib>` it uses.
 - **`@side`:** `client` for what uses graphics or input, `shared` for the rest (`server` exists too,
   unused here). Default `shared`.
 - **Docs:** the summary says what it does and what it needs (other components, the system to add);
-  `@remarks` and `@example` add detail. Each constructor parameter has an inline `/** … */` doc.
+  `@remarks` and `@example` add detail. Constructor parameters have an inline `/** … */` doc, at
+  least their `@group` (`MoveController2D`'s keys have only that).
 - **Inspector layout:** on the class, `@group <Name> [color=<css>] [hidden] - <description>`; on a
   parameter, `@group <Name>`, `@preset vector.x|vector.y|size.width|size.height|color`,
-  `@asset .png .jpg …` for a project file. Less common parameters go in `@group Advanced hidden`.
-- Every export of a file under `components/` or `systems/` is an item: shared code goes in a file
-  at the package root (`packages/physics-2d/collisions.ts`), exported as arrow functions.
+  `@asset .png .jpg …` for a project file, `@label <text>`, `@color <css>`, `@hidden`. Less common
+  parameters go in `@group Advanced hidden`.
+- Every export of a file under `components/` or `systems/` is an item: shared code goes in a file at
+  the package root (`packages/physics-2d/collisions.ts`), exported as arrow functions.
 
 ## Imports and dependencies
 
@@ -86,10 +87,16 @@ editor reads each item from its `.ts` file (NanoForge-dev/editor
   (`tsconfig.json` `paths`, `vitest.config.ts` `resolve.alias`):
   `import { Position2D } from "@nanoforge/basics/components/position-2d"`. A project resolves the
   same path in `nf_modules/@nanoforge/<name>`.
-- Engine libs: `import type { Registry } from "@nanoforge-dev/ecs"`, `type` when only types are used.
+- Engine libs: `import type { Registry } from "@nanoforge-dev/ecs"`, `type` when only types are
+  used.
+- A system that reads `ctx.input` or `ctx.graphics` has a bare `import "@nanoforge-dev/input";` or
+  `import "@nanoforge-dev/graphics-2d";` (`move-control-2d.ts`, `draw-2d.ts`): it adds their fields
+  to `Context`, and the editor reads an item's required libs from its imports.
 - `nanoforge.manifest.json` mirrors the imports: each `@nanoforge/<pkg>` used goes in `dependencies`
-  (`{ "@nanoforge/basics": "^2.0.0" }`), each engine lib in `libDependencies`. `combat-2d` also lists
-  `@nanoforge-dev/graphics-2d`, which it uses through `DrawableCircle2D`.
+  at the dependency's current major (`^<its manifest major>.0.0`); `^1.0.0` for a package never
+  released (`{ "@nanoforge/basics": "^2.0.0" }`), each engine lib in `libDependencies` at its `core`
+  catalog range. `combat-2d` also lists `@nanoforge-dev/graphics-2d`, which it uses through
+  `DrawableCircle2D`.
 
 ## Registering a new item
 
@@ -117,9 +124,9 @@ The skill `.claude/skills/new-ecs-package` walks through it.
 
 The registry release runs from CI (`nanoforge-dev/actions` v3), never by hand:
 
-1. dispatch **NanoForge Registry Release PR** (`nf-registry-release-pr.yml`): it bumps the
-   `version` of each manifest from the conventional commits that touched its folder since its last
-   release (`feat` minor, `fix`/`perf` patch, `!` or `BREAKING CHANGE` major; `docs`, `chore` none);
+1. dispatch **NanoForge Registry Release PR** (`nf-registry-release-pr.yml`): it bumps the `version`
+   of each manifest from the conventional commits that touched its folder since its last release
+   (`feat` minor, `fix`/`perf` patch, `!` or `BREAKING CHANGE` major; `docs`, `chore` none);
 2. merge its `nf-releases/*` PR: `nf-registry-release.yml` publishes what it bumped.
 
 Both steps are a maintainer's action: an agent never dispatches the workflow or merges the PR, it
@@ -134,5 +141,5 @@ So never edit a `version` by hand. A new package's manifest has no `version`: it
   (`Velocity2D`), systems in camelCase (`move2D`).
 - Systems run every frame: query only the components they need.
 - Commits: conventional commits (`@commitlint/config-conventional`), lowercase subject, the package
-  as scope when the change is in one (`feat(physics-2d): …`). The commit type sets the release
-  bump. Never `--no-verify`.
+  as scope when the change is in one (`feat(physics-2d): …`). The commit type sets the release bump.
+  Never `--no-verify`.
