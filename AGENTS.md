@@ -93,8 +93,8 @@ editor reads each item from its `.ts` file (NanoForge-dev/editor
   `import "@nanoforge-dev/graphics-2d";` (`move-control-2d.ts`, `draw-2d.ts`): it adds their fields
   to `Context`, and the editor reads an item's required libs from its imports.
 - `nanoforge.manifest.json` mirrors the imports: each `@nanoforge/<pkg>` used goes in `dependencies`
-  at the dependency's current major (`^<its manifest major>.0.0`); `^1.0.0` for a package never
-  released (`{ "@nanoforge/basics": "^2.0.0" }`), each engine lib in `libDependencies` at its `core`
+  at the dependency's current major (`^<its manifest major>.0.0`, e.g.
+  `{ "@nanoforge/basics": "^2.0.0" }`; `^1.0.0` for a package never released), each engine lib in `libDependencies` at its `core`
   catalog range. `combat-2d` also lists `@nanoforge-dev/graphics-2d`, which it uses through
   `DrawableCircle2D`.
 
