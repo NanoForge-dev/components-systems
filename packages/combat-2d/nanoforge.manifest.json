@@ -7,7 +7,7 @@
   "license": "MIT",
   "suggestedPlugins": ["@nanoforge/ecs"],
   "dependencies": {
-    "@nanoforge/basics": "^2.0.0",
+    "@nanoforge/basics-2d": "^2.0.0",
     "@nanoforge/graphics-2d": "^2.0.0",
     "@nanoforge/physics-2d": "^2.0.0"
   },

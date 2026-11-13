@@ -1,11 +1,11 @@
 ---
 name: new-ecs-package
-description: Add an ECS component or system to one of this repo's registry packages (packages/basics, combat-2d, controls-2d, graphics-2d, physics-2d), or create a new package for a new group, the way the existing ones are written. Use when asked to add a NanoForge component, system or package in components-systems.
+description: Add an ECS component or system to one of this repo's registry packages (packages/basics-2d, combat-2d, controls-2d, graphics-2d, physics-2d), or create a new package for a new group, the way the existing ones are written. Use when asked to add a NanoForge component, system or package in components-systems.
 ---
 
 # New component, system or package
 
-Read `AGENTS.md` first. Reference package: `packages/basics`.
+Read `AGENTS.md` first. Reference package: `packages/basics-2d`.
 
 ## 0. Pick the package
 
@@ -14,8 +14,8 @@ Read `AGENTS.md` first. Reference package: `packages/basics`.
 - Put it in the package whose README matches what it does. A new package only for a new group of
   items that a game would install together (like `controls-2d`).
 - An item may use another package's items only if that package doesn't already depend on this one
-  (`dependencies` in the manifests): `physics-2d` and `graphics-2d` depend on `basics`;
-  `controls-2d` on `basics`, `physics-2d`; `combat-2d` on `basics`, `graphics-2d`, `physics-2d`.
+  (`dependencies` in the manifests): `physics-2d` and `graphics-2d` depend on `basics-2d`;
+  `controls-2d` on `basics-2d`, `physics-2d`; `combat-2d` on `basics-2d`, `graphics-2d`, `physics-2d`.
 
 ## 1. A component
 
@@ -50,7 +50,7 @@ export class MyThing2D {
 - Layout tags: `@group <Name>` on each parameter,
   `@preset vector.x|vector.y|size.width|size.height|color`, `@asset .png .jpg` for a file of the
   project's assets, `@label <text>`, `@color <css>`, `@hidden`. Examples:
-  `packages/basics/components/position-2d.ts`,
+  `packages/basics-2d/components/position-2d.ts`,
   `packages/graphics-2d/components/drawable-rect-2d.ts`.
 - State a system writes at runtime (not set in the editor) is a field outside the constructor, with
   its doc (`collisions` in `packages/physics-2d/components/hitbox-rect-2d.ts`).
@@ -63,7 +63,7 @@ functions; the systems already on main are `export function`, and stay as they a
 ```ts
 import type { Context } from "@nanoforge-dev/common";
 import type { Registry } from "@nanoforge-dev/ecs";
-import { Velocity2D } from "@nanoforge/basics/components/velocity-2d";
+import { Velocity2D } from "@nanoforge/basics-2d/components/velocity-2d";
 
 import { MyThing2D } from "../components/my-thing-2d";
 
@@ -120,7 +120,7 @@ Nothing in code: the manifest's `contents` already points at `components/` and `
   "keywords": ["<new-name>", "2d", "<keyword>"],
   "license": "MIT",
   "suggestedPlugins": ["@nanoforge/ecs"],
-  "dependencies": { "@nanoforge/basics": "^2.0.0" },
+  "dependencies": { "@nanoforge/basics-2d": "^2.0.0" },
   "libDependencies": { "@nanoforge-dev/common": "^2.0.0", "@nanoforge-dev/ecs": "^2.0.0" },
   "contents": [
     { "kind": "@nanoforge/ecs:component", "path": "components/" },
@@ -130,7 +130,7 @@ Nothing in code: the manifest's `contents` already points at `components/` and `
 ```
 
 - `dependencies`: the `@nanoforge/*` packages its files import, nothing else (drop the key if none,
-  like `basics`), each at the dependency's current major (`^<its manifest major>.0.0`); `^1.0.0` for
+  like `basics-2d`), each at the dependency's current major (`^<its manifest major>.0.0`); `^1.0.0` for
   a package never released. Each must be a folder of `packages/`, or the release fails.
 - `libDependencies`: the `@nanoforge-dev/*` libs its files import, at the `core` catalog range. A
   lib not in the `core` catalog is a new dependency: ask first.

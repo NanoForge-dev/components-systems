@@ -1,8 +1,8 @@
 import type { Context } from "@nanoforge-dev/common";
 import type { Registry } from "@nanoforge-dev/ecs";
 import "@nanoforge-dev/input";
-import { Position2D } from "@nanoforge/basics/components/position-2d";
-import { Velocity2D } from "@nanoforge/basics/components/velocity-2d";
+import { Position2D } from "@nanoforge/basics-2d/components/position-2d";
+import { Velocity2D } from "@nanoforge/basics-2d/components/velocity-2d";
 import { DrawableCircle2D } from "@nanoforge/graphics-2d/components/drawable-circle-2d";
 import { HitboxCircle2D } from "@nanoforge/physics-2d/components/hitbox-circle-2d";
 import { HitboxRect2D } from "@nanoforge/physics-2d/components/hitbox-rect-2d";

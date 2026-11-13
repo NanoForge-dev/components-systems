@@ -7,13 +7,14 @@ of `packages/` is one package of the NanoForge registry (`@nanoforge/<name>`), i
 project's `nf_modules/@nanoforge/<name>` from the editor (**File › Packages…**). They are not npm
 packages: the root `package.json` is private and `pnpm-workspace.yaml` lists no workspace packages.
 
-| Package                  | Side   | What it gives                                                    |
-| ------------------------ | ------ | ---------------------------------------------------------------- |
-| `@nanoforge/basics`      | shared | `Position2D`, `Velocity2D`, `Acceleration2D` and `move2D`        |
-| `@nanoforge/graphics-2d` | client | Rectangles, circles and texts with a color or an image, `draw2D` |
-| `@nanoforge/physics-2d`  | shared | Hitboxes, collisions, gravity, walls and platforms               |
-| `@nanoforge/controls-2d` | client | Move and jump with the keyboard                                  |
-| `@nanoforge/combat-2d`   | both   | Health, damage, bullets fired at the mouse                       |
+| Package                  | Side   | What it gives                                                                      |
+| ------------------------ | ------ | ---------------------------------------------------------------------------------- |
+| `@nanoforge/basics-2d`   | shared | `Position2D`, `Velocity2D`, `Acceleration2D` and `move2D`                          |
+| `@nanoforge/basics-3d`   | shared | `Position3D`, `Rotation3D`, `Scale3D`, `Velocity3D`, `Acceleration3D` and `move3D` |
+| `@nanoforge/graphics-2d` | client | Rectangles, circles and texts with a color or an image, `draw2D`                   |
+| `@nanoforge/physics-2d`  | shared | Hitboxes, collisions, gravity, walls and platforms                                 |
+| `@nanoforge/controls-2d` | client | Move and jump with the keyboard                                                    |
+| `@nanoforge/combat-2d`   | both   | Health, damage, bullets fired at the mouse                                         |
 
 ## Stack
 
@@ -59,7 +60,7 @@ requests to `main`.
 
 There is no per-item manifest and no `EDITOR_COMPONENT_MANIFEST` / `EDITOR_SYSTEM_MANIFEST`: the
 editor reads each item from its `.ts` file (NanoForge-dev/editor
-`docs/adr/0003-component-and-system-docs.md`). Reference: `packages/basics`.
+`docs/adr/0003-component-and-system-docs.md`). Reference: `packages/basics-2d`.
 
 - **Component:** a class tagged `@component`, with a field `name = "<ClassName>"` (the ECS registry
   keys on it) and `public` constructor parameters with defaults. The parameters are the fields of
@@ -85,7 +86,7 @@ editor reads each item from its `.ts` file (NanoForge-dev/editor
 - Inside a package, relative paths: `import { Position2D } from "../components/position-2d"`.
 - Another package, by its name and a file path, through the `@nanoforge/*` → `./packages/*` alias
   (`tsconfig.json` `paths`, `vitest.config.ts` `resolve.alias`):
-  `import { Position2D } from "@nanoforge/basics/components/position-2d"`. A project resolves the
+  `import { Position2D } from "@nanoforge/basics-2d/components/position-2d"`. A project resolves the
   same path in `nf_modules/@nanoforge/<name>`.
 - Engine libs: `import type { Registry } from "@nanoforge-dev/ecs"`, `type` when only types are
   used.
@@ -94,7 +95,7 @@ editor reads each item from its `.ts` file (NanoForge-dev/editor
   to `Context`, and the editor reads an item's required libs from its imports.
 - `nanoforge.manifest.json` mirrors the imports: each `@nanoforge/<pkg>` used goes in `dependencies`
   at the dependency's current major (`^<its manifest major>.0.0`, e.g.
-  `{ "@nanoforge/basics": "^2.0.0" }`; `^1.0.0` for a package never released), each engine lib in `libDependencies` at its `core`
+  `{ "@nanoforge/basics-2d": "^2.0.0" }`; `^1.0.0` for a package never released), each engine lib in `libDependencies` at its `core`
   catalog range. `combat-2d` also lists `@nanoforge-dev/graphics-2d`, which it uses through
   `DrawableCircle2D`.
 

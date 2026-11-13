@@ -1,5 +1,5 @@
 import type { Registry } from "@nanoforge-dev/ecs";
-import { Position2D } from "@nanoforge/basics/components/position-2d";
+import { Position2D } from "@nanoforge/basics-2d/components/position-2d";
 
 import { boxRoundOverlap, boxesOverlap, roundsOverlap } from "../collisions";
 import { HitboxCircle2D } from "../components/hitbox-circle-2d";

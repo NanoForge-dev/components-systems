@@ -1,0 +1,14 @@
+{
+  "type": "package",
+  "name": "@nanoforge/basics-2d",
+  "version": "2.0.0",
+  "description": "Where an entity is and how it moves: position, velocity and acceleration in 2D.",
+  "keywords": ["basics", "2d", "position", "velocity", "acceleration", "movement"],
+  "license": "MIT",
+  "suggestedPlugins": ["@nanoforge/ecs"],
+  "libDependencies": { "@nanoforge-dev/common": "^2.0.0", "@nanoforge-dev/ecs": "^2.0.0" },
+  "contents": [
+    { "kind": "@nanoforge/ecs:component", "path": "components/" },
+    { "kind": "@nanoforge/ecs:system", "path": "systems/" }
+  ]
+}
