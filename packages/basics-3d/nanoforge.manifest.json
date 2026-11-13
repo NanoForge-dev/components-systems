@@ -1,9 +1,17 @@
 {
   "type": "package",
-  "name": "@nanoforge/basics",
-  "version": "2.0.0",
-  "description": "Where an entity is and how it moves: position, velocity and acceleration in 2D.",
-  "keywords": ["basics", "2d", "position", "velocity", "acceleration", "movement"],
+  "name": "@nanoforge/basics-3d",
+  "description": "Where an entity is and how it moves in 3D: position, rotation, scale, velocity and acceleration, as plain numbers.",
+  "keywords": [
+    "basics",
+    "3d",
+    "position",
+    "rotation",
+    "scale",
+    "velocity",
+    "acceleration",
+    "movement"
+  ],
   "license": "MIT",
   "suggestedPlugins": ["@nanoforge/ecs"],
   "libDependencies": { "@nanoforge-dev/common": "^2.0.0", "@nanoforge-dev/ecs": "^2.0.0" },

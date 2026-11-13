@@ -1,10 +1,16 @@
 import type { Context, InitContext } from "@nanoforge-dev/common";
 import { EcsLibrary, type Registry } from "@nanoforge-dev/ecs/server";
 import { InputEnum } from "@nanoforge-dev/input";
-import { Acceleration2D } from "@nanoforge/basics/components/acceleration-2d";
-import { Position2D } from "@nanoforge/basics/components/position-2d";
-import { Velocity2D } from "@nanoforge/basics/components/velocity-2d";
-import { move2D } from "@nanoforge/basics/systems/move-2d";
+import { Acceleration2D } from "@nanoforge/basics-2d/components/acceleration-2d";
+import { Position2D } from "@nanoforge/basics-2d/components/position-2d";
+import { Velocity2D } from "@nanoforge/basics-2d/components/velocity-2d";
+import { move2D } from "@nanoforge/basics-2d/systems/move-2d";
+import { Acceleration3D } from "@nanoforge/basics-3d/components/acceleration-3d";
+import { Position3D } from "@nanoforge/basics-3d/components/position-3d";
+import { Rotation3D } from "@nanoforge/basics-3d/components/rotation-3d";
+import { Scale3D } from "@nanoforge/basics-3d/components/scale-3d";
+import { Velocity3D } from "@nanoforge/basics-3d/components/velocity-3d";
+import { move3D } from "@nanoforge/basics-3d/systems/move-3d";
 import { DamageDealer } from "@nanoforge/combat-2d/components/damage-dealer";
 import { DestroyOnHit2D } from "@nanoforge/combat-2d/components/destroy-on-hit-2d";
 import { Health } from "@nanoforge/combat-2d/components/health";
@@ -63,7 +69,7 @@ beforeEach(() => {
   mouse = { x: 0, y: 0 };
 });
 
-describe("basics", () => {
+describe("basics-2d", () => {
   it("move2D moves by velocity, and accelerates first", () => {
     const position = new Position2D(-2, 1);
     const velocity = new Velocity2D(50, -70);
@@ -74,6 +80,40 @@ describe("basics", () => {
 
     expect(velocity).toMatchObject({ x: 55, y: -70 });
     expect(position).toMatchObject({ x: 25.5, y: -34 });
+  });
+});
+
+describe("basics-3d", () => {
+  it("defaults to the origin, no rotation and a scale of 1", () => {
+    expect(new Position3D()).toMatchObject({ x: 0, y: 0, z: 0 });
+    expect(new Rotation3D()).toMatchObject({ x: 0, y: 0, z: 0 });
+    expect(new Scale3D()).toMatchObject({ x: 1, y: 1, z: 1 });
+    expect(new Velocity3D()).toMatchObject({ x: 0, y: 0, z: 0 });
+    expect(new Acceleration3D()).toMatchObject({ x: 0, y: 0, z: 0 });
+  });
+
+  it("keeps the values given, and is found by a query", () => {
+    spawn(new Position3D(1, -2, 3), new Rotation3D(90, 180, -45), new Scale3D(2, 0.5, 4));
+
+    const found: { Position3D: Position3D; Rotation3D: Rotation3D; Scale3D: Scale3D }[] = [];
+    registry.getZipper([Position3D, Rotation3D, Scale3D]).forEach((entity) => found.push(entity));
+
+    expect(found).toHaveLength(1);
+    expect(found[0]?.Position3D).toMatchObject({ x: 1, y: -2, z: 3 });
+    expect(found[0]?.Rotation3D).toMatchObject({ x: 90, y: 180, z: -45 });
+    expect(found[0]?.Scale3D).toMatchObject({ x: 2, y: 0.5, z: 4 });
+  });
+
+  it("move3D moves by velocity, and accelerates first", () => {
+    const position = new Position3D(-2, 1, 4);
+    const velocity = new Velocity3D(50, -70, 20);
+    spawn(position, velocity, new Acceleration3D(10, 0, -40));
+    registry.addSystem(move3D);
+
+    run(frame(500));
+
+    expect(velocity).toMatchObject({ x: 55, y: -70, z: 0 });
+    expect(position).toMatchObject({ x: 25.5, y: -34, z: 4 });
   });
 });
 

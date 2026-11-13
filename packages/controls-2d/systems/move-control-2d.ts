@@ -1,7 +1,7 @@
 import type { Context } from "@nanoforge-dev/common";
 import type { Registry } from "@nanoforge-dev/ecs";
 import "@nanoforge-dev/input";
-import { Velocity2D } from "@nanoforge/basics/components/velocity-2d";
+import { Velocity2D } from "@nanoforge/basics-2d/components/velocity-2d";
 
 import { MoveController2D } from "../components/move-controller-2d";
 
