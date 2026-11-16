@@ -1,7 +1,7 @@
 import type { Context } from "@nanoforge-dev/common";
 import type { Registry } from "@nanoforge-dev/ecs";
-import { Position2D } from "@nanoforge/basics/components/position-2d";
-import { Velocity2D } from "@nanoforge/basics/components/velocity-2d";
+import { Position2D } from "@nanoforge/basics-2d/components/position-2d";
+import { Velocity2D } from "@nanoforge/basics-2d/components/velocity-2d";
 
 import { HitboxRect2D } from "../components/hitbox-rect-2d";
 import { RigidBody2D } from "../components/rigid-body-2d";

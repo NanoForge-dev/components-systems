@@ -1,7 +1,7 @@
 import type { Context } from "@nanoforge-dev/common";
 import type { Registry } from "@nanoforge-dev/ecs";
 import "@nanoforge-dev/graphics-2d";
-import { Position2D } from "@nanoforge/basics/components/position-2d";
+import { Position2D } from "@nanoforge/basics-2d/components/position-2d";
 
 import { DrawableCircle2D } from "../components/drawable-circle-2d";
 import { DrawableRect2D } from "../components/drawable-rect-2d";

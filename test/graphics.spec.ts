@@ -1,7 +1,7 @@
 import type { Context, InitContext } from "@nanoforge-dev/common";
 import { EcsLibrary, type Registry } from "@nanoforge-dev/ecs/server";
 import type { Layer, Shape } from "@nanoforge-dev/graphics-2d";
-import { Position2D } from "@nanoforge/basics/components/position-2d";
+import { Position2D } from "@nanoforge/basics-2d/components/position-2d";
 import { DrawableCircle2D } from "@nanoforge/graphics-2d/components/drawable-circle-2d";
 import { DrawableRect2D } from "@nanoforge/graphics-2d/components/drawable-rect-2d";
 import { DrawableText2D } from "@nanoforge/graphics-2d/components/drawable-text-2d";

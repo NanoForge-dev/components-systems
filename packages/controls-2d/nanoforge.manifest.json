@@ -6,7 +6,7 @@
   "keywords": ["controls", "2d", "keyboard", "input", "player", "jump", "platformer"],
   "license": "MIT",
   "suggestedPlugins": ["@nanoforge/ecs"],
-  "dependencies": { "@nanoforge/basics": "^2.0.0", "@nanoforge/physics-2d": "^2.0.0" },
+  "dependencies": { "@nanoforge/basics-2d": "^2.0.0", "@nanoforge/physics-2d": "^2.0.0" },
   "libDependencies": {
     "@nanoforge-dev/common": "^2.0.0",
     "@nanoforge-dev/ecs": "^2.0.0",

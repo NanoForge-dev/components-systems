@@ -20,13 +20,14 @@
 for [Engine v2](https://github.com/NanoForge-dev/engine). Each folder of [`packages`](packages) is one
 package of the registry:
 
-| Package                                          | Side   | What it gives                                                    |
-| ------------------------------------------------ | ------ | ---------------------------------------------------------------- |
-| [`@nanoforge/basics`](packages/basics)           | shared | `Position2D`, `Velocity2D`, `Acceleration2D` and `move2D`        |
-| [`@nanoforge/graphics-2d`](packages/graphics-2d) | client | Rectangles, circles and texts with a color or an image, `draw2D` |
-| [`@nanoforge/physics-2d`](packages/physics-2d)   | shared | Hitboxes, collisions, gravity, walls and platforms               |
-| [`@nanoforge/controls-2d`](packages/controls-2d) | client | Move and jump with the keyboard                                  |
-| [`@nanoforge/combat-2d`](packages/combat-2d)     | both   | Health, damage, bullets fired at the mouse                       |
+| Package                                          | Side   | What it gives                                                                      |
+| ------------------------------------------------ | ------ | ---------------------------------------------------------------------------------- |
+| [`@nanoforge/basics-2d`](packages/basics-2d)     | shared | `Position2D`, `Velocity2D`, `Acceleration2D` and `move2D`                          |
+| [`@nanoforge/basics-3d`](packages/basics-3d)     | shared | `Position3D`, `Rotation3D`, `Scale3D`, `Velocity3D`, `Acceleration3D` and `move3D` |
+| [`@nanoforge/graphics-2d`](packages/graphics-2d) | client | Rectangles, circles and texts with a color or an image, `draw2D`                   |
+| [`@nanoforge/physics-2d`](packages/physics-2d)   | shared | Hitboxes, collisions, gravity, walls and platforms                                 |
+| [`@nanoforge/controls-2d`](packages/controls-2d) | client | Move and jump with the keyboard                                                    |
+| [`@nanoforge/combat-2d`](packages/combat-2d)     | both   | Health, damage, bullets fired at the mouse                                         |
 
 The packages to install in a new project are listed in [Default packages](docs/default-packages.md).
 
@@ -50,7 +51,7 @@ Keep the parameters few and named for beginners, with what is less common in an 
 group. Everything else stays reachable from code (`shape` on drawables, `collisions` on hitboxes).
 
 A package imports another with its name and the path of a file in it:
-`import { Position2D } from "@nanoforge/basics/components/position-2d"`.
+`import { Position2D } from "@nanoforge/basics-2d/components/position-2d"`.
 
 ## Links
 

@@ -6,10 +6,10 @@ install by hand meanwhile.
 
 ## Installed by default
 
-| Package                  | Why                                                                                                                           |
-| ------------------------ | ----------------------------------------------------------------------------------------------------------------------------- |
-| `@nanoforge/basics`      | Every game has entities that are somewhere and move. `Position2D` is also what the Scene screen uses to place entities.       |
-| `@nanoforge/graphics-2d` | Without it nothing is on screen. With `basics`, a beginner places a colored rectangle, gives it a velocity, and sees it move. |
+| Package                  | Why                                                                                                                              |
+| ------------------------ | -------------------------------------------------------------------------------------------------------------------------------- |
+| `@nanoforge/basics-2d`   | Every game has entities that are somewhere and move. `Position2D` is also what the Scene screen uses to place entities.          |
+| `@nanoforge/graphics-2d` | Without it nothing is on screen. With `basics-2d`, a beginner places a colored rectangle, gives it a velocity, and sees it move. |
 
 Together they replace the `Position2D`, `DrawableCircle2D`, `draw2D` and `move2D` that the CLI's
 project template copies into `src/` today.
@@ -30,7 +30,7 @@ Systems run in the order they are added. With every package:
 
 1. `moveControl2D`, `jumpControl2D`, `shootControl2D`: read the keys
 2. `applyGravity2D`
-3. `move2D`
+3. `move2D`, `move3D`
 4. `detectCollisions2D`
 5. `blockOnStaticBodies2D`, `applyDamage2D`, `destroyOnHit2D`
 6. `draw2D`: last, so the screen shows where entities ended up

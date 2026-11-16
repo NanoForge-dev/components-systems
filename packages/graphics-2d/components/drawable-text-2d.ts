@@ -1,5 +1,5 @@
 import { type Layer, Text } from "@nanoforge-dev/graphics-2d";
-import type { Position2D } from "@nanoforge/basics/components/position-2d";
+import type { Position2D } from "@nanoforge/basics-2d/components/position-2d";
 
 /**
  * Draws a text at the entity's `Position2D` (its top-left corner). Needs the `draw2D` system.

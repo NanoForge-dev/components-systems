@@ -1,4 +1,4 @@
-# @nanoforge/basics
+# @nanoforge/basics-2d
 
 Where an entity is and how it moves, in 2D.
 

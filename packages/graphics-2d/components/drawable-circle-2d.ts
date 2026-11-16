@@ -1,6 +1,6 @@
 import type { AssetContext } from "@nanoforge-dev/common";
 import { Circle, type Layer } from "@nanoforge-dev/graphics-2d";
-import type { Position2D } from "@nanoforge/basics/components/position-2d";
+import type { Position2D } from "@nanoforge/basics-2d/components/position-2d";
 
 import { imageFill } from "../image-fill";
 

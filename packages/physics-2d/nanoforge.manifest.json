@@ -6,7 +6,7 @@
   "keywords": ["physics", "2d", "collision", "hitbox", "gravity", "platformer"],
   "license": "MIT",
   "suggestedPlugins": ["@nanoforge/ecs"],
-  "dependencies": { "@nanoforge/basics": "^2.0.0" },
+  "dependencies": { "@nanoforge/basics-2d": "^2.0.0" },
   "libDependencies": { "@nanoforge-dev/common": "^2.0.0", "@nanoforge-dev/ecs": "^2.0.0" },
   "contents": [
     { "kind": "@nanoforge/ecs:component", "path": "components/" },
