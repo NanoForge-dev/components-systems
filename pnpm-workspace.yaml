@@ -8,7 +8,7 @@ catalogs:
     husky: ^9.1.7
     lint-staged: ^17.0.8
   core:
-    '@nanoforge-dev/common': ^2.0.0
+    '@nanoforge-dev/common': ^3.0.0
     '@nanoforge-dev/ecs': ^2.0.0
     '@nanoforge-dev/graphics-2d': ^2.0.0
     '@nanoforge-dev/input': ^2.0.0

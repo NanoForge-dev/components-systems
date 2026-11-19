@@ -20,8 +20,8 @@ catalogs:
       version: 17.6.0
   core:
     '@nanoforge-dev/common':
-      specifier: ^2.0.0
-      version: 2.0.0
+      specifier: ^3.0.0
+      version: 3.0.0
     '@nanoforge-dev/ecs':
       specifier: ^2.0.0
       version: 2.0.0
@@ -74,7 +74,7 @@ importers:
         version: 21.2.4
       '@nanoforge-dev/common':
         specifier: catalog:core
-        version: 2.0.0
+        version: 3.0.0
       '@nanoforge-dev/ecs':
         specifier: catalog:core
         version: 2.0.0
@@ -360,6 +360,10 @@ packages:
 
   '@nanoforge-dev/common@2.0.0':
     resolution: {integrity: sha512-NZPoqoy/e3lqunkQwewlUhmdATNVN1XFmDgM1XlofrRjTWfwPQbFNCC4hC7Lbfl38AM8uT5ZBLLA4StiQ2a2Ag==}
+    engines: {node: '26'}
+
+  '@nanoforge-dev/common@3.0.0':
+    resolution: {integrity: sha512-lzMvQ1vCElh9OcP4EqhffbY+AQXOH4IiuD1pj7VvJlpcY6hh7Bs/s4NVS0gXoJ+ibpBMe5mAq23RyzqTwk8czg==}
     engines: {node: '26'}
 
   '@nanoforge-dev/ecs@2.0.0':
@@ -2144,6 +2148,8 @@ snapshots:
   '@keyv/serialize@1.1.1': {}
 
   '@nanoforge-dev/common@2.0.0': {}
+
+  '@nanoforge-dev/common@3.0.0': {}
 
   '@nanoforge-dev/ecs@2.0.0':
     dependencies:
