@@ -23,8 +23,8 @@ catalogs:
       specifier: ^2.0.0
       version: 2.0.0
     '@nanoforge-dev/ecs':
-      specifier: ^2.0.0
-      version: 2.0.0
+      specifier: ^3.0.0
+      version: 3.0.0
     '@nanoforge-dev/graphics-2d':
       specifier: ^2.0.0
       version: 2.0.0
@@ -77,7 +77,7 @@ importers:
         version: 2.0.0
       '@nanoforge-dev/ecs':
         specifier: catalog:core
-        version: 2.0.0
+        version: 3.0.0
       '@nanoforge-dev/graphics-2d':
         specifier: catalog:core
         version: 2.0.0
@@ -362,9 +362,21 @@ packages:
     resolution: {integrity: sha512-NZPoqoy/e3lqunkQwewlUhmdATNVN1XFmDgM1XlofrRjTWfwPQbFNCC4hC7Lbfl38AM8uT5ZBLLA4StiQ2a2Ag==}
     engines: {node: '26'}
 
-  '@nanoforge-dev/ecs@2.0.0':
-    resolution: {integrity: sha512-NS05GFckI2sFHTxlpsDwwzx6korcQyz/J056OtQXMlI0QhShalDgnBVu8AEBqrn7tC36VIEq5okakCDMPhYQWQ==}
+  '@nanoforge-dev/common@3.0.0':
+    resolution: {integrity: sha512-lzMvQ1vCElh9OcP4EqhffbY+AQXOH4IiuD1pj7VvJlpcY6hh7Bs/s4NVS0gXoJ+ibpBMe5mAq23RyzqTwk8czg==}
     engines: {node: '26'}
+
+  '@nanoforge-dev/ecs@3.0.0':
+    resolution: {integrity: sha512-csrXJtCzqohxtvEQs+O//xabnaLR3BXe0QpSpl7NVihF3f0iX2fNYURxNjQKxzoPYBokCnnyNxN2KFc7UmIsdA==}
+    engines: {node: '26'}
+    peerDependencies:
+      '@nanoforge-dev/editor-lib': 3.0.0
+      '@nanoforge-dev/scene': 3.0.0
+    peerDependenciesMeta:
+      '@nanoforge-dev/editor-lib':
+        optional: true
+      '@nanoforge-dev/scene':
+        optional: true
 
   '@nanoforge-dev/graphics-2d@2.0.0':
     resolution: {integrity: sha512-5qb6slrPbomM41Dc6wN0YF2/+FB4JeqeiCIFl3DBf7e7bkBOR6v8kkot+y9xMSz8azWg9Jt7EvKcI/37zoY73A==}
@@ -2145,9 +2157,11 @@ snapshots:
 
   '@nanoforge-dev/common@2.0.0': {}
 
-  '@nanoforge-dev/ecs@2.0.0':
+  '@nanoforge-dev/common@3.0.0': {}
+
+  '@nanoforge-dev/ecs@3.0.0':
     dependencies:
-      '@nanoforge-dev/common': 2.0.0
+      '@nanoforge-dev/common': 3.0.0
 
   '@nanoforge-dev/graphics-2d@2.0.0':
     dependencies:
