@@ -20,17 +20,32 @@ catalogs:
       version: 17.6.0
   core:
     '@nanoforge-dev/common':
-      specifier: ^2.0.0
-      version: 2.0.0
+      specifier: ^3.0.0
+      version: 3.0.0
     '@nanoforge-dev/ecs':
-      specifier: ^2.0.0
-      version: 2.0.0
+      specifier: ^3.0.0
+      version: 3.0.0
+    '@nanoforge-dev/editor-lib':
+      specifier: ^3.0.0
+      version: 3.0.0
     '@nanoforge-dev/graphics-2d':
-      specifier: ^2.0.0
-      version: 2.0.0
+      specifier: ^3.0.0
+      version: 3.0.0
     '@nanoforge-dev/input':
-      specifier: ^2.0.0
-      version: 2.0.0
+      specifier: ^3.0.0
+      version: 3.0.0
+    '@nanoforge-dev/music':
+      specifier: ^3.0.0
+      version: 3.0.0
+    '@nanoforge-dev/network':
+      specifier: ^3.0.0
+      version: 3.0.0
+    '@nanoforge-dev/scene':
+      specifier: ^3.0.0
+      version: 3.0.0
+    '@nanoforge-dev/sound':
+      specifier: ^3.0.0
+      version: 3.0.0
     typescript:
       specifier: ^6.0.3
       version: 6.0.3
@@ -74,16 +89,31 @@ importers:
         version: 21.2.4
       '@nanoforge-dev/common':
         specifier: catalog:core
-        version: 2.0.0
+        version: 3.0.0
       '@nanoforge-dev/ecs':
         specifier: catalog:core
-        version: 2.0.0
+        version: 3.0.0(@nanoforge-dev/editor-lib@3.0.0)(@nanoforge-dev/scene@3.0.0(@nanoforge-dev/editor-lib@3.0.0))
+      '@nanoforge-dev/editor-lib':
+        specifier: catalog:core
+        version: 3.0.0
       '@nanoforge-dev/graphics-2d':
         specifier: catalog:core
-        version: 2.0.0
+        version: 3.0.0
       '@nanoforge-dev/input':
         specifier: catalog:core
-        version: 2.0.0
+        version: 3.0.0
+      '@nanoforge-dev/music':
+        specifier: catalog:core
+        version: 3.0.0(@nanoforge-dev/editor-lib@3.0.0)
+      '@nanoforge-dev/network':
+        specifier: catalog:core
+        version: 3.0.0(@nanoforge-dev/editor-lib@3.0.0)
+      '@nanoforge-dev/scene':
+        specifier: catalog:core
+        version: 3.0.0(@nanoforge-dev/editor-lib@3.0.0)
+      '@nanoforge-dev/sound':
+        specifier: catalog:core
+        version: 3.0.0(@nanoforge-dev/editor-lib@3.0.0)
       '@nanoforge-dev/utils-eslint-config':
         specifier: catalog:lint
         version: 1.0.2(@types/eslint@9.6.1)(eslint@10.14.0(jiti@2.7.0))(prettier@3.9.10)(typescript@6.0.3)
@@ -358,21 +388,73 @@ packages:
   '@keyv/serialize@1.1.1':
     resolution: {integrity: sha512-dXn3FZhPv0US+7dtJsIi2R+c7qWYiReoEh5zUntWCf4oSpMNib8FDhSoed6m3QyZdx5hK7iLFkYk3rNxwt8vTA==}
 
-  '@nanoforge-dev/common@2.0.0':
-    resolution: {integrity: sha512-NZPoqoy/e3lqunkQwewlUhmdATNVN1XFmDgM1XlofrRjTWfwPQbFNCC4hC7Lbfl38AM8uT5ZBLLA4StiQ2a2Ag==}
+  '@nanoforge-dev/common@3.0.0':
+    resolution: {integrity: sha512-lzMvQ1vCElh9OcP4EqhffbY+AQXOH4IiuD1pj7VvJlpcY6hh7Bs/s4NVS0gXoJ+ibpBMe5mAq23RyzqTwk8czg==}
     engines: {node: '26'}
 
-  '@nanoforge-dev/ecs@2.0.0':
-    resolution: {integrity: sha512-NS05GFckI2sFHTxlpsDwwzx6korcQyz/J056OtQXMlI0QhShalDgnBVu8AEBqrn7tC36VIEq5okakCDMPhYQWQ==}
+  '@nanoforge-dev/ecs@3.0.0':
+    resolution: {integrity: sha512-csrXJtCzqohxtvEQs+O//xabnaLR3BXe0QpSpl7NVihF3f0iX2fNYURxNjQKxzoPYBokCnnyNxN2KFc7UmIsdA==}
+    engines: {node: '26'}
+    peerDependencies:
+      '@nanoforge-dev/editor-lib': 3.0.0
+      '@nanoforge-dev/scene': 3.0.0
+    peerDependenciesMeta:
+      '@nanoforge-dev/editor-lib':
+        optional: true
+      '@nanoforge-dev/scene':
+        optional: true
+
+  '@nanoforge-dev/editor-lib@3.0.0':
+    resolution: {integrity: sha512-fSWm6bHelbxqeVESYoUUKDi9RGNxvRu6p1r41KE1DddM0RrP0/WzkFOWBvgl+psHbYNotXe723Y2Fd3p+tqPDQ==}
     engines: {node: '26'}
 
-  '@nanoforge-dev/graphics-2d@2.0.0':
-    resolution: {integrity: sha512-5qb6slrPbomM41Dc6wN0YF2/+FB4JeqeiCIFl3DBf7e7bkBOR6v8kkot+y9xMSz8azWg9Jt7EvKcI/37zoY73A==}
+  '@nanoforge-dev/env@3.0.0':
+    resolution: {integrity: sha512-kXYXl9/09Bn8VStTTFuZY3dYDG9b76VhOi9PHMnaLe75XcFRLKJ2dYkXf3ut6RCL2+6H7HAEIOALjR15CHnJ5A==}
     engines: {node: '26'}
 
-  '@nanoforge-dev/input@2.0.0':
-    resolution: {integrity: sha512-fJwzdu3bnSLf3mtot95XWqm6cH9fVKAZ48lD1E6PPaDFjckxhFMXAWHbdmO0Tzvh4Xud7IHdo63EGNKSqBkNRQ==}
+  '@nanoforge-dev/graphics-2d@3.0.0':
+    resolution: {integrity: sha512-0I0WUr5495jORdYR+HtyP4kmAfCMvixmG+EH/gE5bN33S8RO6/Ly4oMLZOLUywcDTAFuLn28BlHuVor2YfXrsg==}
     engines: {node: '26'}
+
+  '@nanoforge-dev/input@3.0.0':
+    resolution: {integrity: sha512-8pWU28c99VAvn37onNbVFfwXTgyQGxm5DVnTdBEzgrF3KPCzU77kEaexB1AWOlga+4qNGU7/XNm3hNZ+YS49Ig==}
+    engines: {node: '26'}
+
+  '@nanoforge-dev/music@3.0.0':
+    resolution: {integrity: sha512-H0c3QK2dJ8NARU69WG/lwQCnIFpaz1ZOQJxdW3w0MBriU1twJAHicMlwQ2c61Cdmpte4heNqRQqSuBJ8qFY9OQ==}
+    engines: {node: '26'}
+    peerDependencies:
+      '@nanoforge-dev/editor-lib': 3.0.0
+    peerDependenciesMeta:
+      '@nanoforge-dev/editor-lib':
+        optional: true
+
+  '@nanoforge-dev/network@3.0.0':
+    resolution: {integrity: sha512-T0+s6vmiBuY3/KPK8s4wYcqQju6YDpoIJgpJy6eTelUD2+cHkWjav4WjfXxfVsE89JVu7ariXoRD+VuozhjUpA==}
+    engines: {node: '26'}
+    peerDependencies:
+      '@nanoforge-dev/editor-lib': 3.0.0
+    peerDependenciesMeta:
+      '@nanoforge-dev/editor-lib':
+        optional: true
+
+  '@nanoforge-dev/scene@3.0.0':
+    resolution: {integrity: sha512-4+QajCZCW8eVdQPZeSoLDQ/ueQOFwAoFvd0pRL06FeuzWJMxCVNTCeZp9UHZLTMqmEJKAC29OnBQuHvhGkuBVg==}
+    engines: {node: '26'}
+    peerDependencies:
+      '@nanoforge-dev/editor-lib': 3.0.0
+    peerDependenciesMeta:
+      '@nanoforge-dev/editor-lib':
+        optional: true
+
+  '@nanoforge-dev/sound@3.0.0':
+    resolution: {integrity: sha512-vNMYm3dp7A3A+4taJpSXwPEu/t1VtZ1BAUkY6a3D40Uz3q785+u79o3q21/yYGigCswuPlIQ5gT4ApcT+6J4tg==}
+    engines: {node: '26'}
+    peerDependencies:
+      '@nanoforge-dev/editor-lib': 3.0.0
+    peerDependenciesMeta:
+      '@nanoforge-dev/editor-lib':
+        optional: true
 
   '@nanoforge-dev/utils-eslint-config@1.0.2':
     resolution: {integrity: sha512-hIsVGGpVIW3RvPZocWEf15Y5eqmIxTtLfWI66wqx+AO6PHcatUBhEi4sk1i54Qb2yGFueRBS/dSXj0kxG4Rbcw==}
@@ -381,6 +463,55 @@ packages:
   '@nanoforge-dev/utils-prettier-config@1.0.2':
     resolution: {integrity: sha512-dTa2ixPJmWVD+L13Iuxx51JIm3gaX+gnRCe8jA0PFw0xjMjLYv+0ZgbWSSVlNmowp6fqpOzfPdWADkkPNQs8LQ==}
     engines: {node: '25'}
+
+  '@node-datachannel/android-arm64@0.33.6':
+    resolution: {integrity: sha512-UzSnd1vSN//3pqyvuufbaIQemvRfIHn/7DAy7wjoYk9tzkJp4SMk1FrNhkhmev89SH/h7yTac6PlGxGe5oHcKw==}
+    cpu: [arm64]
+    os: [android]
+
+  '@node-datachannel/darwin-arm64@0.33.6':
+    resolution: {integrity: sha512-vE2fN6D0BJJ3yZo5guJo2j1q7JeQbl+VyIs6vbkjEp654tQtTo3y7a4l3xB0bwDD27TOlkOlaSLJQRj6ZXqQdQ==}
+    cpu: [arm64]
+    os: [darwin]
+
+  '@node-datachannel/darwin-x64@0.33.6':
+    resolution: {integrity: sha512-EtRB2THMR11XMzbNhMEwaZtipaUxFz+PgeVx7hE+er6Ai1Fzzv7XexrMWDG11ahdpEZ8fAxlxuyELs33/WH1Cg==}
+    cpu: [x64]
+    os: [darwin]
+
+  '@node-datachannel/linux-arm64-gnu@0.33.6':
+    resolution: {integrity: sha512-phMRjx8NEfW70i768LCQDEF2C6Q2vtYsS4DPXv/zbb2cJClaU5fjKFQfQ1XBCNIi1ClfpSd3Cl/rn/7SS+paTQ==}
+    cpu: [arm64]
+    os: [linux]
+    libc: [glibc]
+
+  '@node-datachannel/linux-arm64-musl@0.33.6':
+    resolution: {integrity: sha512-T9bqllJ9YkpgqgRFEfsPpfgfMDXdA7CIiJ4c1XXGPLSeqVFgDbf/WCewkE7q4xA+tKRLoOOtc2XgMGwVnlxXVQ==}
+    cpu: [arm64]
+    os: [linux]
+    libc: [musl]
+
+  '@node-datachannel/linux-x64-gnu@0.33.6':
+    resolution: {integrity: sha512-NUTbne64++ZxwEJ9uppAAmYnFAfJAggf7gboioPdhr13P17GTQRCUgmipYrh1V0D4333x6NCBZyQaNv0n4WmpQ==}
+    cpu: [x64]
+    os: [linux]
+    libc: [glibc]
+
+  '@node-datachannel/linux-x64-musl@0.33.6':
+    resolution: {integrity: sha512-dlWP4ycOJrTAl9UvxGofq0zwPhl6iAr1b0ZcBUgDfb2CXmbcJWCvg6OsJ6u8BVSV41eNXALmaRpU0wttas/f1g==}
+    cpu: [x64]
+    os: [linux]
+    libc: [musl]
+
+  '@node-datachannel/win32-arm64-msvc@0.33.6':
+    resolution: {integrity: sha512-ttly7XRUrSOcOOGJvtm9gh2beAPUNOBOUc3Hk82LfMHHP7jJMkXNDns/ML+UVGommAcNyPhoZkRH62O7tSVQYw==}
+    cpu: [arm64]
+    os: [win32]
+
+  '@node-datachannel/win32-x64-msvc@0.33.6':
+    resolution: {integrity: sha512-N5GW6XH11Iuu+kyHLTiCMcCHdwWwpKqvtYril0LzQm6xBgmGQN3JXxFmgi4g4usw1nLy6WhBWADjbhSXJiiEMA==}
+    cpu: [x64]
+    os: [win32]
 
   '@octokit/auth-token@6.0.0':
     resolution: {integrity: sha512-P4YJBPdPSpWTQ1NU4XYdvHvXJJDxM6YwpS0FZHRgP7YFkdVxsWcpWGy/NVqlAA7PcPCnMacXlRm1y2PFZRWL/w==}
@@ -726,6 +857,9 @@ packages:
   '@types/node@26.0.1':
     resolution: {integrity: sha512-fc3KiUoBt6kie0N9bIW3E47vZsuaMf0PM2AaUpLCLT0s/LvX1nxAim6Fc049cNxODPpGm6qRAuUOB86SkRuPQw==}
 
+  '@types/validator@13.15.10':
+    resolution: {integrity: sha512-T8L6i7wCuyoK8A/ZeLYt1+q0ty3Zb9+qbSSvrIVitzT3YjZqkTZ40IbRsPanlB4h1QB3JVL1SYCdR6ngtFYcuA==}
+
   '@typescript-eslint/eslint-plugin@8.72.1':
     resolution: {integrity: sha512-5CokTWXpmbylfFabsbvHC0CAw3XLaGnoa+nFJX5FR592h/LoZsENUE6p/rg5xvkKrFEXz6pYmgI29AgXc2N3BQ==}
     engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
@@ -899,6 +1033,12 @@ packages:
   chalk@5.6.2:
     resolution: {integrity: sha512-7NzBL0rN6fMUW+f7A6Io4h40qQlG+xGmtMxfbnH/K7TAtt8JQWVQK+6g0UXKMeVJoyV5EkkNsErQ8pVD3bLHbA==}
     engines: {node: ^12.17.0 || ^14.13 || >=16.0.0}
+
+  class-transformer@0.5.1:
+    resolution: {integrity: sha512-SQa1Ws6hUbfC98vKGxZH3KFY0Y1lm5Zm0SY8XX9zbK7FJCyVEac3ATW0RIpwzW+oOfmHE5PMPufDG9hCfoEOMw==}
+
+  class-validator@0.14.4:
+    resolution: {integrity: sha512-AwNusCCam51q703dW82x95tOqQp6oC9HNUl724KxJJOfnKscI8dOloXFgyez7LbTTKWuRBA37FScqVbJEoq8Yw==}
 
   cliui@9.0.1:
     resolution: {integrity: sha512-k7ndgKhwoQveBL+/1tqGJYNz097I7WOvwbmmU2AR5+magtbjPWQTS1C5vzGkBC8Ym8UWRzfKUzUUqFLypY4Q+w==}
@@ -1351,6 +1491,9 @@ packages:
     resolution: {integrity: sha512-+bT2uH4E5LGE7h/n3evcS/sQlJXCpIp6ym8OWJ5eV6+67Dsql/LaaT7qJBAt2rzfoa/5QBGBhxDix1dMt2kQKQ==}
     engines: {node: '>= 0.8.0'}
 
+  libphonenumber-js@1.13.17:
+    resolution: {integrity: sha512-V92dxRHhYTsHF5B6IjR8rtKW6qL7xKuERPFFqZt7XQl8A+NikbwEzjhxGpM+R6JnWjaL7/wokWSdTG/eyYAscQ==}
+
   lightningcss-android-arm64@1.33.0:
     resolution: {integrity: sha512-gEpRTalKdosp4Bb8qWtc2iOgE5SeIHlpS1up9bFq2wAyYhl1UdTObYiHe98zEM9SQvSoqQZ1IQD0JNpg3Ml5pg==}
     engines: {node: '>= 12.0.0'}
@@ -1476,6 +1619,10 @@ packages:
 
   natural-compare@1.4.0:
     resolution: {integrity: sha512-OWND8ei3VtNC9h7V60qff3SVobHr996CTwgxubgyQYEpg290h9J0buyECNNJexkFm5sOajh5G116RYA1c8ZMSw==}
+
+  node-datachannel@0.33.6:
+    resolution: {integrity: sha512-n7RzImzysrOVFx/lXfkQQ4fL0wsuPXBFc8KM69V29iyIor/UX7Ej+edzNGWJm+3mApZG9nkLi7FsGAZhQCDA4w==}
+    engines: {node: '>=18.20.0'}
 
   npm-run-path@6.0.0:
     resolution: {integrity: sha512-9qny7Z9DsQU8Ou39ERsPU4OZQlSTP47ShQzuKZ6PRXpYLtIFgl/DEBYEXKlvcEa+9tHVcK8CF81Y2V72qaZhWA==}
@@ -1722,6 +1869,10 @@ packages:
 
   uri-js@4.4.1:
     resolution: {integrity: sha512-7rKUyy33Q1yc98pQ1DAmLtwX109F7TIfWlW1Ydo8Wl1ii1SeHieeh0HHfPeL2fMXK6z0s8ecKs9frCuLJvndBg==}
+
+  validator@13.15.35:
+    resolution: {integrity: sha512-TQ5pAGhd5whStmqWvYF4OjQROlmv9SMFVt37qoCBdqRffuuklWYQlCNnEs2ZaIBD1kZRNnikiZOS1eqgkar0iw==}
+    engines: {node: '>= 0.10'}
 
   verkit@0.5.0:
     resolution: {integrity: sha512-u4J1hr6Y+C/hit34GwL3eIcUf3wngT8TlYUjK7tk0jxydKLAq3sYvifjdTDA6U3KCKRcQCQDGf/srjxfZF3l7g==}
@@ -2143,23 +2294,62 @@ snapshots:
 
   '@keyv/serialize@1.1.1': {}
 
-  '@nanoforge-dev/common@2.0.0': {}
+  '@nanoforge-dev/common@3.0.0': {}
 
-  '@nanoforge-dev/ecs@2.0.0':
+  '@nanoforge-dev/ecs@3.0.0(@nanoforge-dev/editor-lib@3.0.0)(@nanoforge-dev/scene@3.0.0(@nanoforge-dev/editor-lib@3.0.0))':
     dependencies:
-      '@nanoforge-dev/common': 2.0.0
+      '@nanoforge-dev/common': 3.0.0
+    optionalDependencies:
+      '@nanoforge-dev/editor-lib': 3.0.0
+      '@nanoforge-dev/scene': 3.0.0(@nanoforge-dev/editor-lib@3.0.0)
 
-  '@nanoforge-dev/graphics-2d@2.0.0':
+  '@nanoforge-dev/editor-lib@3.0.0':
     dependencies:
-      '@nanoforge-dev/common': 2.0.0
+      '@nanoforge-dev/common': 3.0.0
+
+  '@nanoforge-dev/env@3.0.0':
+    dependencies:
+      '@nanoforge-dev/common': 3.0.0
+      class-transformer: 0.5.1
+      class-validator: 0.14.4
+
+  '@nanoforge-dev/graphics-2d@3.0.0':
+    dependencies:
+      '@nanoforge-dev/common': 3.0.0
       konva: 10.9.1
     transitivePeerDependencies:
       - canvas
       - skia-canvas
 
-  '@nanoforge-dev/input@2.0.0':
+  '@nanoforge-dev/input@3.0.0':
     dependencies:
-      '@nanoforge-dev/common': 2.0.0
+      '@nanoforge-dev/common': 3.0.0
+
+  '@nanoforge-dev/music@3.0.0(@nanoforge-dev/editor-lib@3.0.0)':
+    dependencies:
+      '@nanoforge-dev/common': 3.0.0
+    optionalDependencies:
+      '@nanoforge-dev/editor-lib': 3.0.0
+
+  '@nanoforge-dev/network@3.0.0(@nanoforge-dev/editor-lib@3.0.0)':
+    dependencies:
+      '@nanoforge-dev/common': 3.0.0
+      '@nanoforge-dev/env': 3.0.0
+      node-datachannel: 0.33.6
+    optionalDependencies:
+      '@nanoforge-dev/editor-lib': 3.0.0
+
+  '@nanoforge-dev/scene@3.0.0(@nanoforge-dev/editor-lib@3.0.0)':
+    dependencies:
+      '@nanoforge-dev/common': 3.0.0
+    optionalDependencies:
+      '@nanoforge-dev/editor-lib': 3.0.0
+
+  '@nanoforge-dev/sound@3.0.0(@nanoforge-dev/editor-lib@3.0.0)':
+    dependencies:
+      '@nanoforge-dev/common': 3.0.0
+    optionalDependencies:
+      '@nanoforge-dev/editor-lib': 3.0.0
 
   '@nanoforge-dev/utils-eslint-config@1.0.2(@types/eslint@9.6.1)(eslint@10.14.0(jiti@2.7.0))(prettier@3.9.10)(typescript@6.0.3)':
     dependencies:
@@ -2179,6 +2369,33 @@ snapshots:
       - typescript
 
   '@nanoforge-dev/utils-prettier-config@1.0.2': {}
+
+  '@node-datachannel/android-arm64@0.33.6':
+    optional: true
+
+  '@node-datachannel/darwin-arm64@0.33.6':
+    optional: true
+
+  '@node-datachannel/darwin-x64@0.33.6':
+    optional: true
+
+  '@node-datachannel/linux-arm64-gnu@0.33.6':
+    optional: true
+
+  '@node-datachannel/linux-arm64-musl@0.33.6':
+    optional: true
+
+  '@node-datachannel/linux-x64-gnu@0.33.6':
+    optional: true
+
+  '@node-datachannel/linux-x64-musl@0.33.6':
+    optional: true
+
+  '@node-datachannel/win32-arm64-msvc@0.33.6':
+    optional: true
+
+  '@node-datachannel/win32-x64-msvc@0.33.6':
+    optional: true
 
   '@octokit/auth-token@6.0.0': {}
 
@@ -2402,6 +2619,8 @@ snapshots:
       undici-types: 8.3.0
     optional: true
 
+  '@types/validator@13.15.10': {}
+
   '@typescript-eslint/eslint-plugin@8.72.1(@typescript-eslint/parser@8.72.1(eslint@10.14.0(jiti@2.7.0))(typescript@6.0.3))(eslint@10.14.0(jiti@2.7.0))(typescript@6.0.3)':
     dependencies:
       '@eslint-community/regexpp': 4.12.2
@@ -2617,6 +2836,14 @@ snapshots:
   chai@6.3.0: {}
 
   chalk@5.6.2: {}
+
+  class-transformer@0.5.1: {}
+
+  class-validator@0.14.4:
+    dependencies:
+      '@types/validator': 13.15.10
+      libphonenumber-js: 1.13.17
+      validator: 13.15.35
 
   cliui@9.0.1:
     dependencies:
@@ -3020,6 +3247,8 @@ snapshots:
       prelude-ls: 1.2.1
       type-check: 0.4.0
 
+  libphonenumber-js@1.13.17: {}
+
   lightningcss-android-arm64@1.33.0:
     optional: true
 
@@ -3119,6 +3348,20 @@ snapshots:
   nanoid@3.3.20: {}
 
   natural-compare@1.4.0: {}
+
+  node-datachannel@0.33.6:
+    dependencies:
+      detect-libc: 2.1.2
+    optionalDependencies:
+      '@node-datachannel/android-arm64': 0.33.6
+      '@node-datachannel/darwin-arm64': 0.33.6
+      '@node-datachannel/darwin-x64': 0.33.6
+      '@node-datachannel/linux-arm64-gnu': 0.33.6
+      '@node-datachannel/linux-arm64-musl': 0.33.6
+      '@node-datachannel/linux-x64-gnu': 0.33.6
+      '@node-datachannel/linux-x64-musl': 0.33.6
+      '@node-datachannel/win32-arm64-msvc': 0.33.6
+      '@node-datachannel/win32-x64-msvc': 0.33.6
 
   npm-run-path@6.0.0:
     dependencies:
@@ -3359,6 +3602,8 @@ snapshots:
   uri-js@4.4.1:
     dependencies:
       punycode: 2.3.1
+
+  validator@13.15.35: {}
 
   verkit@0.5.0: {}
 

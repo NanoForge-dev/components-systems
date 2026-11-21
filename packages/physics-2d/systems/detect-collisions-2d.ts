@@ -9,6 +9,9 @@ import { HitboxRect2D } from "../components/hitbox-rect-2d";
  * Finds which entities touch each other, by their `HitboxRect2D` or `HitboxCircle2D`, and lists
  * them in each hitbox's `collisions`. Add it after the systems that move entities.
  *
+ * @remarks
+ * A rectangle's top-left corner, and a circle's center, is its `Position2D` plus its offset.
+ *
  * @system
  * @side shared
  */
@@ -19,8 +22,8 @@ export function detectCollisions2D(registry: Registry) {
       id: id as number,
       hitbox: HitboxRect2D as HitboxRect2D,
       shape: {
-        x: Position2D.x,
-        y: Position2D.y,
+        x: Position2D.x + HitboxRect2D.offsetX,
+        y: Position2D.y + HitboxRect2D.offsetY,
         width: HitboxRect2D.width,
         height: HitboxRect2D.height,
       },
@@ -30,7 +33,11 @@ export function detectCollisions2D(registry: Registry) {
     .map(({ id, Position2D, HitboxCircle2D }) => ({
       id: id as number,
       hitbox: HitboxCircle2D as HitboxCircle2D,
-      shape: { x: Position2D.x, y: Position2D.y, radius: HitboxCircle2D.radius },
+      shape: {
+        x: Position2D.x + HitboxCircle2D.offsetX,
+        y: Position2D.y + HitboxCircle2D.offsetY,
+        radius: HitboxCircle2D.radius,
+      },
     }));
 
   for (const { hitbox } of [...boxes, ...rounds]) hitbox.collisions.length = 0;

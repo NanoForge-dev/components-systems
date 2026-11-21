@@ -17,17 +17,20 @@
 ## About
 
 `components-systems` holds NanoForge's official component and system packages for the editor, made
-for [Engine v2](https://github.com/NanoForge-dev/engine). Each folder of [`packages`](packages) is one
+for [Engine v3](https://github.com/NanoForge-dev/engine). Each folder of [`packages`](packages) is one
 package of the registry:
 
-| Package                                          | Side   | What it gives                                                                      |
-| ------------------------------------------------ | ------ | ---------------------------------------------------------------------------------- |
-| [`@nanoforge/basics-2d`](packages/basics-2d)     | shared | `Position2D`, `Velocity2D`, `Acceleration2D` and `move2D`                          |
-| [`@nanoforge/basics-3d`](packages/basics-3d)     | shared | `Position3D`, `Rotation3D`, `Scale3D`, `Velocity3D`, `Acceleration3D` and `move3D` |
-| [`@nanoforge/graphics-2d`](packages/graphics-2d) | client | Rectangles, circles and texts with a color or an image, `draw2D`                   |
-| [`@nanoforge/physics-2d`](packages/physics-2d)   | shared | Hitboxes, collisions, gravity, walls and platforms                                 |
-| [`@nanoforge/controls-2d`](packages/controls-2d) | client | Move and jump with the keyboard                                                    |
-| [`@nanoforge/combat-2d`](packages/combat-2d)     | both   | Health, damage, bullets fired at the mouse                                         |
+| Package                                          | Side   | What it gives                                                                                            |
+| ------------------------------------------------ | ------ | -------------------------------------------------------------------------------------------------------- |
+| [`@nanoforge/basics-2d`](packages/basics-2d)     | shared | Position, velocity and `move2D`; tags, models, lifetimes, following another entity                       |
+| [`@nanoforge/basics-3d`](packages/basics-3d)     | shared | `Position3D`, `Rotation3D`, `Scale3D`, `Velocity3D`, `Acceleration3D` and `move3D`                       |
+| [`@nanoforge/graphics-2d`](packages/graphics-2d) | client | Shapes and texts with a color or an image, sprite animations, facing, a camera, a HUD, `draw2D`          |
+| [`@nanoforge/physics-2d`](packages/physics-2d)   | shared | Hitboxes, collisions, gravity, walls, bounces and deflectors, walking, jumping, chasing and bounds       |
+| [`@nanoforge/controls-2d`](packages/controls-2d) | client | Keyboard, mouse and gamepad controls for walking, jumping and shooting; click, drag and follow the mouse |
+| [`@nanoforge/combat-2d`](packages/combat-2d)     | both   | Health, damage, shooters fired by a player, a turret or the server; health bars                          |
+| [`@nanoforge/scenes-2d`](packages/scenes-2d)     | both   | Scene vars shown in texts, coins and zones that add to them                                              |
+| [`@nanoforge/network-2d`](packages/network-2d)   | both   | The server sends where its entities are, how they move and which are gone; the clients follow            |
+| [`@nanoforge/audio`](packages/audio)             | client | Sound effects, music per level, a mute key                                                               |
 
 The packages to install in a new project are listed in [Default packages](docs/default-packages.md).
 
@@ -44,7 +47,8 @@ The editor reads everything from the code (TSDoc), there is no separate manifest
   `public` constructor parameters with defaults: they are the fields of the inspector;
 - a system is a function `(registry, ctx)` tagged `@system`, that queries its components with
   `registry.getZipper([A, B])`;
-- `@side client` for what uses graphics or input, `@side shared` for the rest;
+- `@side client` for what uses graphics or input or runs only on a client, `@side server` for what
+  runs only on a server, `@side shared` for the rest;
 - `@group`, `@preset`, `@color`, `@asset` lay out the inspector (see the editor's _Components_ doc).
 
 Keep the parameters few and named for beginners, with what is less common in an `Advanced hidden`

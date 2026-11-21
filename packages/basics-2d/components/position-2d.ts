@@ -1,12 +1,13 @@
 /**
- * Where an entity is, in pixels from the top-left corner of the screen.
+ * Where an entity is, in pixels of the world: the screen's without a `Camera2D`, and always the
+ * screen's for a `Hud2D` entity.
  *
  * @remarks
  * For rectangles it is their top-left corner, for circles their center.
  *
  * @component
  * @side shared
- * @group Position color=#4aa3ff - Pixels from the top-left corner of the screen.
+ * @group Position color=#4aa3ff - Pixels from the top-left corner of the world.
  */
 export class Position2D {
   name = "Position2D";
