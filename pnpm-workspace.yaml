@@ -29,7 +29,7 @@ catalogs:
     eslint-plugin-format: ^2.0.1
     eslint-plugin-prettier: ^5.5.5
     globals: ^17.14.0
-    prettier: ^3.9.4
+    prettier: ^3.10.1
     typescript-eslint: ^8.57.1
   test:
     '@vitest/coverage-v8': ^4.1.9
