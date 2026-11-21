@@ -3,6 +3,14 @@ import type { ShapeConfig } from "@nanoforge-dev/graphics-2d";
 
 const images = new Map<string, HTMLImageElement>();
 
+/** Options of `imageFill`. */
+export interface ImageFillOptions {
+  /** The part of the image shown, in its pixels: all of it while the width or height is 0. */
+  crop?: { x: number; y: number; width: number; height: number };
+  /** Whether the image is tiled at its own size instead of stretched over the shape. */
+  repeat?: boolean;
+}
+
 /**
  * The fill of a shape of `width` by `height` pixels showing the image at `path` (an asset path
  * such as `/textures/hero.png`, found in `assets`) stretched over it. Without an image, until it
@@ -17,6 +25,7 @@ export const imageFill = (
   width: number,
   height: number,
   centered = false,
+  { crop, repeat = false }: ImageFillOptions = {},
 ): ShapeConfig => {
   if (!path) return { fillPriority: "color", fillPatternImage: undefined };
   let image = images.get(path);
@@ -31,13 +40,28 @@ export const imageFill = (
     images.set(path, image);
   }
   if (!image.naturalWidth) return { fillPriority: "color", fillPatternImage: undefined };
+  if (repeat) {
+    return {
+      fillPriority: "pattern",
+      fillPatternImage: image,
+      fillPatternRepeat: "repeat",
+      fillPatternScaleX: 1,
+      fillPatternScaleY: 1,
+      fillPatternOffsetX: 0,
+      fillPatternOffsetY: 0,
+    };
+  }
+  const area =
+    crop && crop.width > 0 && crop.height > 0
+      ? crop
+      : { x: 0, y: 0, width: image.naturalWidth, height: image.naturalHeight };
   return {
     fillPriority: "pattern",
     fillPatternImage: image,
     fillPatternRepeat: "no-repeat",
-    fillPatternScaleX: width / image.naturalWidth,
-    fillPatternScaleY: height / image.naturalHeight,
-    fillPatternOffsetX: centered ? image.naturalWidth / 2 : 0,
-    fillPatternOffsetY: centered ? image.naturalHeight / 2 : 0,
+    fillPatternScaleX: width / area.width,
+    fillPatternScaleY: height / area.height,
+    fillPatternOffsetX: area.x + (centered ? area.width / 2 : 0),
+    fillPatternOffsetY: area.y + (centered ? area.height / 2 : 0),
   };
 };

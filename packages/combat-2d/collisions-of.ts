@@ -1,14 +1,24 @@
 import type { Entity, Registry } from "@nanoforge-dev/ecs";
-import { HitboxCircle2D } from "@nanoforge/physics-2d/components/hitbox-circle-2d";
-import { HitboxRect2D } from "@nanoforge/physics-2d/components/hitbox-rect-2d";
+import { touching } from "@nanoforge/physics-2d/collisions";
 
 import { Owner } from "./components/owner";
 
-/** Ids of the entities touching `entity` this frame, by its hitboxes, its owner left out. */
+/**
+ * Ids of the entities touching `entity` this frame, by its hitboxes, without its `Owner`'s entity,
+ * the entities it owns (a shooter's bullets) and the entities with the same owner (a bullet's
+ * sibling bullets).
+ *
+ * @remarks
+ * An entity removed since `detectCollisions2D` (killed by an earlier system this frame) is still
+ * listed, and `registry.entityFromIndex` throws for it: read its components by id,
+ * `registry.getComponents(Health).get(id)`, which gives `undefined`.
+ */
 export const collisionsOf = (registry: Registry, entity: Entity): number[] => {
-  const owner: Owner | undefined = registry.getEntityComponent(entity, Owner);
-  const rect: HitboxRect2D | undefined = registry.getEntityComponent(entity, HitboxRect2D);
-  const circle: HitboxCircle2D | undefined = registry.getEntityComponent(entity, HitboxCircle2D);
-  const ids = [...(rect?.collisions ?? []), ...(circle?.collisions ?? [])];
-  return ids.filter((id) => id !== owner?.entity);
+  const self = entity.getId();
+  const owner = (registry.getEntityComponent(entity, Owner) as Owner | undefined)?.entity ?? -1;
+  const owners = registry.getComponents(Owner);
+  return touching(registry, entity).filter((id) => {
+    const of = (owners.get(id) as Owner | undefined)?.entity;
+    return id !== owner && of !== self && (owner < 0 || of !== owner);
+  });
 };

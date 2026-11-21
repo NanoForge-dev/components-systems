@@ -1,6 +1,6 @@
 ---
 name: new-ecs-package
-description: Add an ECS component or system to one of this repo's registry packages (packages/basics-2d, combat-2d, controls-2d, graphics-2d, physics-2d), or create a new package for a new group, the way the existing ones are written. Use when asked to add a NanoForge component, system or package in components-systems.
+description: Add an ECS component or system to one of this repo's registry packages (packages/basics-2d, basics-3d, graphics-2d, physics-2d, controls-2d, combat-2d, scenes-2d, network-2d, audio), or create a new package for a new group, the way the existing ones are written. Use when asked to add a NanoForge component, system or package in components-systems.
 ---
 
 # New component, system or package
@@ -15,7 +15,10 @@ Read `AGENTS.md` first. Reference package: `packages/basics-2d`.
   items that a game would install together (like `controls-2d`).
 - An item may use another package's items only if that package doesn't already depend on this one
   (`dependencies` in the manifests): `physics-2d` and `graphics-2d` depend on `basics-2d`;
-  `controls-2d` on `basics-2d`, `physics-2d`; `combat-2d` on `basics-2d`, `graphics-2d`, `physics-2d`.
+  `combat-2d` on `basics-2d`, `graphics-2d`, `physics-2d`; `controls-2d` on `basics-2d`,
+  `combat-2d`, `graphics-2d`, `physics-2d`; `scenes-2d` on
+  `basics-2d`, `graphics-2d`, `physics-2d`; `network-2d` on `basics-2d`. Nothing depends on
+  `controls-2d`.
 
 ## 1. A component
 
@@ -44,9 +47,10 @@ export class MyThing2D {
 
 - `name` is a literal equal to the class name: the ECS registry keys on it.
 - Every constructor parameter is `public` and has a default: they are the inspector's fields. Give
-  each an inline doc, at least its `@group` (`MoveController2D` has only that on its keys). A string
-  literal union (`"both" | "horizontal"`) becomes a choice, an engine enum (`InputEnum`) too.
-- `@side client` when it uses graphics or input, `shared` otherwise.
+  each an inline doc, at least its `@group` (`KeyboardControls2D` has only that on its keys). A
+  string literal union (`"both" | "horizontal"`) becomes a choice, an engine enum (`InputEnum`) too.
+- `@side client` when it uses graphics or input or runs only on a client, `server` when it runs
+  only on a server, `shared` otherwise.
 - Layout tags: `@group <Name>` on each parameter,
   `@preset vector.x|vector.y|size.width|size.height|color`, `@asset .png .jpg` for a file of the
   project's assets, `@label <text>`, `@color <css>`, `@hidden`. Examples:
@@ -86,10 +90,11 @@ export const myThing2D = (registry: Registry, ctx: Context) => {
   `@nanoforge/<pkg>/components/<file>`.
 - Drop `ctx` if unused (`noUnusedParameters`), like `detectCollisions2D(registry)`.
 - `ctx.app.delta` is in milliseconds.
-- A system that reads `ctx.input` or `ctx.graphics` also has a bare `import "@nanoforge-dev/input";`
-  or `import "@nanoforge-dev/graphics-2d";`: it brings in their `Context` types, and the editor
-  reads the libs an item requires from its imports (`controls-2d/systems/move-control-2d.ts`,
-  `graphics-2d/systems/draw-2d.ts`).
+- A system that reads `ctx.input` or `ctx.graphics` also imports the lib: a bare
+  `import "@nanoforge-dev/input";` or `import "@nanoforge-dev/graphics-2d";`
+  (`controls-2d/systems/click-2d.ts`, `graphics-2d/systems/draw-2d.ts`), or a value it uses
+  (`InputEnum` in `controls-2d/systems/read-keyboard-2d.ts`). It brings in their `Context` types,
+  and the editor reads the libs an item requires from its imports.
 - Code shared by several items goes in a file at the package root (`collisions.ts`), as exported
   arrow functions: every export under `components/` or `systems/` is read as an item.
 
@@ -103,7 +108,7 @@ Nothing in code: the manifest's `contents` already points at `components/` and `
   line of the package README if it has one;
 - `packages/<pkg>/nanoforge.manifest.json`: only if the new code imports a package or an engine lib
   not listed yet: `@nanoforge/<pkg>` in `dependencies`, at the dependency's current major
-  (`^<its manifest major>.0.0`); `^1.0.0` for a package never released; `@nanoforge-dev/<lib>` in
+  (`^<its manifest major>.0.0`); `^1.0.0` for a manifest without a `version`; `@nanoforge-dev/<lib>` in
   `libDependencies`, at its `core` catalog range. Never touch `version`: the release PR bumps it
   from the commits.
 
@@ -121,7 +126,7 @@ Nothing in code: the manifest's `contents` already points at `components/` and `
   "license": "MIT",
   "suggestedPlugins": ["@nanoforge/ecs"],
   "dependencies": { "@nanoforge/basics-2d": "^2.0.0" },
-  "libDependencies": { "@nanoforge-dev/common": "^2.0.0", "@nanoforge-dev/ecs": "^2.0.0" },
+  "libDependencies": { "@nanoforge-dev/common": "^3.0.0", "@nanoforge-dev/ecs": "^3.0.0" },
   "contents": [
     { "kind": "@nanoforge/ecs:component", "path": "components/" },
     { "kind": "@nanoforge/ecs:system", "path": "systems/" }
@@ -131,7 +136,7 @@ Nothing in code: the manifest's `contents` already points at `components/` and `
 
 - `dependencies`: the `@nanoforge/*` packages its files import, nothing else (drop the key if none,
   like `basics-2d`), each at the dependency's current major (`^<its manifest major>.0.0`); `^1.0.0` for
-  a package never released. Each must be a folder of `packages/`, or the release fails.
+  a manifest without a `version`. Each must be a folder of `packages/`, or the release fails.
 - `libDependencies`: the `@nanoforge-dev/*` libs its files import, at the `core` catalog range. A
   lib not in the `core` catalog is a new dependency: ask first.
 - README: `# @nanoforge/<new-name>`, then one line per item, like `packages/physics-2d/README.md`.
@@ -142,10 +147,14 @@ Nothing in code: the manifest's `contents` already points at `components/` and `
 
 The 70% coverage thresholds cover every `packages/**/*.ts`: a new item comes with a test.
 
-- A system: in `test/systems.spec.ts`, in the `describe` of its package (add one for a new package).
-  Spawn entities with `spawn(...)`, `registry.addSystem(mySystem)`, `run(frame(ms))`, then check the
-  components. Held keys go in `keys`, the mouse in `mouse`.
-- A graphics item: in `test/graphics.spec.ts`, which stubs `document` and uses `fakeLayer()`.
+- A system: in `test/<pkg>.spec.ts`, the spec file of its package (a new package gets one, calling
+  `useEcs()` from `test/helpers.ts` at the top). Spawn entities with `spawn(...)`,
+  `registry.addSystem(mySystem)`, `run(frame(ms))`, then check the components. Held keys go in
+  `fake.keys`, the mouse in `fake.mouse`, the gamepad's sticks and buttons in `fake.sticks` and
+  `fake.buttons`.
+- A graphics item: in the same file, which calls `stubDocument()` so Konva shapes run without a
+  canvas; `fakeLayer()` records what is drawn.
+- A recipe that crosses packages (a README's): in `test/recipes.spec.ts`.
 - Import with the alias: `@nanoforge/<pkg>/systems/<file>`.
 
 ## 6. Check and commit

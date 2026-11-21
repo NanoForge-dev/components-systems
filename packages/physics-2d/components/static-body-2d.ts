@@ -1,6 +1,9 @@
 /**
- * Makes an entity solid: a wall, a floor or a platform that `RigidBody2D` entities can't go
- * through. Needs `HitboxRect2D`.
+ * Makes an entity solid: a wall, a floor or a platform that `RigidBody2D` and `WalkAndJump2D`
+ * entities can't go through. Needs a hitbox and the `blockOnStaticBodies2D` system.
+ *
+ * @remarks
+ * A `HitboxCircle2D` blocks as its bounding square.
  *
  * @component
  * @side shared

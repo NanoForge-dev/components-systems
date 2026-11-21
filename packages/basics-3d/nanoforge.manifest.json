@@ -14,7 +14,7 @@
   ],
   "license": "MIT",
   "suggestedPlugins": ["@nanoforge/ecs"],
-  "libDependencies": { "@nanoforge-dev/common": "^2.0.0", "@nanoforge-dev/ecs": "^2.0.0" },
+  "libDependencies": { "@nanoforge-dev/common": "^3.0.0", "@nanoforge-dev/ecs": "^3.0.0" },
   "contents": [
     { "kind": "@nanoforge/ecs:component", "path": "components/" },
     { "kind": "@nanoforge/ecs:system", "path": "systems/" }
