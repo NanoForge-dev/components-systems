@@ -1,6 +1,7 @@
 {
   "type": "package",
   "name": "@nanoforge/audio",
+  "version": "1.0.0",
   "description": "Sound effects and music: load them once, play a track per level, and let the player mute them.",
   "keywords": ["audio", "sound", "music", "mute"],
   "license": "MIT",

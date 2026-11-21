@@ -1,7 +1,7 @@
 {
   "type": "package",
   "name": "@nanoforge/physics-2d",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "description": "Collisions, gravity, solid ground, bounces, walking, jumping and chasing in 2D.",
   "keywords": [
     "physics",

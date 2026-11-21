@@ -1,6 +1,7 @@
 {
   "type": "package",
   "name": "@nanoforge/network-2d",
+  "version": "1.0.0",
   "description": "Multiplayer in 2D: the server sends where its entities are, how they move and which are gone; the clients follow, and catch up when they join.",
   "keywords": ["network", "2d", "multiplayer", "server", "sync"],
   "license": "MIT",

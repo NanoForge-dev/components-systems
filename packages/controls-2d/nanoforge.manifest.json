@@ -1,7 +1,7 @@
 {
   "type": "package",
   "name": "@nanoforge/controls-2d",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "description": "Control entities in 2D: walk, jump, aim and fire with the keyboard, the mouse or a gamepad; click, drag and follow the mouse.",
   "keywords": [
     "controls",
