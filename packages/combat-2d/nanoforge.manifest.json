@@ -1,7 +1,7 @@
 {
   "type": "package",
   "name": "@nanoforge/combat-2d",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "description": "Health, damage and shooting in 2D: health bars, contact damage, and shooters fired by a player, a turret or the server, with bullets that look like a model.",
   "keywords": ["combat", "2d", "health", "damage", "shoot", "bullet", "shooter", "turret", "aim"],
   "license": "MIT",

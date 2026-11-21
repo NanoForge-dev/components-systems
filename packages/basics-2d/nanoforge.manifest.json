@@ -1,7 +1,7 @@
 {
   "type": "package",
   "name": "@nanoforge/basics-2d",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "description": "Where an entity is and how it moves in 2D: position, velocity, acceleration; tags, models, lifetimes and following another entity.",
   "keywords": [
     "basics",

@@ -1,7 +1,7 @@
 {
   "type": "package",
   "name": "@nanoforge/graphics-2d",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "description": "Draw entities in 2D: rectangles, circles and texts with a color or an image, sprite animations, facing, fading, a camera and a HUD.",
   "keywords": [
     "graphics",

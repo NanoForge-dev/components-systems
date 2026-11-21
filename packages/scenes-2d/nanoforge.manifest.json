@@ -1,6 +1,7 @@
 {
   "type": "package",
   "name": "@nanoforge/scenes-2d",
+  "version": "1.0.0",
   "description": "Scene vars in a 2D game: a score or lives shown in a text, coins that add to them when picked up, and zones that add to them when entered.",
   "keywords": [
     "scenes",

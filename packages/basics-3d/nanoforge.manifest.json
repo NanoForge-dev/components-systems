@@ -1,6 +1,7 @@
 {
   "type": "package",
   "name": "@nanoforge/basics-3d",
+  "version": "1.0.0",
   "description": "Where an entity is and how it moves in 3D: position, rotation, scale, velocity and acceleration, as plain numbers.",
   "keywords": [
     "basics",
