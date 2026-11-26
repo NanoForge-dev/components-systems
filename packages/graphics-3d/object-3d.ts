@@ -5,6 +5,7 @@ import {
   type Color,
   DirectionalLight,
   DoubleSide,
+  Group,
   Light,
   MathUtils,
   Mesh,
@@ -20,6 +21,7 @@ import {
 import type { Box3D } from "./components/box-3d";
 import type { Camera3D } from "./components/camera-3d";
 import type { Light3D } from "./components/light-3d";
+import type { Model3D } from "./components/model-3d";
 import type { Object3DComponent } from "./components/object-3d-component";
 import type { Plane3D } from "./components/plane-3d";
 import type { Sphere3D } from "./components/sphere-3d";
@@ -36,7 +38,8 @@ export type Params3D =
   | ShapeParams
   | Params<Light3D, "Light3D">
   | Params<Camera3D, "Camera3D">
-  | Params<Object3DComponent, "Object3DComponent">;
+  | Params<Object3DComponent, "Object3DComponent">
+  | Params<Model3D, "Model3D">;
 
 /** A point or a vector on three axes, like `Position3D`. */
 export interface Xyz {
@@ -66,6 +69,10 @@ export const toObject3D = (params: Params3D, previous?: Object3D): Object3D => {
       return cameraFor(params, previous);
     case "Object3DComponent":
       return params.object;
+    case "Model3D": // an empty group that draw3D fills; a new path gets a new group, so it reloads
+      return previous?.userData.path === params.path
+        ? previous
+        : Object.assign(new Group(), { userData: { path: params.path } });
   }
 };
 

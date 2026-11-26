@@ -23,21 +23,37 @@ import { Scale3D } from "@nanoforge/basics-3d/components/scale-3d";
 import { Box3D } from "@nanoforge/graphics-3d/components/box-3d";
 import { Camera3D } from "@nanoforge/graphics-3d/components/camera-3d";
 import { Light3D } from "@nanoforge/graphics-3d/components/light-3d";
+import { Model3D } from "@nanoforge/graphics-3d/components/model-3d";
 import { Object3DComponent } from "@nanoforge/graphics-3d/components/object-3d-component";
 import { Plane3D } from "@nanoforge/graphics-3d/components/plane-3d";
 import { Sphere3D } from "@nanoforge/graphics-3d/components/sphere-3d";
 import { toObject3D } from "@nanoforge/graphics-3d/object-3d";
 import { draw3D } from "@nanoforge/graphics-3d/systems/draw-3d";
-import { describe, expect, it, vi } from "vitest";
+import { beforeEach, describe, expect, it, vi } from "vitest";
 
 import { registry, runOn, spawn, useRegistry } from "../ecs";
+
+/** `ctx.assets`: a blob URL per path, and no asset at a path starting with `/missing`. */
+const assets = {
+  getAsset: (path: string) => {
+    if (path.startsWith("/missing")) throw new Error("not found");
+    return { path: `blob:${path}` };
+  },
+};
+
+const gltf = vi.hoisted(() => ({ loadAsync: vi.fn() }));
+vi.mock("three/addons/loaders/GLTFLoader.js", () => ({
+  GLTFLoader: class {
+    loadAsync = gltf.loadAsync;
+  },
+}));
 
 useRegistry();
 
 /** The part of graphics-3d's `ctx.graphics` that `draw3D` uses: a real scene and camera. */
 const graphics3D = () => {
   const graphics = { scene: new Scene(), camera: new PerspectiveCamera() as Camera };
-  return { graphics, ctx: { app: { delta: 16 }, graphics } as unknown as Context };
+  return { graphics, ctx: { app: { delta: 16 }, graphics, assets } as unknown as Context };
 };
 
 /** What `draw3D` added for its components, without the default light. */
@@ -202,5 +218,114 @@ describe("graphics-3d", () => {
     );
     expect(same).toBe(box);
     expect(((same as Mesh).geometry as BoxGeometry).parameters).toMatchObject({ width: 3 });
+  });
+
+  describe("Model3D", () => {
+    /** A loaded glTF scene: one mesh with a textured material, its disposes spied. */
+    const model = () => {
+      const geometry = new SphereGeometry();
+      const map = new Texture();
+      const material = new MeshStandardMaterial({ map });
+      const scene = new Group().add(new Mesh(geometry, material));
+      return { scene, spies: [geometry, material, map].map((it) => vi.spyOn(it, "dispose")) };
+    };
+    /** The groups draw3D made for Model3Ds (the default light is a group too). */
+    const models = (scene: Scene) => scene.children.filter((child) => "path" in child.userData);
+    /** Lets the pending loads end. */
+    const settle = () => new Promise((resolve) => setTimeout(resolve));
+
+    beforeEach(() => {
+      gltf.loadAsync.mockReset();
+    });
+
+    it("shows the model once loaded, placed by the transform, without blocking the frame", async () => {
+      const { graphics, ctx } = graphics3D();
+      const { scene: loaded } = model();
+      gltf.loadAsync.mockResolvedValue({ scene: loaded });
+      spawn(new Model3D("/models/duck.glb"), new Position3D(1, 2, 3));
+      registry.addSystem(draw3D);
+
+      runOn(ctx);
+      const [group] = models(graphics.scene);
+      expect(group?.children).toHaveLength(0);
+
+      await settle();
+      expect(gltf.loadAsync).toHaveBeenCalledWith("blob:/models/duck.glb");
+      expect(group?.children).toEqual([loaded]);
+      expect(group?.position).toMatchObject({ x: 1, y: 2, z: 3 });
+    });
+
+    it("logs the path and shows a placeholder box for a missing or broken file", async () => {
+      const { graphics, ctx } = graphics3D();
+      const error = vi.spyOn(console, "error").mockImplementation(() => {});
+      gltf.loadAsync.mockRejectedValue(new Error("bad glb"));
+      spawn(new Model3D("/missing.glb"));
+      spawn(new Model3D("/models/broken.glb"));
+      registry.addSystem(draw3D);
+
+      expect(() => runOn(ctx)).not.toThrow();
+      await settle();
+
+      const groups = models(graphics.scene);
+      expect(groups).toHaveLength(2);
+      for (const group of groups) expect(group.children[0]).toBeInstanceOf(Mesh);
+      for (const path of ["/missing.glb", "/models/broken.glb"])
+        expect(error).toHaveBeenCalledWith(expect.stringContaining(path), expect.anything());
+      error.mockRestore();
+    });
+
+    it("disposes the model's geometries, materials and textures when removed", async () => {
+      const { graphics, ctx } = graphics3D();
+      const { scene: loaded, spies } = model();
+      gltf.loadAsync.mockResolvedValue({ scene: loaded });
+      const entity = spawn(new Model3D("/models/duck.glb"));
+      registry.addSystem(draw3D);
+      runOn(ctx);
+      await settle();
+
+      registry.killEntity(entity);
+      runOn(ctx);
+
+      expect(models(graphics.scene)).toHaveLength(0);
+      for (const spy of spies) expect(spy).toHaveBeenCalled();
+    });
+
+    it("drops and disposes a load that ends after the component was removed", async () => {
+      const { ctx } = graphics3D();
+      const { scene: loaded, spies } = model();
+      let finish = (_: unknown) => {};
+      gltf.loadAsync.mockReturnValue(new Promise((resolve) => (finish = resolve)));
+      const entity = spawn(new Model3D("/models/duck.glb"));
+      registry.addSystem(draw3D);
+      runOn(ctx);
+      registry.killEntity(entity);
+      runOn(ctx);
+
+      finish({ scene: loaded });
+      await settle();
+
+      expect(loaded.parent).toBeNull();
+      for (const spy of spies) expect(spy).toHaveBeenCalled();
+    });
+
+    it("loads the new file when the path changes", async () => {
+      const { graphics, ctx } = graphics3D();
+      gltf.loadAsync.mockReturnValue(new Promise(() => {}));
+      const component = new Model3D("/models/duck.glb");
+      spawn(component);
+      registry.addSystem(draw3D);
+      runOn(ctx);
+      const [first] = models(graphics.scene);
+
+      runOn(ctx);
+      component.path = "/models/fox.glb";
+      runOn(ctx);
+      await settle();
+
+      expect(models(graphics.scene)).not.toContain(first);
+      expect(models(graphics.scene)).toHaveLength(1);
+      expect(gltf.loadAsync).toHaveBeenCalledTimes(2);
+      expect(gltf.loadAsync).toHaveBeenLastCalledWith("blob:/models/fox.glb");
+    });
   });
 });

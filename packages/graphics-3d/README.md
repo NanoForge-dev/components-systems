@@ -13,6 +13,8 @@ peer `three`, and registers `Graphics3DLibrary` in the client's `main.ts`.
   library's camera at `(0, 0, 5)` looking at the origin.
 - `Object3DComponent`: any Three.js object you built, such as an `InstancedMesh` for many identical
   objects. It moves with the transform components like the shapes.
+- `Model3D`: a `.glb`/`.gltf` model, loaded in the background. A missing or broken file logs an
+  error and shows a magenta box.
 - `draw3D`: gives each component its Three.js object and keeps it up to date. A removed component,
   or a killed entity, loses its object, and its geometries, materials and textures are disposed.
 
