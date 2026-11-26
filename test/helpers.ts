@@ -1,10 +1,11 @@
-import type { Context, InitContext } from "@nanoforge-dev/common";
-import { EcsLibrary, type Registry } from "@nanoforge-dev/ecs/server";
+import type { Context } from "@nanoforge-dev/common";
 import type { Layer, Shape } from "@nanoforge-dev/graphics-2d";
 import type { DragState, InputEnum, MouseState } from "@nanoforge-dev/input";
 import type { ControllerButton, StickPosition } from "@nanoforge-dev/input/controller";
 import type { PacketDefinition } from "@nanoforge-dev/network";
-import { type Mock, afterEach, beforeAll, beforeEach, vi } from "vitest";
+import { type Mock, afterEach, beforeEach, vi } from "vitest";
+
+import { registry, useRegistry } from "./ecs";
 
 /*
  * What every spec file shares. At the top of a spec file, call `useEcs()`, and `stubDocument()`
@@ -12,8 +13,7 @@ import { type Mock, afterEach, beforeAll, beforeEach, vi } from "vitest";
  * (`registry.addSystem`), sets what the player does in `fake`, and runs frames (`run(frame(ms))`).
  */
 
-/** The server ECS registry, booted by `useEcs` before the first test of the file. */
-export let registry: Registry;
+export { alive, registry, spawn } from "./ecs";
 
 /** A Konva layer as the systems use it: see `fakeLayer`. */
 export type FakeLayer = Layer & { at: { x: number; y: number; zoom: number }; shapes: Shape[] };
@@ -204,21 +204,8 @@ export const frame = (ms = 1000, without: string[] = []): Context => {
   return ctx as unknown as Context;
 };
 
-/** Spawns an entity with `components`. */
-export const spawn = (...components: { name: string }[]) => {
-  const entity = registry.spawnEntity();
-  for (const component of components) registry.addComponent(entity, component);
-  return entity;
-};
-
 /** Runs every system once, on `ctx` (a frame of 1 second by default). */
 export const run = (ctx = frame()) => registry.runSystems(ctx);
-
-/** Whether the entity still exists, by one of its components. */
-export const alive = (
-  component: Parameters<Registry["getComponents"]>[0],
-  entity: { getId(): number },
-) => registry.getComponents(component).get(entity.getId()) !== undefined;
 
 /**
  * Boots the server ECS (its wasm from `node_modules`) before the first test of the file, and
@@ -226,21 +213,8 @@ export const alive = (
  * top of the file.
  */
 export const useEcs = () => {
-  beforeAll(async () => {
-    const ecs = new EcsLibrary();
-    await ecs.__init({
-      files: new Map([
-        ["/libecs.wasm", "./node_modules/@nanoforge-dev/ecs/dist/server/libecs.wasm"],
-      ]),
-    } as unknown as InitContext);
-    registry = ecs.registry;
-  });
-
-  beforeEach(() => {
-    registry.clearSystems();
-    registry.clearEntities();
-    Object.assign(fake, freshFakes());
-  });
+  useRegistry();
+  beforeEach(() => Object.assign(fake, freshFakes()));
 };
 
 /** A 2D context where everything does nothing and measures 0: Konva needs one. */

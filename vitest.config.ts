@@ -25,10 +25,25 @@ export default defineConfig({
     exclude: ["**/node_modules", "**/dist", ".idea", ".git", ".cache"],
     passWithNoTests: true,
 
-    typecheck: {
-      enabled: true,
-      tsconfig: "./tsconfig.spec.json",
-    },
+    // Two programs, as in the build: graphics-2d and graphics-3d both type `ctx.graphics`. Vitest
+    // doesn't typecheck `.spec.ts` files: `pnpm run typecheck` does.
+    projects: [
+      {
+        extends: true,
+        test: {
+          name: "2d",
+          include: ["test/**/*.spec.ts"],
+          exclude: ["test/3d/**"],
+        },
+      },
+      {
+        extends: true,
+        test: {
+          name: "3d",
+          include: ["test/3d/**/*.spec.ts"],
+        },
+      },
+    ],
 
     coverage: {
       enabled: true,

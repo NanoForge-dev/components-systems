@@ -1,0 +1,9 @@
+{
+  "$schema": "https://json.schemastore.org/tsconfig.json",
+  // The packages that use `@nanoforge-dev/graphics-3d`, which types `ctx.graphics` for 3D: they
+  // build apart from the 2D ones (tsconfig.json). A game loads graphics-2d or graphics-3d, never both.
+  "extends": "./tsconfig.json",
+  // With the packages they import, so an incremental build sees their changes.
+  "include": ["packages/graphics-3d/**/*.ts", "packages/basics-3d/**/*.ts"],
+  "exclude": ["node_modules", "dist"]
+}

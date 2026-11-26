@@ -25,6 +25,7 @@ package of the registry:
 | [`@nanoforge/basics-2d`](packages/basics-2d)     | shared | Position, velocity and `move2D`; tags, models, lifetimes, following another entity                       |
 | [`@nanoforge/basics-3d`](packages/basics-3d)     | shared | `Position3D`, `Rotation3D`, `Scale3D`, `Velocity3D`, `Acceleration3D` and `move3D`                       |
 | [`@nanoforge/graphics-2d`](packages/graphics-2d) | client | Shapes and texts with a color or an image, sprite animations, facing, a camera, a HUD, `draw2D`          |
+| [`@nanoforge/graphics-3d`](packages/graphics-3d) | client | Boxes, spheres and planes of a color, lights, a camera, any Three.js object, `draw3D`                    |
 | [`@nanoforge/physics-2d`](packages/physics-2d)   | shared | Hitboxes, collisions, gravity, walls, bounces and deflectors, walking, jumping, chasing and bounds       |
 | [`@nanoforge/controls-2d`](packages/controls-2d) | client | Keyboard, mouse and gamepad controls for walking, jumping and shooting; click, drag and follow the mouse |
 | [`@nanoforge/combat-2d`](packages/combat-2d)     | both   | Health, damage, shooters fired by a player, a turret or the server; health bars                          |

@@ -32,8 +32,9 @@
   },
   "funding": "https://github.com/NanoForge-dev/components-systems?sponsor",
   "scripts": {
-    "build": "tsc -b",
-    "lint": "prettier --check . && eslint --format=pretty packages",
+    "build": "tsc -b tsconfig.json tsconfig.3d.json",
+    "lint": "prettier --check . && eslint --format=pretty packages && pnpm run typecheck",
+    "typecheck": "tsc --noEmit -p tsconfig.spec.json && tsc --noEmit -p tsconfig.spec.3d.json",
     "format": "prettier --write . && eslint --fix --format=pretty packages",
     "test:unit": "vitest run --config vitest.config.ts --coverage.thresholds.lines=70 --coverage.thresholds.functions=70 --coverage.thresholds.branches=70 --coverage.thresholds.statements=70",
     "test": "pnpm run test:unit",
@@ -47,6 +48,7 @@
     "@nanoforge-dev/ecs": "catalog:core",
     "@nanoforge-dev/editor-lib": "catalog:core",
     "@nanoforge-dev/graphics-2d": "catalog:core",
+    "@nanoforge-dev/graphics-3d": "catalog:core",
     "@nanoforge-dev/input": "catalog:core",
     "@nanoforge-dev/music": "catalog:core",
     "@nanoforge-dev/network": "catalog:core",
@@ -60,6 +62,7 @@
     "husky": "catalog:ci",
     "lint-staged": "catalog:ci",
     "prettier": "catalog:lint",
+    "three": "catalog:core",
     "typescript": "catalog:core",
     "vitest": "catalog:test"
   },

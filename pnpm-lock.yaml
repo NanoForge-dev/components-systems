@@ -31,6 +31,9 @@ catalogs:
     '@nanoforge-dev/graphics-2d':
       specifier: ^3.0.0
       version: 3.0.0
+    '@nanoforge-dev/graphics-3d':
+      specifier: ^3.0.0
+      version: 3.0.0
     '@nanoforge-dev/input':
       specifier: ^3.0.0
       version: 3.0.0
@@ -46,6 +49,9 @@ catalogs:
     '@nanoforge-dev/sound':
       specifier: ^3.0.0
       version: 3.0.0
+    three:
+      specifier: ^0.187.0
+      version: 0.187.0
     typescript:
       specifier: ^6.0.3
       version: 6.0.3
@@ -99,6 +105,9 @@ importers:
       '@nanoforge-dev/graphics-2d':
         specifier: catalog:core
         version: 3.0.0
+      '@nanoforge-dev/graphics-3d':
+        specifier: catalog:core
+        version: 3.0.0(@nanoforge-dev/editor-lib@3.0.0)(three@0.187.0)
       '@nanoforge-dev/input':
         specifier: catalog:core
         version: 3.0.0
@@ -138,6 +147,9 @@ importers:
       prettier:
         specifier: catalog:lint
         version: 3.10.1
+      three:
+        specifier: catalog:core
+        version: 0.187.0
       typescript:
         specifier: catalog:core
         version: 6.0.3
@@ -291,6 +303,9 @@ packages:
     resolution: {integrity: sha512-mHyyEL0eIEqJ6+aF24+AdZRo4bu4W5GdUiCiCx5X7kfDY51ye8GQJ264uOINObrRSKxtSRCOWPpl9hbOy4UzxQ==}
     engines: {node: '>=22'}
 
+  '@dimforge/rapier3d-compat@0.12.0':
+    resolution: {integrity: sha512-uekIGetywIgopfD97oDL5PfeezkFpNhwlzlaEYNOA0N6ghdsOvh/HYjSMek5Q2O1PYvRSDFcqFVJl4r4ZBwOow==}
+
   '@dprint/formatter@0.5.1':
     resolution: {integrity: sha512-cdZUrm0iv/FnnY3CKE2dEcVhNEzrC551aE2h2mTFwQCRBrqyARLDnb7D+3PlXTUVp3s34ftlnGOVCmhLT9DeKA==}
 
@@ -415,6 +430,16 @@ packages:
   '@nanoforge-dev/graphics-2d@3.0.0':
     resolution: {integrity: sha512-0I0WUr5495jORdYR+HtyP4kmAfCMvixmG+EH/gE5bN33S8RO6/Ly4oMLZOLUywcDTAFuLn28BlHuVor2YfXrsg==}
     engines: {node: '26'}
+
+  '@nanoforge-dev/graphics-3d@3.0.0':
+    resolution: {integrity: sha512-yRY2ktlzgHQS0fdrdj+k5FjrBMGPQ3vFnw+Ag3vMv2mRRrFCwFBDzofpf1tSzluOyyTpJkgD2tmRpQZqC5CsLg==}
+    engines: {node: '26'}
+    peerDependencies:
+      '@nanoforge-dev/editor-lib': 3.0.0
+      three: ^0.187.0
+    peerDependenciesMeta:
+      '@nanoforge-dev/editor-lib':
+        optional: true
 
   '@nanoforge-dev/input@3.0.0':
     resolution: {integrity: sha512-8pWU28c99VAvn37onNbVFfwXTgyQGxm5DVnTdBEzgrF3KPCzU77kEaexB1AWOlga+4qNGU7/XNm3hNZ+YS49Ig==}
@@ -836,6 +861,9 @@ packages:
       svelte:
         optional: true
 
+  '@tweenjs/tween.js@23.1.3':
+    resolution: {integrity: sha512-vJmvvwFxYuGnF2axRtPYocag6Clbb5YS7kLL+SO/TeVFzHqDIWrNKYtcsPMibjDx9O+bu+psAy9NKfWklassUA==}
+
   '@types/chai@5.2.3':
     resolution: {integrity: sha512-Mw558oeA9fFbv65/y4mHtXDs9bPnFMZAL/jxdPFUpOHHIXX91mcgEHbS5Lahr+pwZFR8A7GQleRWeI6cGFC2UA==}
 
@@ -857,8 +885,17 @@ packages:
   '@types/node@26.0.1':
     resolution: {integrity: sha512-fc3KiUoBt6kie0N9bIW3E47vZsuaMf0PM2AaUpLCLT0s/LvX1nxAim6Fc049cNxODPpGm6qRAuUOB86SkRuPQw==}
 
+  '@types/stats.js@0.17.4':
+    resolution: {integrity: sha512-jIBvWWShCvlBqBNIZt0KAshWpvSjhkwkEu4ZUcASoAvhmrgAUI2t1dXrjSL4xXVLB4FznPrIsX3nKXFl/Dt4vA==}
+
+  '@types/three@0.187.0':
+    resolution: {integrity: sha512-v+vKNarUtk4n2QRZ4+CN5ygMM0ARUjXjIQl0R/unMUfmStFeVqGbgqarbrpoGTXRZoulSH16ePrVJVxPJEbMUA==}
+
   '@types/validator@13.15.10':
     resolution: {integrity: sha512-T8L6i7wCuyoK8A/ZeLYt1+q0ty3Zb9+qbSSvrIVitzT3YjZqkTZ40IbRsPanlB4h1QB3JVL1SYCdR6ngtFYcuA==}
+
+  '@types/webxr@0.5.24':
+    resolution: {integrity: sha512-h8fgEd/DpoS9CBrjEQXR+dIDraopAEfu4wYVNY2tEPwk60stPWhvZMf4Foo5FakuQ7HFZoa8WceaWFervK2Ovg==}
 
   '@typescript-eslint/eslint-plugin@8.72.1':
     resolution: {integrity: sha512-5CokTWXpmbylfFabsbvHC0CAw3XLaGnoa+nFJX5FR592h/LoZsENUE6p/rg5xvkKrFEXz6pYmgI29AgXc2N3BQ==}
@@ -1263,6 +1300,9 @@ packages:
       picomatch:
         optional: true
 
+  fflate@0.8.3:
+    resolution: {integrity: sha512-tbZNuJrLwGUp3zshBtdy4W+ORxZuIh8a5ilyIEQDC5rY1f3U20JMry0Ll3WBzU58EZKsEuJFXhb5gwv8CsPvgA==}
+
   figures@6.1.0:
     resolution: {integrity: sha512-d+l3qxjSesT4V7v2fh+QnmFnUWv9lSpjarhShNTgBOfA0ttejbQUAlHLitbjkoRiDulW0OPoQPYIGhIC8ohejg==}
     engines: {node: '>=18'}
@@ -1601,6 +1641,9 @@ packages:
     resolution: {integrity: sha512-pxQJQzB6djGPXh08dacEloMFopsOqGVRKFPYvPOt9XDZ1HasbgDZA74CJGreSU4G3Ak7EFJGoiH2auq+yXISgA==}
     engines: {node: '>=18'}
 
+  meshoptimizer@1.1.1:
+    resolution: {integrity: sha512-oRFNWJRDA/WTrVj7NWvqa5HqE1t9MYDj2VaWirQCzCCrAd2GHrqR/sQezCxiWATPNlKTcRaPRHPJwIRoPBAp5g==}
+
   minimatch@10.2.6:
     resolution: {integrity: sha512-vpLQEs+VLCr1nU0BXS07maYoFwlDAH0gngQuuttxIwutDFEMHq2blX+8vpgxDdK3J1PwjCJiep77OitTZ4Ll1A==}
     engines: {node: 18 || 20 || >=22}
@@ -1815,6 +1858,9 @@ packages:
   synckit@0.12.3:
     resolution: {integrity: sha512-U+/AXT6LWsxnj2vz9HeUuPWBNgdWxjyIEjEPdbJARC9txmgPzo2VEdqnFo4hHaNyMPtycyVJrSaQYeQv/PoyyA==}
     engines: {node: ^14.18.0 || >=16.0.0}
+
+  three@0.187.0:
+    resolution: {integrity: sha512-Qiu7R+Cmh8CstZsY1uJOSWnVlfo7ZtNLV7mF8Jltk3LB3AtDu9cRZlcnRKkAk8Y4z6KKw35z7Y7Urd7jWY8etA==}
 
   tinybench@2.9.0:
     resolution: {integrity: sha512-0+DUvqWMValLmha6lr4kD8iAMK1HzV0/aKnCtWb9v9641TnP/MFb7Pc2bxoxQjTXAErryXVgUOfv2YqNllqGeg==}
@@ -2195,6 +2241,8 @@ snapshots:
 
   '@conventional-changelog/template@1.4.1': {}
 
+  '@dimforge/rapier3d-compat@0.12.0': {}
+
   '@dprint/formatter@0.5.1': {}
 
   '@dprint/markdown@0.21.1': {}
@@ -2320,6 +2368,14 @@ snapshots:
     transitivePeerDependencies:
       - canvas
       - skia-canvas
+
+  '@nanoforge-dev/graphics-3d@3.0.0(@nanoforge-dev/editor-lib@3.0.0)(three@0.187.0)':
+    dependencies:
+      '@nanoforge-dev/common': 3.0.0
+      '@types/three': 0.187.0
+      three: 0.187.0
+    optionalDependencies:
+      '@nanoforge-dev/editor-lib': 3.0.0
 
   '@nanoforge-dev/input@3.0.0':
     dependencies:
@@ -2596,6 +2652,8 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
+  '@tweenjs/tween.js@23.1.3': {}
+
   '@types/chai@5.2.3':
     dependencies:
       '@types/deep-eql': 4.0.2
@@ -2619,7 +2677,20 @@ snapshots:
       undici-types: 8.3.0
     optional: true
 
+  '@types/stats.js@0.17.4': {}
+
+  '@types/three@0.187.0':
+    dependencies:
+      '@dimforge/rapier3d-compat': 0.12.0
+      '@tweenjs/tween.js': 23.1.3
+      '@types/stats.js': 0.17.4
+      '@types/webxr': 0.5.24
+      fflate: 0.8.3
+      meshoptimizer: 1.1.1
+
   '@types/validator@13.15.10': {}
+
+  '@types/webxr@0.5.24': {}
 
   '@typescript-eslint/eslint-plugin@8.72.1(@typescript-eslint/parser@8.72.1(eslint@10.14.0(jiti@2.7.0))(typescript@6.0.3))(eslint@10.14.0(jiti@2.7.0))(typescript@6.0.3)':
     dependencies:
@@ -3078,6 +3149,8 @@ snapshots:
     optionalDependencies:
       picomatch: 4.0.7
 
+  fflate@0.8.3: {}
+
   figures@6.1.0:
     dependencies:
       is-unicode-supported: 2.1.0
@@ -3335,6 +3408,8 @@ snapshots:
 
   meow@13.2.0: {}
 
+  meshoptimizer@1.1.1: {}
+
   minimatch@10.2.6:
     dependencies:
       brace-expansion: 5.0.12
@@ -3557,6 +3632,8 @@ snapshots:
     dependencies:
       '@dual-bundle/import-meta-resolve': 4.2.1
       '@pkgr/core': 0.3.6
+
+  three@0.187.0: {}
 
   tinybench@2.9.0: {}
 

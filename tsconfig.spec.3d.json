@@ -1,0 +1,9 @@
+{
+  "$schema": "https://json.schemastore.org/tsconfig.json",
+  "extends": "./tsconfig.3d.json",
+  "compilerOptions": {
+    "noEmit": true
+  },
+  "include": ["test/3d/**/*.spec.ts", "packages/graphics-3d/**/*.ts", "packages/basics-3d/**/*.ts"],
+  "exclude": ["node_modules"]
+}
