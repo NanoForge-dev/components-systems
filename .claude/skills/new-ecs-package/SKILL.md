@@ -101,7 +101,10 @@ export const myThing2D = (registry: Registry, ctx: Context) => {
 ## 3. Register it
 
 Nothing in code: the manifest's `contents` already points at `components/` and `systems/`, and
-`tsconfig.json` builds `packages/**/*.ts`. Update by hand:
+`tsconfig.json` builds `packages/**/*.ts`. A package that uses `@nanoforge-dev/graphics-3d`
+builds in `tsconfig.3d.json` instead (add it to the `include` of `tsconfig.3d.json` and `tsconfig.spec.3d.json`, and to the
+`exclude` of `tsconfig.json` and `tsconfig.spec.json`), and its
+spec goes in `test/3d/`, importing `../ecs`: both graphics libs type `ctx.graphics`. Update by hand:
 
 - `packages/<pkg>/README.md`: one line for the item (and with which system it works);
 - a new system: its place in _Order of the systems_ in `docs/default-packages.md`, and the order
@@ -154,6 +157,9 @@ The 70% coverage thresholds cover every `packages/**/*.ts`: a new item comes wit
   `fake.buttons`.
 - A graphics item: in the same file, which calls `stubDocument()` so Konva shapes run without a
   canvas; `fakeLayer()` records what is drawn.
+- A graphics-3d item: in `test/3d/<pkg>.spec.ts`, which imports `../ecs` (`useRegistry()`,
+  `spawn`, `runOn(ctx)`), not `test/helpers.ts`, and builds its ctx with a real `Scene` and
+  `PerspectiveCamera` from `@nanoforge-dev/graphics-3d/three`.
 - A recipe that crosses packages (a README's): in `test/recipes.spec.ts`.
 - Import with the alias: `@nanoforge/<pkg>/systems/<file>`.
 

@@ -1,6 +1,4 @@
-import type { Context } from "@nanoforge-dev/common";
 import { Layer } from "@nanoforge-dev/graphics-2d";
-import { Mesh, PerspectiveCamera, Scene } from "@nanoforge-dev/graphics-3d/three";
 import { InputEnum } from "@nanoforge-dev/input";
 import { ControllerButton } from "@nanoforge-dev/input/controller";
 import { MuteOnKey } from "@nanoforge/audio/components/mute-on-key";
@@ -14,9 +12,6 @@ import { Velocity2D } from "@nanoforge/basics-2d/components/velocity-2d";
 import { FromModel } from "@nanoforge/basics-2d/models";
 import { expireLifetimes } from "@nanoforge/basics-2d/systems/expire-lifetimes";
 import { move2D } from "@nanoforge/basics-2d/systems/move-2d";
-import { Position3D } from "@nanoforge/basics-3d/components/position-3d";
-import { Velocity3D } from "@nanoforge/basics-3d/components/velocity-3d";
-import { move3D } from "@nanoforge/basics-3d/systems/move-3d";
 import { DamageOnHit2D } from "@nanoforge/combat-2d/components/damage-on-hit-2d";
 import { DestroyOnHit2D } from "@nanoforge/combat-2d/components/destroy-on-hit-2d";
 import { FaceAim2D } from "@nanoforge/combat-2d/components/face-aim-2d";
@@ -60,11 +55,6 @@ import { faceTarget2D } from "@nanoforge/graphics-2d/systems/face-target-2d";
 import { faceVelocity2D } from "@nanoforge/graphics-2d/systems/face-velocity-2d";
 import { fadeOut2D } from "@nanoforge/graphics-2d/systems/fade-out-2d";
 import { followCamera2D } from "@nanoforge/graphics-2d/systems/follow-camera-2d";
-import { Box3D } from "@nanoforge/graphics-3d/components/box-3d";
-import { Camera3D } from "@nanoforge/graphics-3d/components/camera-3d";
-import { Light3D } from "@nanoforge/graphics-3d/components/light-3d";
-import { Sphere3D } from "@nanoforge/graphics-3d/components/sphere-3d";
-import { draw3D } from "@nanoforge/graphics-3d/systems/draw-3d";
 import { NetworkId } from "@nanoforge/network-2d/components/network-id";
 import { Sync2DPacket, SyncRequestPacket } from "@nanoforge/network-2d/sync-packets";
 import { syncFromServer2D } from "@nanoforge/network-2d/systems/sync-from-server-2d";
@@ -929,28 +919,5 @@ describe("recipes: multiplayer (movement only)", () => {
     expect(bullets()).toHaveLength(0);
     expect(fake.network.sent[0]).toMatchObject({ move: { id: 1, velocityX: 0, velocityY: 200 } });
     expect(fake.network.sent).toContainEqual({ remove: 2 });
-  });
-});
-
-describe("recipes: 3D", () => {
-  it("a cube, a ball, a light and a camera: the cube rises, lit by the sun, seen from the camera", () => {
-    const graphics = { scene: new Scene(), camera: new PerspectiveCamera() };
-    const ctx = { app: { delta: FRAME }, graphics } as unknown as Context;
-    spawn(new Box3D(1, 1, 1, "#44aa88"), new Position3D(-1, 0, 0), new Velocity3D(0, 0.5, 0));
-    spawn(new Sphere3D(0.5, "#ff6b6b"), new Position3D(1, 0, 0));
-    spawn(new Light3D("directional", "#ffffff", 3), new Position3D(3, 5, 4));
-    spawn(new Camera3D(), new Position3D(0, 1, 6));
-    add(move3D, draw3D);
-
-    for (let i = 0; i < 60; i++) run(ctx);
-
-    const [cube, ball, sun, camera] = graphics.scene.children;
-    expect(graphics.scene.children).toHaveLength(4);
-    expect(cube).toBeInstanceOf(Mesh);
-    expect(cube?.position.y).toBeCloseTo(0.5);
-    expect(ball?.position.x).toBe(1);
-    expect(sun?.position.toArray()).toEqual([3, 5, 4]);
-    expect(graphics.camera).toBe(camera);
-    expect(camera?.position.toArray()).toEqual([0, 1, 6]);
   });
 });

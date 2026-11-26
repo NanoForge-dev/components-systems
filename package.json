@@ -32,8 +32,9 @@
   },
   "funding": "https://github.com/NanoForge-dev/components-systems?sponsor",
   "scripts": {
-    "build": "tsc -b",
-    "lint": "prettier --check . && eslint --format=pretty packages",
+    "build": "tsc -b tsconfig.json tsconfig.3d.json",
+    "lint": "prettier --check . && eslint --format=pretty packages && pnpm run typecheck",
+    "typecheck": "tsc --noEmit -p tsconfig.spec.json && tsc --noEmit -p tsconfig.spec.3d.json",
     "format": "prettier --write . && eslint --fix --format=pretty packages",
     "test:unit": "vitest run --config vitest.config.ts --coverage.thresholds.lines=70 --coverage.thresholds.functions=70 --coverage.thresholds.branches=70 --coverage.thresholds.statements=70",
     "test": "pnpm run test:unit",

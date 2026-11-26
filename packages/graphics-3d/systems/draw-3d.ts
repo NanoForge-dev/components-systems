@@ -1,5 +1,6 @@
 import type { Context } from "@nanoforge-dev/common";
 import type { Registry } from "@nanoforge-dev/ecs";
+import "@nanoforge-dev/graphics-3d";
 import {
   AmbientLight,
   type Camera,
@@ -19,16 +20,6 @@ import { Object3DComponent } from "../components/object-3d-component";
 import { Plane3D } from "../components/plane-3d";
 import { Sphere3D } from "../components/sphere-3d";
 import { type Params3D, applyTransform3D, disposeObject3D, toObject3D } from "../object-3d";
-
-/**
- * The 3D library's `ctx.graphics`, as far as this system uses it. The library's main entry types
- * `Context.graphics` as the 3D API and graphics-2d as the 2D one, and every package here builds in
- * one program: so only `@nanoforge-dev/graphics-3d/three` is imported.
- */
-interface Graphics3D {
-  scene: Scene;
-  camera: Camera;
-}
 
 /** What `draw3D` added to one app's scene. */
 interface Shown {
@@ -62,14 +53,14 @@ const defaultLight = () => {
  *
  * @system
  * @side client
- * @uses graphics
  */
 export const draw3D = (registry: Registry, ctx: Context) => {
-  const graphics = (ctx as unknown as { graphics?: Partial<Graphics3D> }).graphics;
-  if (!graphics?.scene || !graphics.camera) return;
-  const { scene } = graphics;
+  // An app without Graphics3DLibrary has no `ctx.graphics`, or graphics-2d's.
+  if (!ctx.graphics?.scene) return;
+  const { scene } = ctx.graphics;
   let shown = shownIn.get(scene);
-  if (!shown) shownIn.set(scene, (shown = { objects: new Map(), defaultCamera: graphics.camera }));
+  if (!shown)
+    shownIn.set(scene, (shown = { objects: new Map(), defaultCamera: ctx.graphics.camera }));
 
   const positions = new Map<number, Position3D>(
     registry.getIndexedZipper([Position3D]).map(({ id, Position3D }) => [id, Position3D]),
@@ -106,7 +97,7 @@ export const draw3D = (registry: Registry, ctx: Context) => {
   shown.objects = objects;
 
   const next = (camera as Camera | undefined) ?? shown.defaultCamera;
-  if (graphics.camera !== next) graphics.camera = next;
+  if (ctx.graphics.camera !== next) ctx.graphics.camera = next;
 
   // shortcut: only top-level lights count, not one inside an Object3DComponent's group; traverse if someone hits it.
   const lit = scene.children.some((child) => "isLight" in child);

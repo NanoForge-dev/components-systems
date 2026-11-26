@@ -30,9 +30,9 @@ import { toObject3D } from "@nanoforge/graphics-3d/object-3d";
 import { draw3D } from "@nanoforge/graphics-3d/systems/draw-3d";
 import { describe, expect, it, vi } from "vitest";
 
-import { registry, run, spawn, useEcs } from "./helpers";
+import { registry, runOn, spawn, useRegistry } from "../ecs";
 
-useEcs();
+useRegistry();
 
 /** The part of graphics-3d's `ctx.graphics` that `draw3D` uses: a real scene and camera. */
 const graphics3D = () => {
@@ -55,7 +55,7 @@ describe("graphics-3d", () => {
     spawn(new Object3DComponent(torus), new Position3D(-5, 0, 0));
     registry.addSystem(draw3D);
 
-    run(ctx);
+    runOn(ctx);
 
     const [box, sphere, plane, light, camera, object] = shown(graphics.scene) as Mesh[];
     expect((box?.geometry as BoxGeometry).parameters).toMatchObject({
@@ -86,19 +86,19 @@ describe("graphics-3d", () => {
     spawn(box);
     spawn(light);
     registry.addSystem(draw3D);
-    run(ctx);
+    runOn(ctx);
     const [mesh, sun] = shown(graphics.scene) as [Mesh, DirectionalLight];
     const oldGeometry = mesh.geometry;
     const disposeGeometry = vi.spyOn(oldGeometry, "dispose");
     const disposeSun = vi.spyOn(sun, "dispose");
 
-    run(ctx);
+    runOn(ctx);
     expect(mesh.geometry).toBe(oldGeometry);
 
     box.width = 5;
     box.color = "#00ff00";
     light.kind = "ambient";
-    run(ctx);
+    runOn(ctx);
 
     expect(shown(graphics.scene)[0]).toBe(mesh);
     expect(mesh.geometry).not.toBe(oldGeometry);
@@ -118,7 +118,7 @@ describe("graphics-3d", () => {
     const killed = spawn(new Box3D());
     const stripped = spawn(new Object3DComponent(torus));
     registry.addSystem(draw3D);
-    run(ctx);
+    runOn(ctx);
     const [box] = shown(graphics.scene) as [Mesh];
     const disposed = [
       vi.spyOn(box.geometry, "dispose"),
@@ -130,7 +130,7 @@ describe("graphics-3d", () => {
 
     registry.killEntity(killed);
     registry.removeComponent(stripped, Object3DComponent);
-    run(ctx);
+    runOn(ctx);
 
     expect(shown(graphics.scene)).toEqual([]);
     for (const dispose of disposed) expect(dispose).toHaveBeenCalledOnce();
@@ -139,17 +139,17 @@ describe("graphics-3d", () => {
   it("lights an unlit scene by default, until it has a light of its own", () => {
     const { graphics, ctx } = graphics3D();
     registry.addSystem(draw3D);
-    run(ctx);
+    runOn(ctx);
 
     const rig = graphics.scene.children.find((child) => child instanceof Group);
     expect(rig?.children.map((light) => light.type)).toEqual(["AmbientLight", "DirectionalLight"]);
 
     const lamp = spawn(new Light3D());
-    run(ctx);
+    runOn(ctx);
     expect(graphics.scene.children.some((child) => child instanceof Group)).toBe(false);
 
     registry.killEntity(lamp);
-    run(ctx);
+    runOn(ctx);
     expect(graphics.scene.children.some((child) => child instanceof Group)).toBe(true);
   });
 
@@ -161,19 +161,19 @@ describe("graphics-3d", () => {
     spawn(off);
     const entity = spawn(on);
     registry.addSystem(draw3D);
-    run(ctx);
+    runOn(ctx);
 
     expect((graphics.camera as PerspectiveCamera).fov).toBe(40);
     expect(graphics.camera.position.toArray()).toEqual([0, 0, 5]);
 
     on.active = false;
-    run(ctx);
+    runOn(ctx);
     expect(graphics.camera).toBe(libraryCamera);
 
     on.active = true;
-    run(ctx);
+    runOn(ctx);
     registry.killEntity(entity);
-    run(ctx);
+    runOn(ctx);
     expect(graphics.camera).toBe(libraryCamera);
   });
 
@@ -181,7 +181,7 @@ describe("graphics-3d", () => {
     spawn(new Box3D());
     registry.addSystem(draw3D);
 
-    expect(() => run({ app: { delta: 16 } } as unknown as Context)).not.toThrow();
+    expect(() => runOn({ app: { delta: 16 } } as unknown as Context)).not.toThrow();
   });
 
   it("toObject3D maps plain params, and updates the object it is given", () => {
