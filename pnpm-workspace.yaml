@@ -18,6 +18,7 @@ catalogs:
     '@nanoforge-dev/network': ^3.0.0
     '@nanoforge-dev/scene': ^3.0.0
     '@nanoforge-dev/sound': ^3.0.0
+    '@types/three': ^0.187.0
     three: ^0.187.0
     typescript: ^6.0.3
   lint:

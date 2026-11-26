@@ -16,9 +16,11 @@ import { Scale3D } from "@nanoforge/basics-3d/components/scale-3d";
 import { Box3D } from "../components/box-3d";
 import { Camera3D } from "../components/camera-3d";
 import { Light3D } from "../components/light-3d";
+import { Model3D } from "../components/model-3d";
 import { Object3DComponent } from "../components/object-3d-component";
 import { Plane3D } from "../components/plane-3d";
 import { Sphere3D } from "../components/sphere-3d";
+import { loadModel3D } from "../model-loader";
 import { type Params3D, applyTransform3D, disposeObject3D, toObject3D } from "../object-3d";
 
 /** What `draw3D` added to one app's scene. */
@@ -32,7 +34,7 @@ interface Shown {
 const shownIn = new WeakMap<Scene, Shown>();
 
 /** The components `draw3D` shows, by the key the ECS gives them in a zipper. */
-const KINDS = { Box3D, Sphere3D, Plane3D, Light3D, Camera3D, Object3DComponent };
+const KINDS = { Box3D, Sphere3D, Plane3D, Light3D, Camera3D, Object3DComponent, Model3D };
 
 const defaultLight = () => {
   const sun = new DirectionalLight(0xffffff, 2.5);
@@ -42,8 +44,8 @@ const defaultLight = () => {
 
 /**
  * Shows the 3D components in the scene of `@nanoforge-dev/graphics-3d`: `Box3D`, `Sphere3D`,
- * `Plane3D`, `Light3D`, `Camera3D` and `Object3DComponent`, placed by `Position3D`, `Rotation3D`
- * and `Scale3D` (basics-3d). Add it after the systems that move entities.
+ * `Plane3D`, `Light3D`, `Camera3D`, `Object3DComponent` and `Model3D`, placed by `Position3D`,
+ * `Rotation3D` and `Scale3D` (basics-3d). Add it after the systems that move entities.
  *
  * @remarks
  * Each component gets its Three.js object the first frame it is seen, which follows its fields
@@ -85,6 +87,9 @@ export const draw3D = (registry: Registry, ctx: Context) => {
         if (object !== previous) {
           if (previous) disposeObject3D(previous);
           scene.add(object);
+          // After `scene.add`: a load that ends once the group has no parent is dropped.
+          if (component.name === "Model3D")
+            void loadModel3D(object as Group, component.path, ctx.assets);
         }
         applyTransform3D(object, positions.get(row.id), rotations.get(row.id), scales.get(row.id));
         objects.set(component, object);
