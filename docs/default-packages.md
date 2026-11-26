@@ -27,6 +27,7 @@ Not installed by default, so that a new project only shows what everyone needs:
 | Menus, scores, coins to pick   | `@nanoforge/scenes-2d`, `@nanoforge/controls-2d` (`Clickable2D` buttons)                |
 | Multiplayer (server + clients) | `@nanoforge/network-2d`                                                                 |
 | Any game with sound or music   | `@nanoforge/audio`                                                                      |
+| 3D game                        | `@nanoforge/basics-3d`, `@nanoforge/graphics-3d` (instead of the 2D ones)               |
 
 ## Order of the systems
 
@@ -46,7 +47,8 @@ Systems run in the order they are added. With every package:
 - **6. Once everything moved:** `follow2D`, `animateMoves2D`, `faceVelocity2D`, `faceTarget2D`,
   `faceAim2D`, `followCamera2D`, `animateSprites2D`, `colorOnHover2D`, `fadeOut2D`,
   `showSceneVars2D`.
-- **7.** `draw2D`, so the screen shows where entities ended up, then `drawHealthBars2D`.
+- **7.** `draw2D`, so the screen shows where entities ended up, then `drawHealthBars2D`; in 3D,
+  `draw3D`.
 - **8. Last:** `expireLifetimes`; on a network server, `syncToClients2D`.
 
 `loadSounds` and `playMusic` can go anywhere on the client.

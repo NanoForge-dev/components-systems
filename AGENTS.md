@@ -12,6 +12,7 @@ packages: the root `package.json` is private and `pnpm-workspace.yaml` lists no 
 | `@nanoforge/basics-2d`   | shared | Position, velocity and `move2D`; tags, models, lifetimes, following another entity                       |
 | `@nanoforge/basics-3d`   | shared | `Position3D`, `Rotation3D`, `Scale3D`, `Velocity3D`, `Acceleration3D` and `move3D`                       |
 | `@nanoforge/graphics-2d` | client | Shapes and texts with a color or an image, sprite animations, facing, a camera, a HUD, `draw2D`          |
+| `@nanoforge/graphics-3d` | client | Boxes, spheres and planes of a color, lights, a camera, any Three.js object, `draw3D`                    |
 | `@nanoforge/physics-2d`  | shared | Hitboxes, collisions, gravity, walls, bounces and deflectors, walking, jumping, chasing and bounds       |
 | `@nanoforge/controls-2d` | client | Keyboard, mouse and gamepad controls for walking, jumping and shooting; click, drag and follow the mouse |
 | `@nanoforge/combat-2d`   | both   | Health, damage, shooters fired by a player, a turret or the server; health bars                          |
@@ -24,8 +25,8 @@ packages: the root `package.json` is private and `pnpm-workspace.yaml` lists no 
 - TypeScript, strict, built with `tsc -b` (`tsconfig.json` includes `packages/**/*.ts`).
 - Engine libs from the `core` catalog of `pnpm-workspace.yaml`: `@nanoforge-dev/common`,
   `@nanoforge-dev/ecs`, `@nanoforge-dev/graphics-2d`, `@nanoforge-dev/input`,
-  `@nanoforge-dev/scene`, `@nanoforge-dev/sound`, `@nanoforge-dev/music`, `@nanoforge-dev/network`
-  (all `^3.0.0`).
+  `@nanoforge-dev/scene`, `@nanoforge-dev/sound`, `@nanoforge-dev/music`, `@nanoforge-dev/network`,
+  `@nanoforge-dev/graphics-3d` (all `^3.0.0`), and `three` (`^0.187.0`, graphics-3d's peer).
   `@nanoforge-dev/editor-lib` is there only for the typings of `scene`, `sound`, `music` and
   `network`, which import it.
 - Vitest with typechecking (`tsconfig.spec.json`) and v8 coverage on `packages/**/*.ts`.
@@ -107,6 +108,11 @@ editor reads each item from its `.ts` file (NanoForge-dev/editor
 - `ctx.network` is the exception: `@nanoforge-dev/network/client` and `/server` both declare it,
   with other types, so one program can't import both. `network-2d` imports `PacketDefinition`
   from the root and types the part of `ctx.network` it uses (`sync-to-clients-2d.ts`).
+- `ctx.graphics` in 3D too: the main entry of `@nanoforge-dev/graphics-3d` declares it with the 3D
+  type, and graphics-2d with the 2D one. `graphics-3d` imports only
+  `@nanoforge-dev/graphics-3d/three` (which declares nothing), types the part of `ctx.graphics` it
+  uses (`draw-3d.ts`), and tags the system `@uses graphics`. Every one of its component files
+  imports `/three` too, even a bare `import`, so the editor offers it only to 3D apps.
 - Mouse positions are on the screen: an item placed in the world converts them with `toWorld` or
   `pointFor` (`graphics-2d/world.ts`), so it works under a `Camera2D` and on `Hud2D` entities.
 - `nanoforge.manifest.json` mirrors the imports: each `@nanoforge/<pkg>` used goes in `dependencies`
@@ -184,11 +190,12 @@ release fails.
   skip models, so copies start fresh.
 - Runtime-only components, which the editor must not offer (`FromModel`), live in a helper file at
   the package root, not in `components/`.
-- Only shape components (`Drawable*`, `Hitbox*`) take `width`, `height` or `radius`, and only
-  position and vector components (`Position2D`, `Velocity2D`, `Acceleration2D`, the 3D ones) take a
-  numeric `x`/`y`: the editor's Scene screen places an entity by its first numeric `x`/`y`, and
-  draws a shape for any `radius` or `width` and `height`. Name the others for what they are
-  (`offsetX`, `aimX`, `moveX`, `jumpHeight`, `barWidth`, `areaWidth`, `worldWidth`).
+- Only shape components (`Drawable*`, `Hitbox*`, `Box3D`, `Sphere3D`, `Plane3D`) take `width`,
+  `height`, `depth` or `radius`, and only position and vector components (`Position2D`,
+  `Velocity2D`, `Acceleration2D`, the 3D ones) take a numeric `x`/`y`: the editor's Scene screen
+  places an entity by its first numeric `x`/`y`, and draws a shape for any `radius` or `width` and
+  `height`. Name the others for what they are (`offsetX`, `aimX`, `moveX`, `jumpHeight`,
+  `barWidth`, `areaWidth`, `worldWidth`).
 - Commits: conventional commits (`@commitlint/config-conventional`), lowercase subject, the package
   as scope when the change is in one (`feat(physics-2d): …`). The commit type sets the release bump.
   Never `--no-verify`.

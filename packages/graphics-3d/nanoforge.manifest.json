@@ -1,0 +1,18 @@
+{
+  "type": "package",
+  "name": "@nanoforge/graphics-3d",
+  "description": "Show entities in 3D without Three.js: boxes, spheres and planes of a color, lights, a camera, or any Three.js object, placed by the 3D transform.",
+  "keywords": ["graphics", "3d", "three", "box", "sphere", "plane", "light", "camera", "draw"],
+  "license": "MIT",
+  "suggestedPlugins": ["@nanoforge/ecs"],
+  "dependencies": { "@nanoforge/basics-3d": "^1.0.0" },
+  "libDependencies": {
+    "@nanoforge-dev/common": "^3.0.0",
+    "@nanoforge-dev/ecs": "^3.0.0",
+    "@nanoforge-dev/graphics-3d": "^3.0.0"
+  },
+  "contents": [
+    { "kind": "@nanoforge/ecs:component", "path": "components/" },
+    { "kind": "@nanoforge/ecs:system", "path": "systems/" }
+  ]
+}

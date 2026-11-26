@@ -47,6 +47,7 @@
     "@nanoforge-dev/ecs": "catalog:core",
     "@nanoforge-dev/editor-lib": "catalog:core",
     "@nanoforge-dev/graphics-2d": "catalog:core",
+    "@nanoforge-dev/graphics-3d": "catalog:core",
     "@nanoforge-dev/input": "catalog:core",
     "@nanoforge-dev/music": "catalog:core",
     "@nanoforge-dev/network": "catalog:core",
@@ -60,6 +61,7 @@
     "husky": "catalog:ci",
     "lint-staged": "catalog:ci",
     "prettier": "catalog:lint",
+    "three": "catalog:core",
     "typescript": "catalog:core",
     "vitest": "catalog:test"
   },
