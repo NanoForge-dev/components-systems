@@ -23,7 +23,7 @@ catalogs:
     '@nanoforge-dev/utils-eslint-config': ^1.0.2
     '@nanoforge-dev/utils-prettier-config': ^1.0.2
     '@trivago/prettier-plugin-sort-imports': ^6.0.2
-    eslint: ^10.6.0
+    eslint: ^10.15.0
     eslint-config-prettier: ^10.1.8
     eslint-formatter-pretty: ^7.0.0
     eslint-plugin-format: ^2.0.1
