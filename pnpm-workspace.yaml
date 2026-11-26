@@ -6,7 +6,7 @@ catalogs:
     '@commitlint/cli': ^21.2.0
     '@commitlint/config-conventional': ^21.2.0
     husky: ^9.1.7
-    lint-staged: ^17.0.8
+    lint-staged: ^17.6.2
   core:
     '@nanoforge-dev/common': ^3.0.0
     '@nanoforge-dev/ecs': ^3.0.0
